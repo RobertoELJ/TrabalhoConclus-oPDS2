@@ -1,0 +1,44 @@
+MODELAGEM - VENDAS E PAGAMENTO
+Responsável: Marco Antonio Ramalho dos Reis
+
+
+USER STORIES (VENDAS E PAGAMENTO)
+
+Funcionais
+
+US-V01 - Como vendedor, quero registrar a venda de um veículo pra um cliente, pra ter o histórico das vendas.
+  * A venda guarda cliente, vendedor, veículo, forma de pagamento e valor final.
+
+US-V02 - Como vendedor, quero que o carro vendido saia do estoque, pra não vender o mesmo carro duas vezes.
+  * Se não tiver estoque, a venda não acontece.
+
+US-V03 - Como cliente, quero escolher como pagar (dinheiro, cartão ou financiado), pra pagar do jeito que dá pra mim.
+
+US-V04 - Como cliente, quero desconto pagando à vista em dinheiro, pra economizar.
+
+US-V05 - Como cliente, quero parcelar no cartão e ver o valor de cada parcela antes de fechar negócio.
+
+Não funcionais
+
+* Pagamento com valor inválido (negativo, por exemplo) não pode travar o programa - tem que dar um erro tratado.
+* Dá pra criar uma forma de pagamento nova sem mexer na classe Venda.
+
+
+CARTÕES CRC (VENDAS E PAGAMENTO)
+
+Cartão 1: Venda
+* Responsabilidades: Guardar data e valor final; Ligar cliente, vendedor, veículo e forma de pagamento; Pedir pra forma de pagamento o valor final; Dar baixa no estoque quando confirma.
+* Colaboradores: Cliente, Vendedor, Veiculo, FormaPagamento, Estoque.
+
+Cartão 2: FormaPagamento (abstrata)
+* Subclasses: Dinheiro, Cartao (Financiamento entra depois).
+* Responsabilidades: calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito; descricao(), pra mostrar pro usuário.
+* Colaboradores: Venda.
+
+Cartão 3: Dinheiro
+* Responsabilidades: Aplica o desconto à vista em cima do preço; Recusa desconto inválido (negativo ou acima de 100%).
+* Colaboradores: FormaPagamento.
+
+Cartão 4: Cartao
+* Responsabilidades: Guarda quantas parcelas e a taxa de juros; Calcula o valor final com juros e o valor de cada parcela; Recusa número de parcelas inválido.
+* Colaboradores: FormaPagamento.
