@@ -1,84 +1,102 @@
 MODELAGEM - VENDAS E PAGAMENTO
 Responsável: Marco Antonio Ramalho dos Reis
 
+Combinado com o Alexandre (Infra): a Venda, o Carrinho e a FormaPagamento (Dinheiro, Cartão e PIX) ficam nesta área. O Caixa dele é o fluxo do menu: inicia a venda, escolhe o pagamento e chama a Venda.
+
 
 USER STORIES (VENDAS E PAGAMENTO)
 
 Funcionais
 
-US-V01 - Como vendedor, quero registrar a venda de um veículo pra um cliente, pra ter o histórico das vendas.
-  * A venda guarda cliente, vendedor, veículo, forma de pagamento e valor final.
+US-V01 - Como vendedor, quero adicionar veículos e produtos a um carrinho e ver o total, pra saber quanto vai dar antes de finalizar.
+  * Dá pra adicionar e tirar itens; o total é atualizado.
 
-US-V02 - Como vendedor, quero que o carro vendido saia do estoque, pra não vender o mesmo carro duas vezes.
-  * Se não tiver estoque, a venda não acontece.
+US-V02 - Como vendedor, quero finalizar a venda do carrinho pra um cliente, pra ter o histórico das vendas.
+  * A venda guarda cliente, vendedor, itens, forma de pagamento e valor final.
 
-US-V03 - Como cliente, quero escolher como pagar (dinheiro, cartão ou financiado), pra pagar do jeito que dá pra mim.
+US-V03 - Como vendedor, quero que o que foi vendido saia do estoque, pra não vender o que não tem.
+  * Se não tiver quantidade no estoque, a venda não acontece. Ao finalizar, os itens são descontados do estoque.
 
-US-V04 - Como cliente, quero desconto pagando à vista em dinheiro, pra economizar.
+US-V04 - Como cliente, quero escolher como pagar (dinheiro, cartão ou PIX), pra pagar do jeito que dá pra mim.
 
-US-V05 - Como cliente, quero parcelar no cartão e ver o valor de cada parcela antes de fechar negócio.
+US-V05 - Como cliente, quero desconto pagando à vista em dinheiro, pra economizar.
 
-US-V06 - Como cliente, quero financiar o carro dando uma entrada e escolhendo o prazo, pra conseguir comprar sem pagar tudo de uma vez.
+US-V06 - Como caixa, quero ver o troco quando o cliente paga em dinheiro, pra devolver o valor certo.
+  * A venda só conclui se o valor pago for igual ou maior que o total. Se for menor ou inválido, dá erro e o carrinho continua como estava.
+
+US-V07 - Como cliente, quero parcelar no cartão e ver o valor de cada parcela antes de fechar negócio.
+
+US-V08 - Como cliente, quero receber um comprovante com os itens comprados e o valor total, pra conferir a compra.
+
+US-V09 (extra) - Como cliente, quero financiar o veículo dando uma entrada e escolhendo o prazo, pra conseguir comprar sem pagar tudo de uma vez.
   * O sistema mostra quanto fica financiado, a parcela por mês e o total pago no final.
 
-US-V07 - Como vendedor, quero que a minha comissão seja calculada sozinha a cada venda, pra não errar conta.
+US-V10 (extra) - Como vendedor, quero que a minha comissão seja calculada sozinha a cada venda, pra não errar conta.
   * Vendedor e gerente têm percentuais diferentes.
 
-US-V08 - Como gerente, quero aprovar desconto acima de um limite, pra a loja não perder dinheiro.
+US-V11 (extra) - Como gerente, quero aprovar desconto acima de um limite, pra a loja não perder dinheiro.
   * Acima do limite, só vende se o gerente aprovar. Sem aprovação, a venda é recusada.
 
-US-V09 - Como gerente, quero ver as vendas de um período e o total vendido, pra acompanhar como a loja está indo.
+US-V12 (extra) - Como gerente, quero ver as vendas de um período e o total vendido, pra acompanhar como a loja está indo.
   * Vendas canceladas não entram no total.
 
-US-V10 - Como usuário, quero que as vendas fiquem salvas em arquivo de texto, pra não perder tudo quando fechar o programa.
+US-V13 - Como usuário, quero que as vendas fiquem salvas em arquivo de texto, pra não perder tudo quando fechar o programa.
   * Se o arquivo não existir, começa vazio. Linha com erro é ignorada, sem travar.
 
 Não funcionais
 
 * Pagamento com valor inválido (negativo, por exemplo) não pode travar o programa - tem que dar um erro tratado.
 * Dá pra criar uma forma de pagamento nova sem mexer na classe Venda.
-* Se algo falhar no meio da venda (estoque, pagamento, aprovação), nada fica pela metade: estoque e histórico continuam como estavam.
+* Se algo falhar no meio da venda (estoque, pagamento, aprovação), nada fica pela metade: estoque, carrinho e histórico continuam como estavam.
 
 
 CARTÕES CRC (VENDAS E PAGAMENTO)
 
-Cartão 1: Venda
-* Responsabilidades: Guardar data, valor final, comissão e se está concluída ou cancelada; Ligar cliente, vendedor, veículo e forma de pagamento; Pedir pra forma de pagamento o valor final; Ver se o desconto passou do limite e pedir aprovação do gerente; Pedir a comissão pro funcionário e guardar o valor; Dar baixa no estoque quando confirma; Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo.
-* Colaboradores: Cliente, Vendedor, Gerente, Veiculo, FormaPagamento, Estoque.
+Cartão 1: Carrinho
+* Responsabilidades: Guardar os itens escolhidos (veículos e produtos) e as quantidades; Adicionar e remover itens; Calcular o valor total; Esvaziar depois que a venda é concluída.
+* Colaboradores: Veiculo, Produto, Estoque, Venda.
 
-Cartão 2: FormaPagamento (abstrata)
-* Subclasses: Dinheiro, Cartao, Financiamento.
-* Responsabilidades: calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito; descricao(), pra mostrar pro usuário.
+Cartão 2: Venda
+* Responsabilidades: Guardar data, valor final, comissão e se está concluída ou cancelada; Ligar cliente, vendedor, carrinho e forma de pagamento; Pedir pra forma de pagamento o valor final e conferir se o pagamento cobre o total; Ver se o desconto passou do limite e pedir aprovação do gerente; Pedir a comissão pro funcionário e guardar o valor; Dar baixa no estoque quando confirma; Gerar o comprovante; Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo.
+* Colaboradores: Cliente, Vendedor, Gerente, Carrinho, FormaPagamento, Estoque, Caixa.
+
+Cartão 3: FormaPagamento (abstrata)
+* Subclasses: Dinheiro, Cartao, Pix, Financiamento (extra).
+* Responsabilidades: calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito; descricao(), pra mostrar pro usuário; validar se o valor pago cobre o total.
 * Colaboradores: Venda.
 
-Cartão 3: Dinheiro
-* Responsabilidades: Aplica o desconto à vista em cima do preço; Recusa desconto inválido (negativo ou acima de 100%).
+Cartão 4: Dinheiro
+* Responsabilidades: Aplica o desconto à vista em cima do preço; Recusa desconto inválido (negativo ou acima de 100%); Guarda o valor pago e calcula o troco.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
-Cartão 4: Cartao
+Cartão 5: Pix
+* Responsabilidades: Confere que o valor pago é igual ao total; Troco sempre zero.
+* Colaboradores: FormaPagamento, PagamentoInvalidoException.
+
+Cartão 6: Cartao
 * Responsabilidades: Guarda quantas parcelas e a taxa de juros; Calcula o valor final com juros e o valor de cada parcela; Recusa número de parcelas inválido.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
-Cartão 5: Financiamento
+Cartão 7: Financiamento (extra)
 * Responsabilidades: Guarda a entrada, o prazo em meses e a taxa por mês; Calcula quanto fica financiado, a parcela mensal e o total pago; Recusa entrada maior que o preço ou prazo inválido.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
-Cartão 6: RelatorioVendas
+Cartão 8: RelatorioVendas (extra)
 * Responsabilidades: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de cada vendedor no período.
 * Colaboradores: Venda, Vendedor, Loja.
 
-Cartão 7: PagamentoInvalidoException
+Cartão 9: PagamentoInvalidoException
 * Responsabilidades: Avisa que os dados do pagamento estão errados, com mensagem clara; O menu captura esse erro e mostra sem fechar o programa.
-* Colaboradores: FormaPagamento e subclasses, Loja.
+* Colaboradores: FormaPagamento e subclasses, Caixa.
 
-Cartão 8: PermissaoNegadaException
+Cartão 10: PermissaoNegadaException
 * Responsabilidades: Avisa que a operação foi recusada por falta de autorização (desconto grande sem o gerente aprovar).
 * Colaboradores: Venda, Gerente.
 
 
 O QUE EU PRECISO DAS OUTRAS ÁREAS (a combinar com o grupo)
 
-* Veiculo (Matheus): um jeito de pegar o preço do carro.
-* Estoque (Suzane): retirar e devolver uma unidade do modelo; também quem lê e grava o arquivo de vendas.
-* Cliente, Vendedor e Gerente (Roberto): identificação do cliente; cálculo de comissão de cada funcionário; o gerente poder aprovar desconto.
-* Loja e menu (Alexandre): guardar a lista de vendas e capturar os erros no menu.
+* Veiculo (Matheus) e Produto (a definir quem faz): um jeito de pegar o preço de cada item.
+* Estoque (Suzane): checar quantidade, retirar e devolver itens; também quem lê e grava o arquivo de vendas.
+* Cliente, Vendedor e Gerente (Roberto): identificação do cliente (CPF); cálculo de comissão de cada funcionário; o gerente poder aprovar desconto.
+* Caixa e menu (Alexandre): iniciar a venda, escolher o pagamento, chamar a Venda e capturar os erros no menu.
