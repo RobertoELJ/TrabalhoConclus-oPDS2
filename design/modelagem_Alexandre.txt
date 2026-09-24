@@ -1,0 +1,27 @@
+USER STORIES (CAIXA E PAGAMENTO)
+
+1. Processamento de Pagamento:
+* Descrição: Como caixa da loja, eu quero selecionar a forma de pagamento (Dinheiro, Cartão ou PIX) ao finalizar uma compra, para garantir que o fluxo de caixa fique registrado corretamente.
+* Critérios de Validação: A forma de pagamento é obrigatória e o carrinho não pode estar vazio; em pagamento em dinheiro, o sistema deve calcular e exibir o troco; em cartão ou PIX, o valor deve ser igual ao total, sem troco; a venda só é concluída e registrada no histórico se o valor pago for igual ou maior que o total do carrinho; se o valor for insuficiente ou inválido (zero, negativo ou texto), o sistema exibe erro e permite corrigir sem perder o carrinho; ao concluir, o carrinho é esvaziado e o estoque recebe a baixa dos itens vendidos.
+
+CARTÕES CRC (CAIXA E PAGAMENTO)
+
+Cartão 1: Caixa
+* Responsabilidades - Conhecimento (Atributos): Sabe qual venda está em andamento; Conhece a forma de pagamento escolhida.
+* Responsabilidades - Realização (Métodos): Inicia uma nova venda; Adiciona produtos ao carrinho; Seleciona a forma de pagamento; Finaliza a venda.
+* Colaboradores: Venda, Carrinho, Pagamento.
+
+Cartão 2: Carrinho
+* Responsabilidades - Conhecimento (Atributos): Sabe quais produtos e quantidades foram selecionados.
+* Responsabilidades - Realização (Métodos): Adiciona e remove itens; Calcula o valor total; Esvazia o carrinho após a venda.
+* Colaboradores: Produto, Estoque.
+
+Cartão 3: Pagamento (Dinheiro, Cartão e PIX)
+* Responsabilidades - Conhecimento (Atributos): Sabe o valor pago; Conhece a forma de pagamento.
+* Responsabilidades - Realização (Métodos): Valida se o valor pago cobre o total; Calcula o troco (só Dinheiro; Cartão e PIX retornam zero).
+* Colaboradores: Venda.
+
+Cartão 4: Venda
+* Responsabilidades - Conhecimento (Atributos): Conhece o carrinho e o pagamento; Sabe a data/hora, o total e o troco.
+* Responsabilidades - Realização (Métodos): Confere com o Pagamento se a venda pode ser concluída; Registra a venda no histórico; Solicita a baixa no Estoque.
+* Colaboradores: Carrinho, Pagamento, Estoque..
