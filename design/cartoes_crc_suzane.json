@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Estoque",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Sabe quais são todos os produtos guardados;",
+      " Conhece a quantidade atualizada de cada item;",
+      "Adiciona um novo Produto à lista; ",
+      "Busca um produto pelo ID; ",
+      "Dá baixa na quantidade após uma compra; ",
+      "Alerta se um produto está esgotado."
+    ],
+    "collaborators": [
+      "Produto",
+      "Venda"
+    ]
+  },
+  {
+    "name": "GerenciadorDeArquivos",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Conhece os caminhos dos arquivos (.txt); ",
+      "Sabe o status atual do arquivo (aberto/fechado/erro);",
+      "Lê os dados ao iniciar o programa; ",
+      "Grava as listas atualizadas de clientes, veículos e produtos antes de fechar; ",
+      "Cria um arquivo novo caso não exista."
+    ],
+    "collaborators": [
+      "Estoque",
+      "Cliente",
+      "Veículo"
+    ]
+  }
+]
