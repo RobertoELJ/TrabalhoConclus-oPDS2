@@ -1,0 +1,66 @@
+USER STORIES (PESSOAS)
+
+1.Sistema de Gerenciamento de Clientes
+*Descrição: Como Costumer Manager, eu quero cadastrar clientes usando o nome, o CPF e o email, para que eu possa associar as vendas a uma pessoa específica e gerar um histórico de compras.
+*Critérios de Validação: 
+    Deve ser possivel cadastrar um cliente
+        -Não deve ser possível cadastrar mais de um cliente usando o mesmo CPF
+
+    O sistema deve permitir a alteração do email do cliente caso ele queira trocar de conta (migrar conta)
+        - Não pode ser um email já cadastrado.
+        - Deve copiar os dados do cliente para o novo email.
+        - Então apagar os dados relacionados ao email antigo.
+        - Por fim, liberar o email antigo para uso.
+
+    O sistema deve verificar a formatação do email [pessoa@algo.extensão]
+        - Não deve ser possível cadastrar mais de um cliente usando o mesmo email
+
+    O sistema deve validar o CPF inserido
+        - O sistema deve validar se o CPF possui o tamanho correto de dígitos
+        - O sistema deve validar se todos os digitos são números.
+
+
+    O sistema deve permitir a alteração do nome do cliente caso haja algum erro de digitação no cadastro.
+
+2.Título: Sistema de Gerenciamento de Vendedores 
+*Descrição: Como gerente de vendedores eu quero ter controle das vendas e dos vendedores
+*Criterios de Validação:
+	
+    Visualizar todos os vendedores
+        -visualizar o total de clientes atendidos por cada vendedor
+        -visualizar o total de compras convertidas de cada vendedor
+        -visualizar o total de dinheiro arrecadado por vendedor
+
+    Viualizar dados globais de venda
+
+        -Visualizar o total de clientes atendidos de forma geral, em intervalos de tempos iguais
+
+        -Visualizar o total de compras convertidas de forma geral, em intervalos de tempos iguais 
+
+        -Visualizar o total de dinheiro que foi arrecadado, em intervalos de tempos iguais
+        
+    Visualizar o histórico de vendas geral
+        -filtrar por vendedor
+        -filtrar por preço
+        -filtrar por data
+
+3.Título: Sistema de Interface do Cliente
+*Descrição: Como cliente quero poder acessar os dados da minha conta, acompanhar minhas compras, ter acesso a suporte e fazer avaliações dos meus produtos e dos vendedores.
+*Criterios de aceitação:
+
+    Visualizar o carrinho de compras
+
+    Visualizar meu Histórico de compras
+
+    Visualizar conversas
+        -Com vendedor
+
+    Acessar meus dados pessoais
+        -Visualizar
+        -Visualizar meus dados bancarios
+
+    Modificar meus dados pessoais(Nome, email, CPF, dados bancários)
+
+    Fazer avaliações
+        -compras
+        -atendimentos
