@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Veiculo",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Conhecer a marca e  modelo do veículo",
+      "Conhecer o preço do veículo ",
+      "Conhecer a placa do veículo",
+      "Armazenar as informações de identificação do veículo",
+      "Conhecer o ano do veículo",
+      "Validar o preenchimento dos dados obrigatórios",
+      "Permitir a atualização das suas informações",
+      "Validar a disponibilidade para venda"
+    ],
+    "collaborators": [
+      "CadastroVeiculos",
+      "Vendedor"
+    ]
+  },
+  {
+    "name": "CadastroVeiculos",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Cadastrar novos veiculos",
+      "Armazenar os veiculos cadastrados",
+      "Verificar se um placa esta cadastrada",
+      "Buscar veiculos pela placa",
+      "Retornar as informações de um veiculo encontrado",
+      "Informar quando um veiculo não for encontrado ",
+      "Atualizar dados de veiculos cadastrados",
+      ""
+    ],
+    "collaborators": [
+      "Veiculos",
+      "Vendedor"
+    ]
+  },
+  {
+    "name": "Vendedor",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Solicitar o cadastro de novos veiculos",
+      "Informar os dados necessarios para o cadastro",
+      "Solicitar a consulta de veiculos cadastrados",
+      "Visualizar as informações do veiculo encontrado",
+      "Solicitar a atualização dos dados",
+      "Utilizar as informações dos clientes no atendimento ao cliente"
+    ],
+    "collaborators": [
+      "CadastroVeiculos",
+      "Veiculos"
+    ]
+  }
+]
