@@ -6,4 +6,4 @@ USER STORIES (CADASTRO E CONSULTA DE VEÍCULOS)
   - O sistema não deve permitir o cadastro de dois ou mais veículos com a mesma placa.
   - O sistema deve permitir consultar um veículo utilizando sua placa.
   - Ao consultar um veículo, o sistema deve apresentar sua principais informações, como marca, modelo, preço e ano.
-  - Caso a placa pesquisada não esteja cadastrada, o sistema deve informar que o veículo não foi encontrado
+  - Caso a placa pesquisada não esteja cadastrada, o sistema deve informar que o veículo não foi encontrado.
