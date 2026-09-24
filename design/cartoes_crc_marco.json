@@ -1,0 +1,161 @@
+[
+  {
+    "name": "Carrinho",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Guardar os itens escolhidos (veículos e produtos) e as quantidades",
+      "Adicionar e remover itens",
+      "Calcular o valor total",
+      "Esvaziar depois que a venda é concluída"
+    ],
+    "collaborators": [
+      "Veiculo",
+      "Produto",
+      "Estoque",
+      "Venda"
+    ]
+  },
+  {
+    "name": "Venda",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Guardar data, valor final, comissão e se está concluída ou cancelada",
+      "Ligar cliente, vendedor, carrinho e forma de pagamento",
+      "Pedir pra forma de pagamento o valor final e conferir se o pagamento cobre o total",
+      "Ver se o desconto passou do limite e pedir aprovação do gerente",
+      "Pedir a comissão pro funcionário e guardar o valor",
+      "Dar baixa no estoque quando confirma",
+      "Gerar o comprovante",
+      "Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo"
+    ],
+    "collaborators": [
+      "Cliente",
+      "Vendedor",
+      "Gerente",
+      "Carrinho",
+      "FormaPagamento",
+      "Estoque",
+      "Caixa"
+    ]
+  },
+  {
+    "name": "FormaPagamento",
+    "superclasses": "",
+    "subclasses": "Dinheiro, Cartao, Pix, Financiamento",
+    "type": 1,
+    "responsibilities": [
+      "Definir calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito (classe abstrata)",
+      "Definir descricao(), pra mostrar pro usuário",
+      "Validar se o valor pago cobre o total"
+    ],
+    "collaborators": [
+      "Venda"
+    ]
+  },
+  {
+    "name": "Dinheiro",
+    "superclasses": "FormaPagamento",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Aplicar o desconto à vista em cima do preço",
+      "Recusar desconto inválido (negativo ou acima de 100%)",
+      "Guardar o valor pago e calcular o troco"
+    ],
+    "collaborators": [
+      "FormaPagamento",
+      "PagamentoInvalidoException"
+    ]
+  },
+  {
+    "name": "Pix",
+    "superclasses": "FormaPagamento",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Conferir que o valor pago é igual ao total",
+      "Troco sempre zero"
+    ],
+    "collaborators": [
+      "FormaPagamento",
+      "PagamentoInvalidoException"
+    ]
+  },
+  {
+    "name": "Cartao",
+    "superclasses": "FormaPagamento",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Guardar quantas parcelas e a taxa de juros",
+      "Calcular o valor final com juros e o valor de cada parcela",
+      "Recusar número de parcelas inválido"
+    ],
+    "collaborators": [
+      "FormaPagamento",
+      "PagamentoInvalidoException"
+    ]
+  },
+  {
+    "name": "Financiamento",
+    "superclasses": "FormaPagamento",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Guardar a entrada, o prazo em meses e a taxa por mês (extra)",
+      "Calcular quanto fica financiado, a parcela mensal e o total pago",
+      "Recusar entrada maior que o preço ou prazo inválido"
+    ],
+    "collaborators": [
+      "FormaPagamento",
+      "PagamentoInvalidoException"
+    ]
+  },
+  {
+    "name": "RelatorioVendas",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Listar as vendas de um período (extra)",
+      "Somar o total vendido, sem contar as canceladas",
+      "Somar a comissão de cada vendedor no período"
+    ],
+    "collaborators": [
+      "Venda",
+      "Vendedor",
+      "Loja"
+    ]
+  },
+  {
+    "name": "PagamentoInvalidoException",
+    "superclasses": "std::exception",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Avisar que os dados do pagamento estão errados, com mensagem clara",
+      "Ser capturada no menu pra mostrar o erro sem fechar o programa"
+    ],
+    "collaborators": [
+      "FormaPagamento",
+      "Caixa"
+    ]
+  },
+  {
+    "name": "PermissaoNegadaException",
+    "superclasses": "std::exception",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Avisar que a operação foi recusada por falta de autorização (desconto grande sem o gerente aprovar)"
+    ],
+    "collaborators": [
+      "Venda",
+      "Gerente"
+    ]
+  }
+]
