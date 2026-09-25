@@ -1,4 +1,4 @@
-USER STORIES (PESSOAS)
+git USER STORIES (PESSOAS)
 
 1.Sistema de Gerenciamento de Clientes
 *Descrição: Como Costumer Manager, eu quero cadastrar clientes usando o nome, o CPF e o email, para que eu possa associar as vendas a uma pessoa específica e gerar um histórico de compras.

@@ -1,0 +1,69 @@
+[
+  {
+    "name": "ClientManager",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Deve ser possivel cadastrar um cliente utilizando seu Nome, email e CPF",
+      "",
+      "    O sistema deve permitir a alteração do email do cliente caso ele queira trocar de conta, de forma que não perda os dados relacionados a primeira.",
+      "",
+      "    O sistema deve validar suas informações como email e CPF de forma que contemplem formatos reais",
+      "",
+      "    O sistema deve permitir a alteração do nome do cliente caso haja algum erro de digitação no cadastro.",
+      "",
+      "    O sistema deve vincular seu historico de compras a seus dados pessoais."
+    ],
+    "collaborators": [
+      "Vendas/Pagamentos",
+      "Persistência",
+      "Sistema do Cliente",
+      "",
+      ""
+    ]
+  },
+  {
+    "name": "Sistema_do_Cliente",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Visualizar e editar o carrinho de compras",
+      "",
+      "    Visualizar meu Histórico de compras",
+      "",
+      "    Vizualizar e modificar meus dados de cadastro",
+      "",
+      "    Avaliar as compras e vendedores",
+      ""
+    ],
+    "collaborators": [
+      "Persistência",
+      "Sistema de Gerenciamento de Clientes",
+      "Vendas e Pagamentos"
+    ]
+  },
+  {
+    "name": "DealerManager",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      " Visualizar todos os vendedores",
+      "",
+      "    Viualizar dados de relacionados as vendas",
+      "",
+      "    Poder filtrar esses dados para ter diferentes vizualizações",
+      "",
+      "  Conversar com os vendedores",
+      ""
+    ],
+    "collaborators": [
+      "Persistência",
+      "Vendas e Pagamentos",
+      "Vendedor",
+      ""
+    ]
+  }
+]
