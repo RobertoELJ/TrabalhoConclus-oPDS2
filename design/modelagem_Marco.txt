@@ -42,6 +42,7 @@ US-V12 (extra) - Como gerente, quero ver as vendas de um período e o total vend
 
 US-V13 - Como usuário, quero que as vendas fiquem salvas em arquivo de texto, pra não perder tudo quando fechar o programa.
   * Se o arquivo não existir, começa vazio. Linha com erro é ignorada, sem travar.
+
 Não funcionais
 
 * Pagamento com valor inválido (negativo, por exemplo) não pode travar o programa - tem que dar um erro tratado.
@@ -91,6 +92,7 @@ Cartão 9: PagamentoInvalidoException
 Cartão 10: PermissaoNegadaException
 * Responsabilidades: Avisa que a operação foi recusada por falta de autorização (desconto grande sem o gerente aprovar).
 * Colaboradores: Venda, Gerente, Caixa.
+
 
 O QUE EU PRECISO DAS OUTRAS ÁREAS (a combinar com o grupo)
 
