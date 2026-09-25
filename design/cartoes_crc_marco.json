@@ -137,8 +137,8 @@
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "Avisar que os dados do pagamento estão errados, com mensagem clara",
-      "Ser capturada no menu pra mostrar o erro sem fechar o programa"
+      "Avisar que os dados do pagamento estão errados ou que o valor pago não cobre o total, com mensagem clara",
+      "Ser capturada no caixa pra mostrar o erro sem fechar o programa"
     ],
     "collaborators": [
       "FormaPagamento",
@@ -155,7 +155,31 @@
     ],
     "collaborators": [
       "Venda",
-      "Gerente"
+      "Gerente",
+      "Caixa"
+    ]
+  },
+  {
+    "name": "Caixa",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Saber qual venda está em andamento",
+      "Iniciar uma nova venda com o cliente e o vendedor",
+      "Passar os itens escolhidos pro Carrinho e só seguir se tiver item",
+      "Repassar a forma de pagamento escolhida pra Venda",
+      "Pedir a finalização da venda",
+      "Mostrar o resultado ou o erro capturado (valor insuficiente, pagamento inválido, desconto sem aprovação)"
+    ],
+    "collaborators": [
+      "Venda",
+      "Carrinho",
+      "Cliente",
+      "Vendedor",
+      "FormaPagamento",
+      "PagamentoInvalidoException",
+      "PermissaoNegadaException"
     ]
   }
 ]
