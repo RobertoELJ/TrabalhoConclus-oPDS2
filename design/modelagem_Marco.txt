@@ -1,7 +1,7 @@
 MODELAGEM - VENDAS E PAGAMENTO
 Responsável: Marco Antonio Ramalho dos Reis
 
-Combinado com o Alexandre (Infra): a Venda, o Carrinho e a FormaPagamento (Dinheiro, Cartão e PIX) ficam nesta área. O Caixa dele é o fluxo do menu: inicia a venda, escolhe o pagamento e chama a Venda.
+Combinado com o Alexandre (Infra): a Venda, o Carrinho, a FormaPagamento (Dinheiro, Cartão e PIX) e o Caixa ficam nesta área. O Caixa é o fluxo do atendimento: inicia a venda, escolhe o pagamento e chama a Venda. O menu principal da loja continua com o Alexandre e chama o Caixa.
 
 
 USER STORIES (VENDAS E PAGAMENTO)
@@ -42,6 +42,11 @@ US-V12 (extra) - Como gerente, quero ver as vendas de um período e o total vend
 
 US-V13 - Como usuário, quero que as vendas fiquem salvas em arquivo de texto, pra não perder tudo quando fechar o programa.
   * Se o arquivo não existir, começa vazio. Linha com erro é ignorada, sem travar.
+
+US-V14 - Como caixa da loja, quero iniciar uma venda, escolher a forma de pagamento e finalizar, pra atender o cliente do começo ao fim.
+  * Só dá pra iniciar a venda se tiver itens no carrinho.
+  * O caixa passa a forma de pagamento pra Venda, que decide se pode concluir.
+  * O resultado aparece na tela (sucesso, valor insuficiente, pagamento inválido ou desconto sem aprovação) sem travar o programa.
 
 Não funcionais
 
@@ -86,12 +91,17 @@ Cartão 8: RelatorioVendas (extra)
 * Colaboradores: Venda, Vendedor, Loja.
 
 Cartão 9: PagamentoInvalidoException
-* Responsabilidades: Avisa que os dados do pagamento estão errados, com mensagem clara; O menu captura esse erro e mostra sem fechar o programa.
+* Responsabilidades: Avisa que os dados do pagamento estão errados ou que o valor pago não cobre o total, com mensagem clara; O caixa captura esse erro e mostra sem fechar o programa.
 * Colaboradores: FormaPagamento e subclasses, Caixa.
 
 Cartão 10: PermissaoNegadaException
 * Responsabilidades: Avisa que a operação foi recusada por falta de autorização (desconto grande sem o gerente aprovar).
-* Colaboradores: Venda, Gerente.
+* Colaboradores: Venda, Gerente, Caixa.
+
+Cartão 11: Caixa
+* Responsabilidades - Conhecimento: Sabe qual venda está em andamento.
+* Responsabilidades - Realização: Inicia uma nova venda com o cliente e o vendedor; Passa os itens escolhidos pro Carrinho e só segue se tiver item; Repassa a forma de pagamento escolhida pra Venda; Pede a finalização da venda; Mostra o resultado ou o erro capturado (valor insuficiente, pagamento inválido, desconto sem aprovação).
+* Colaboradores: Venda, Carrinho, Cliente, Vendedor, FormaPagamento, PagamentoInvalidoException, PermissaoNegadaException.
 
 
 O QUE EU PRECISO DAS OUTRAS ÁREAS (a combinar com o grupo)
@@ -99,4 +109,4 @@ O QUE EU PRECISO DAS OUTRAS ÁREAS (a combinar com o grupo)
 * Veiculo (Matheus) e Produto (a definir quem faz): um jeito de pegar o preço de cada item.
 * Estoque (Suzane): checar quantidade, retirar e devolver itens; também quem lê e grava o arquivo de vendas.
 * Cliente, Vendedor e Gerente (Roberto): identificação do cliente (CPF); cálculo de comissão de cada funcionário; o gerente poder aprovar desconto.
-* Caixa e menu (Alexandre): iniciar a venda, escolher o pagamento, chamar a Venda e capturar os erros no menu.
+* Loja e menu principal (Alexandre): chamar o Caixa e guardar a lista de vendas.
