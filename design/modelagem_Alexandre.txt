@@ -1,0 +1,12 @@
+USER STORY (CAIXA)
+
+1. Fluxo de Caixa
+* Descrição: Como caixa da loja, eu quero iniciar uma venda, permitir a escolha da forma de pagamento e acionar a finalização, para conduzir o atendimento do início ao fim.
+* Critérios de Validação: O caixa só pode iniciar uma venda se houver itens no carrinho; a forma de pagamento é repassada para a Venda, que decide se pode concluir; o caixa exibe o resultado (sucesso, erro de valor insuficiente, ou erro de pagamento inválido) sem travar o programa.
+
+CARTÃO CRC (CAIXA)
+
+Cartão 1: Caixa
+* Responsabilidades - Conhecimento (Atributos): Sabe qual venda está em andamento.
+* Responsabilidades - Realização (Métodos): Inicia uma nova venda; Repassa a forma de pagamento escolhida para a Venda; Solicita a finalização da venda; Exibe o resultado ou o erro capturado.
+* Colaboradores: Venda, PagamentoInvalidoException.

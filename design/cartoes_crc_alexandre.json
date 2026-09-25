@@ -1,0 +1,18 @@
+{
+  "cartao": "Caixa",
+  "responsabilidades": {
+    "conhecimento": [
+      "Sabe qual venda está em andamento"
+    ],
+    "realizacao": [
+      "Inicia uma nova venda",
+      "Repassa a forma de pagamento escolhida para a Venda",
+      "Solicita a finalização da venda",
+      "Exibe o resultado ou o erro capturado"
+    ]
+  },
+  "colaboradores": [
+    "Venda",
+    "PagamentoInvalidoException"
+  ]
+}

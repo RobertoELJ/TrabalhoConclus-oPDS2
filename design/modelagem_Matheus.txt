@@ -1,0 +1,9 @@
+USER STORIES (CADASTRO E CONSULTA DE VEÍCULOS)
+
+- Descrição: Como vendedor, eu quero cadastrar novos veículos na loja e consultar suas características (modelo, ano, placa), para conseguir repassar informações corretas ao clientes
+- Critérios de Validação: 
+  - O sistema deve permitir cadastrar um veículo informando, no mínimo, marca, modelo e preço.
+  - O sistema não deve permitir o cadastro de dois ou mais veículos com a mesma placa.
+  - O sistema deve permitir consultar um veículo utilizando sua placa.
+  - Ao consultar um veículo, o sistema deve apresentar sua principais informações, como marca, modelo, preço e ano.
+  - Caso a placa pesquisada não esteja cadastrada, o sistema deve informar que o veículo não foi encontrado.

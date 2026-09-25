@@ -1,21 +1,10 @@
 USER STORIES (ESTOQUE E PERSISTÊNCIA)
 
 1. Cadastro e Entrada de Novos Produtos:
-* Descrição: Como funcionário responsável pelo Estoque, eu quero cadastrar novos produtos no sistema e atualizar a quantidade de itens recebidos, para que o setor de Vendas saiba o que está disponível.
-* Critérios de Validação: O sistema não pode aceitar o cadastro sem nome, código (ID) e preço válido; a quantidade nunca pode ser negativa; se o código já existir, o sistema deve apenas somar a quantidade.
+- Descrição: Como funcionário responsável pelo Estoque, eu quero cadastrar novos produtos no sistema e atualizar a quantidade de itens recebidos, para que o setor de Vendas saiba o que está disponível.
+- Critérios de Validação: O sistema não pode aceitar o cadastro sem nome, código (ID) e preço válido; a quantidade nunca pode ser negativa; se o código já existir, o sistema deve apenas somar a quantidade.
 
 2. Salvamento e Recuperação de Dados:
-* Descrição: Como administrador do sistema, eu quero que todos os dados (estoque, veículos e clientes) sejam salvos em arquivos ao fechar o programa e carregados ao abrir, para não perder informações.
-* Critérios de Validação: O sistema deve criar um arquivo automaticamente se for a primeira vez; adições de novos clientes/produtos devem refletir no arquivo; o programa não pode fechar com erro se o arquivo estiver vazio.
+- Descrição: Como administrador do sistema, eu quero que todos os dados (estoque, veículos e clientes) sejam salvos em arquivos ao fechar o programa e carregados ao abrir, para não perder informações.
+- Critérios de Validação: O sistema deve criar um arquivo automaticamente se for a primeira vez; adições de novos clientes/produtos devem refletir no arquivo; o programa não pode fechar com erro se o arquivo estiver vazio.
 
-CARTÕES CRC (ESTOQUE E PERSISTÊNCIA)
-
-Cartão 1: Estoque
-* Responsabilidades - Conhecimento (Atributos): Sabe quais são todos os produtos guardados; Conhece a quantidade atualizada de cada item.
-* Responsabilidades - Realização (Métodos): Adiciona um novo Produto à lista; Busca um produto pelo ID; Dá baixa na quantidade após uma compra; Alerta se um produto está esgotado.
-* Colaboradores: Produto, Venda.
-
-Cartão 2: GerenciadorDeArquivos (Persistência)
-* Responsabilidades - Conhecimento (Atributos): Conhece os caminhos dos arquivos (.txt); Sabe o status atual do arquivo (aberto/fechado/erro).
-* Responsabilidades - Realização (Métodos): Lê os dados ao iniciar o programa; Grava as listas atualizadas de clientes, veículos e produtos antes de fechar; Cria um arquivo novo caso não exista.
-* Colaboradores: Estoque, Cliente, Veiculo.
