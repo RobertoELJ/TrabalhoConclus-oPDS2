@@ -51,46 +51,62 @@ Não funcionais
 
 
 CARTÕES CRC (VENDAS E PAGAMENTO)
+Cada cartão separa o que a classe sabe (conhecimento/atributos) do que ela faz (realização/métodos).
 
 Cartão 1: Carrinho
-* Responsabilidades: Guardar os itens escolhidos (veículos e produtos) e as quantidades; Adicionar e remover itens; Calcular o valor total; Esvaziar depois que a venda é concluída.
+* Conhecimento: Os itens escolhidos (veículos e produtos) e as quantidades.
+* Realização: Adicionar e remover itens; Calcular o valor total; Esvaziar depois que a venda é concluída.
 * Colaboradores: Veiculo, Produto, Estoque, Venda.
 
 Cartão 2: Venda
-* Responsabilidades: Guardar data, valor final, comissão e se está concluída ou cancelada; Ligar cliente, vendedor, carrinho e forma de pagamento; Pedir pra forma de pagamento o valor final e conferir se o pagamento cobre o total; Ver se o desconto passou do limite e pedir aprovação do gerente; Pedir a comissão pro funcionário e guardar o valor; Dar baixa no estoque quando confirma; Gerar o comprovante; Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo.
+* Conhecimento: Data, valor final e comissão; Se está concluída ou cancelada; Cliente, vendedor, carrinho e forma de pagamento associados.
+* Realização: Pedir pra forma de pagamento o valor final e conferir se o pagamento cobre o total; Ver se o desconto passou do limite e pedir aprovação do gerente; Pedir a comissão pro funcionário e guardar o valor; Dar baixa no estoque quando confirma; Gerar o comprovante; Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo.
 * Colaboradores: Cliente, Vendedor, Gerente, Carrinho, FormaPagamento, Estoque, Caixa.
 
 Cartão 3: FormaPagamento (abstrata)
-* Subclasses: Dinheiro, Cartao, Pix, Financiamento (extra).
-* Responsabilidades: calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito; descricao(), pra mostrar pro usuário; validar se o valor pago cobre o total.
+* Subclasses: Dinheiro, Cartao, Pix, Financiamento (extra), Boleto (extra).
+* Conhecimento: Nenhum atributo próprio (classe abstrata, só define o contrato).
+* Realização: calcularValorFinal(precoBase), que cada subclasse implementa do seu jeito; descricao(), pra mostrar pro usuário; validar se o valor pago cobre o total; calcular o troco (zero por padrão).
 * Colaboradores: Venda.
 
 Cartão 4: Dinheiro
-* Responsabilidades: Aplica o desconto à vista em cima do preço; Recusa desconto inválido (negativo ou acima de 100%); Guarda o valor pago e calcula o troco.
+* Conhecimento: Percentual de desconto à vista; Valor pago pelo cliente.
+* Realização: Aplica o desconto à vista em cima do preço; Recusa desconto inválido (negativo ou acima de 100%); Calcula o troco.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 5: Pix
-* Responsabilidades: Confere que o valor pago é igual ao total; Troco sempre zero.
+* Conhecimento: Valor pago pelo cliente.
+* Realização: Confere que o valor pago é igual ao total; Retorna troco sempre zero.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 6: Cartao
-* Responsabilidades: Guarda quantas parcelas e a taxa de juros; Calcula o valor final com juros e o valor de cada parcela; Recusa número de parcelas inválido.
+* Conhecimento: Número de parcelas; Taxa de juros.
+* Realização: Calcula o valor final com juros; Calcula o valor de cada parcela; Recusa número de parcelas inválido.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 7: Financiamento (extra)
-* Responsabilidades: Guarda a entrada, o prazo em meses e a taxa por mês; Calcula quanto fica financiado, a parcela mensal e o total pago; Recusa entrada maior que o preço ou prazo inválido.
+* Conhecimento: Valor da entrada; Prazo em meses; Taxa de juros mensal.
+* Realização: Calcula quanto fica financiado, a parcela mensal e o total pago; Recusa entrada maior que o preço ou prazo inválido.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
-Cartão 8: RelatorioVendas (extra)
-* Responsabilidades: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de cada vendedor no período.
+Cartão 8: Boleto (extra)
+* Conhecimento: Prazo em dias até o vencimento; Valor pago na compensação.
+* Realização: Confere que o valor pago é igual ao total; Retorna troco sempre zero.
+* Colaboradores: FormaPagamento, PagamentoInvalidoException.
+
+Cartão 9: RelatorioVendas (extra)
+* Conhecimento: Não guarda estado próprio; consulta as vendas já registradas.
+* Realização: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de cada vendedor no período.
 * Colaboradores: Venda, Vendedor, Loja.
 
-Cartão 9: PagamentoInvalidoException
-* Responsabilidades: Avisa que os dados do pagamento estão errados ou que o valor pago não cobre o total, com mensagem clara; O caixa captura esse erro e mostra sem fechar o programa.
-* Colaboradores: FormaPagamento e subclasses, Caixa.
+Cartão 10: PagamentoInvalidoException
+* Conhecimento: Mensagem explicando o que está errado no pagamento.
+* Realização: Ser lançada quando os dados do pagamento estão errados ou o valor pago não cobre o total; Ser capturada no caixa pra mostrar o erro sem fechar o programa.
+* Colaboradores: FormaPagamento, Caixa.
 
-Cartão 10: PermissaoNegadaException
-* Responsabilidades: Avisa que a operação foi recusada por falta de autorização (desconto grande sem o gerente aprovar).
+Cartão 11: PermissaoNegadaException
+* Conhecimento: Mensagem explicando qual operação foi recusada e por quê.
+* Realização: Ser lançada quando a operação é recusada por falta de autorização (desconto grande sem o gerente aprovar).
 * Colaboradores: Venda, Gerente, Caixa.
 
 
