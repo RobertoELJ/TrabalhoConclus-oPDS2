@@ -14,6 +14,11 @@ class Estoque {
     void buscarProdutoPorId(int id);
     void darBaixaQuantidade(int id, int quantidadeComprada);
     bool alertarProdutoEsgotado(int id);
+
+    // Adicionados pelo Marco (Vendas e Pagamentos): a Venda precisa checar
+    // se tem quantidade antes de vender, e devolver o item se a venda for cancelada.
+    bool verificarDisponibilidade(int id, int quantidadeDesejada);
+    void devolverQuantidade(int id, int quantidadeDevolvida);
 };
 
 #endif 
