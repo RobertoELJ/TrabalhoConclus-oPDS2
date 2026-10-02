@@ -24,12 +24,20 @@
 */
 var NAVTREE =
 [
-  [ "Gerenciador de Loja de Carro", "index.html", ]
+  [ "Gerenciador de Loja de Carro", "index.html", [
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
+    ] ]
+  ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"Estoque_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
