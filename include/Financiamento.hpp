@@ -28,6 +28,10 @@ public:
 
     /**
      * @brief Calcula o valor final: entrada mais o saldo financiado com juros.
+     *
+     * Os juros são simples: saldo * (taxaMensal / 100) * prazoMeses. Exemplo:
+     * preço 1000, entrada 200, 10 meses, 2% ao mês => saldo 800, juros 160,
+     * valor final 1160.
      * @throws PagamentoInvalidoException se a entrada for maior que o preço base.
      */
     double calcularValorFinal(double precoBase) const override;
