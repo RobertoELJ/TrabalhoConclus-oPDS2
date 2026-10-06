@@ -23,6 +23,8 @@ public:
 
     /**
      * @brief Adiciona um veículo ao carrinho.
+     *
+     * A descrição do item fica "marca modelo" (ex.: "Honda Civic").
      * @param veiculo Veículo escolhido (o preço vem de veiculo.getPreco()).
      * @param quantidade Quantidade de unidades, normalmente 1 para veículo.
      * @throws PagamentoInvalidoException se a quantidade não for maior que zero.
