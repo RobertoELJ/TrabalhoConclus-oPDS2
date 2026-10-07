@@ -25,6 +25,7 @@ public:
      * @brief Calcula quanto o cliente vai pagar no total.
      * @param precoBase Preço dos itens, sem desconto nem juros.
      * @return Valor final a pagar, já com desconto ou juros desta forma de pagamento.
+     * @throws PagamentoInvalidoException se precoBase for negativo.
      */
     virtual double calcularValorFinal(double precoBase) const = 0;
 

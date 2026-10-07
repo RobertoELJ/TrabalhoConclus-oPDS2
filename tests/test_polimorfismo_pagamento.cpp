@@ -6,7 +6,21 @@
 #include "Dinheiro.hpp"
 #include "Financiamento.hpp"
 #include "FormaPagamento.hpp"
+#include "PagamentoInvalidoException.hpp"
 #include "Pix.hpp"
+
+TEST_CASE("FormaPagamento: preco base negativo lanca excecao em qualquer forma") {
+    std::vector<std::unique_ptr<FormaPagamento>> formas;
+    formas.emplace_back(new Dinheiro(0.0, 0.0));
+    formas.emplace_back(new Pix(0.0));
+    formas.emplace_back(new Cartao(1, 0.0));
+    formas.emplace_back(new Boleto(1, 0.0));
+    formas.emplace_back(new Financiamento(0.0, 1, 0.0));
+
+    for (std::size_t i = 0; i < formas.size(); ++i) {
+        CHECK_THROWS_AS(formas[i]->calcularValorFinal(-1.0), PagamentoInvalidoException);
+    }
+}
 
 TEST_CASE("FormaPagamento: a Venda usa qualquer forma pela interface comum") {
     std::vector<std::unique_ptr<FormaPagamento>> formas;
