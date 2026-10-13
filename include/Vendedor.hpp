@@ -1,31 +1,12 @@
-#ifndef VENDEDOR_HPP
-#define VENDEDOR_HPP
+#pragma once
 
 #include <string>
 #include "CadastroVeiculo.hpp"
 
-/**
- * @file Vendedor.hpp
- * @brief Vendedor da loja: cadastra veículos e recebe comissão sobre vendas.
- */
-
-/**
- * @brief Representa um vendedor.
- *
- * Reconstruído aqui porque o conteúdo original deste arquivo havia sido
- * sobrescrito por engano com a classe Caixa (mesmo include guard CAIXA_HPP
- * usado em include/caixa.hpp, fazendo um dos dois sumir ao incluir os dois
- * juntos). Mantidos os métodos de cadastro de veículo já escritos pelo
- * Matheus, e acrescentada a comissão, que a Venda precisa.
- */
+/** @brief Vendedor da loja: cadastra veículos e recebe comissão sobre as vendas. */
 class Vendedor {
 public:
-    /**
-     * @brief Cria um vendedor.
-     * @param nome Nome do vendedor.
-     * @param id Identificação do vendedor.
-     * @param percentualComissao Percentual de comissão sobre cada venda (ex.: 5 significa 5%).
-     */
+    /** @brief Cria o vendedor com a comissão em percentual (5 é 5%). */
     Vendedor(const std::string& nome, const std::string& id, double percentualComissao);
 
     /** @brief Nome do vendedor. */
@@ -34,7 +15,7 @@ public:
     /** @brief Identificação do vendedor. */
     std::string getId() const;
 
-    /** @brief Percentual de comissão do vendedor. */
+    /** @brief Percentual de comissão. */
     double getPercentualComissao() const;
 
     /** @brief Cadastra um veículo no cadastro informado. */
@@ -46,11 +27,7 @@ public:
     /** @brief Atualiza os dados de um veículo já cadastrado. */
     bool atualizarVeiculo(Cadastro_Veiculos& cadastro, const std::string& placa, const Veiculo& novosDados);
 
-    /**
-     * @brief Calcula a comissão do vendedor sobre o valor de uma venda.
-     * @param valorVenda Valor final da venda.
-     * @return Comissão a receber (percentualComissao% de valorVenda).
-     */
+    /** @brief Comissão sobre o valor de uma venda. */
     double calcularComissao(double valorVenda) const;
 
 private:
@@ -58,5 +35,3 @@ private:
     std::string id_;
     double percentualComissao_;
 };
-
-#endif

@@ -2,8 +2,7 @@
 #include "Financiamento.hpp"
 #include "PagamentoInvalidoException.hpp"
 
-TEST_CASE("Financiamento: valor final e entrada mais saldo com juros simples") {
-    // preco 1000, entrada 200, 10 meses, 2% ao mes: saldo 800, juros 160
+TEST_CASE("Financiamento: preco 1000, entrada 200, 10 meses a 2% da 1160") {
     Financiamento f(200.0, 10, 2.0);
     CHECK(f.calcularValorFinal(1000.0) == doctest::Approx(1160.0));
 }

@@ -1,52 +1,23 @@
-#ifndef FINANCIAMENTO_HPP
-#define FINANCIAMENTO_HPP
+#pragma once
 
 #include "FormaPagamento.hpp"
 
-/**
- * @file Financiamento.hpp
- * @brief Pagamento financiado, com entrada, prazo e taxa mensal.
- */
-
-/**
- * @brief Pagamento financiado (extra).
- *
- * O cliente dá uma entrada e paga o restante em parcelas mensais, com juros
- * sobre o saldo financiado (o preço menos a entrada).
- */
+/** @brief Pagamento financiado: entrada à vista e o resto em parcelas mensais com juros simples. */
 class Financiamento : public FormaPagamento {
 public:
-    /**
-     * @brief Cria um financiamento.
-     * @param entrada Valor pago à vista, antes de financiar o restante.
-     * @param prazoMeses Quantidade de meses para pagar o saldo financiado.
-     * @param taxaMensal Juros ao mês sobre o saldo, de 0 em diante (ex.: 2 significa 2% ao mês).
-     * @throws PagamentoInvalidoException se o prazo não for maior que zero
-     *         ou se a entrada ou a taxa forem negativas.
-     */
+    /** @brief Cria o financiamento com a entrada, o prazo em meses e a taxa ao mês (2 é 2%). Lança PagamentoInvalidoException se o prazo não for maior que zero ou a entrada ou a taxa forem negativas. */
     Financiamento(double entrada, int prazoMeses, double taxaMensal);
 
-    /**
-     * @brief Calcula o valor final: entrada mais o saldo financiado com juros.
-     *
-     * Os juros são simples: saldo * (taxaMensal / 100) * prazoMeses. Exemplo:
-     * preço 1000, entrada 200, 10 meses, 2% ao mês => saldo 800, juros 160,
-     * valor final 1160.
-     * @throws PagamentoInvalidoException se a entrada for maior que o preço base.
-     */
+    /** @brief Entrada mais o saldo com juros simples (saldo x taxa x meses). Ex.: preço 1000, entrada 200, 10 meses a 2% dá 1160. Lança PagamentoInvalidoException se a entrada for maior que o preço. */
     double calcularValorFinal(double precoBase) const override;
 
     /** @brief Texto como "Financiamento em 24x". */
     std::string descricao() const override;
 
-    /** @brief O financiamento cobre o valor exato, então esta validação sempre passa. */
+    /** @brief O financiamento cobra o valor exato, então esta validação sempre passa. */
     void validarPagamento(double valorFinal) const override;
 
-    /**
-     * @brief Calcula o valor de cada parcela mensal.
-     * @param precoBase Preço dos itens, antes da entrada e dos juros.
-     * @return Valor final menos a entrada, dividido pelo prazo em meses.
-     */
+    /** @brief Valor de cada parcela: (valor final menos a entrada) dividido pelo prazo. */
     double valorDaParcela(double precoBase) const;
 
     /** @brief Valor da entrada. */
@@ -63,5 +34,3 @@ private:
     int prazoMeses_;
     double taxaMensal_;
 };
-
-#endif

@@ -1,28 +1,11 @@
-#ifndef DINHEIRO_HPP
-#define DINHEIRO_HPP
+#pragma once
 
 #include "FormaPagamento.hpp"
 
-/**
- * @file Dinheiro.hpp
- * @brief Pagamento à vista em dinheiro, com desconto e troco.
- */
-
-/**
- * @brief Pagamento em dinheiro.
- *
- * Aplica um desconto à vista sobre o preço e devolve troco quando o cliente
- * entrega mais do que o valor final.
- */
+/** @brief Pagamento em dinheiro: tem desconto à vista e devolve troco. */
 class Dinheiro : public FormaPagamento {
 public:
-    /**
-     * @brief Cria um pagamento em dinheiro.
-     * @param percentualDesconto Desconto à vista, de 0 a 100 (ex.: 5 significa 5%).
-     * @param valorPago Quanto o cliente entregou ao caixa.
-     * @throws PagamentoInvalidoException se o desconto estiver fora de 0 a 100
-     *         ou se o valor pago for negativo.
-     */
+    /** @brief Cria o pagamento com desconto de 0 a 100 (5 é 5%) e o valor entregue. Lança PagamentoInvalidoException se o desconto sair de 0 a 100 ou o valor pago for negativo. */
     Dinheiro(double percentualDesconto, double valorPago);
 
     /** @brief Preço base menos o desconto à vista. */
@@ -31,13 +14,10 @@ public:
     /** @brief Texto como "Dinheiro (5% de desconto)". */
     std::string descricao() const override;
 
-    /**
-     * @brief Confere se o valor entregue é igual ou maior que o valor final.
-     * @throws PagamentoInvalidoException se o valor pago for menor que o total.
-     */
+    /** @brief Lança PagamentoInvalidoException se o valor entregue for menor que o valor final. */
     void validarPagamento(double valorFinal) const override;
 
-    /** @brief Diferença entre o valor pago e o valor final. */
+    /** @brief Valor entregue menos o valor final. */
     double calcularTroco(double valorFinal) const override;
 
     /** @brief Percentual de desconto à vista. */
@@ -50,5 +30,3 @@ private:
     double percentualDesconto_;
     double valorPago_;
 };
-
-#endif

@@ -1,30 +1,11 @@
-#ifndef ITEM_CARRINHO_HPP
-#define ITEM_CARRINHO_HPP
+#pragma once
 
 #include <string>
 
-/**
- * @file ItemCarrinho.hpp
- * @brief Um item dentro do carrinho de compras (veículo ou produto).
- */
-
-/**
- * @brief Representa um item já colocado no carrinho.
- *
- * Guarda só o necessário para a venda (descrição, preço unitário e
- * quantidade), sem depender diretamente de Veiculo ou Produto. Assim o
- * Carrinho não precisa conhecer as duas classes por dentro; quem monta o
- * ItemCarrinho é quem sabe se veio de um veículo ou de um produto.
- */
+/** @brief Um item dentro do carrinho: descrição, preço de uma unidade e quantidade. */
 class ItemCarrinho {
 public:
-    /**
-     * @brief Cria um item do carrinho.
-     * @param descricao Texto para mostrar ao usuário (ex.: "Civic 2024").
-     * @param precoUnitario Preço de uma unidade do item.
-     * @param quantidade Quantidade escolhida.
-     * @throws PagamentoInvalidoException se o preço ou a quantidade não forem maiores que zero.
-     */
+    /** @brief Cria o item. Lança PagamentoInvalidoException se o preço ou a quantidade não forem maiores que zero. */
     ItemCarrinho(const std::string& descricao, double precoUnitario, int quantidade);
 
     /** @brief Preço unitário vezes a quantidade. */
@@ -44,5 +25,3 @@ private:
     double precoUnitario_;
     int quantidade_;
 };
-
-#endif

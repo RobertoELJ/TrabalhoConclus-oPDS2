@@ -1,6 +1,7 @@
 #include "Carrinho.hpp"
 
 #include <stdexcept>
+#include "Veiculo.hpp"
 
 Carrinho::Carrinho() {}
 

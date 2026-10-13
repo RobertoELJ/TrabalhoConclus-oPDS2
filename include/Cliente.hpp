@@ -1,29 +1,11 @@
-#ifndef CLIENTE_HPP
-#define CLIENTE_HPP
+#pragma once
 
 #include <string>
 
-/**
- * @file Cliente.hpp
- * @brief Cliente cadastrado na loja.
- */
-
-/**
- * @brief Representa um cliente.
- *
- * Reescrito aqui porque a versão anterior guardava um std::vector<Cliente>
- * dentro da própria classe Cliente (um cliente contendo uma lista de
- * clientes) e não tinha nenhum atributo de identificação (nome, CPF,
- * e-mail), o que a Venda precisa para associar a venda a um cliente.
- */
+/** @brief Cliente cadastrado na loja, identificado pelo CPF. */
 class Cliente {
 public:
-    /**
-     * @brief Cria um cliente.
-     * @param nome Nome do cliente.
-     * @param cpf CPF do cliente, usado para identificá-lo.
-     * @param email E-mail do cliente.
-     */
+    /** @brief Cria o cliente com nome, CPF e e-mail. */
     Cliente(const std::string& nome, const std::string& cpf, const std::string& email);
 
     /** @brief Nome do cliente. */
@@ -35,16 +17,16 @@ public:
     /** @brief E-mail do cliente. */
     std::string getEmail() const;
 
-    /** @brief Altera o nome, por exemplo para corrigir erro de digitação. */
+    /** @brief Troca o nome, por exemplo para corrigir erro de digitação. */
     void alteraNome(const std::string& novoNome);
 
-    /** @brief Altera o e-mail cadastrado. */
+    /** @brief Troca o e-mail cadastrado. */
     void alteraEmail(const std::string& novoEmail);
 
-    /** @brief Confere se o e-mail cadastrado tem um formato válido. */
+    /** @brief Diz se o e-mail cadastrado tem formato válido. */
     bool validaEmail() const;
 
-    /** @brief Confere se o CPF cadastrado tem um formato válido. */
+    /** @brief Diz se o CPF cadastrado tem formato válido. */
     bool validaCPF() const;
 
 private:
@@ -52,5 +34,3 @@ private:
     std::string cpf_;
     std::string email_;
 };
-
-#endif

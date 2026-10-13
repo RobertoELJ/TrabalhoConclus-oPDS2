@@ -1,38 +1,20 @@
-#ifndef PIX_HPP
-#define PIX_HPP
+#pragma once
 
 #include "FormaPagamento.hpp"
 
-/**
- * @file Pix.hpp
- * @brief Pagamento por PIX, sempre no valor exato.
- */
-
-/**
- * @brief Pagamento por PIX.
- *
- * Não tem desconto nem juros e o valor transferido precisa ser igual ao total.
- * Por isso nunca gera troco.
- */
+/** @brief Pagamento por PIX: sem desconto, sem juros e sem troco; o valor tem que ser exato. */
 class Pix : public FormaPagamento {
 public:
-    /**
-     * @brief Cria um pagamento por PIX.
-     * @param valorPago Quanto o cliente transferiu.
-     * @throws PagamentoInvalidoException se o valor pago for negativo.
-     */
+    /** @brief Cria o pagamento com o valor transferido. Lança PagamentoInvalidoException se for negativo. */
     explicit Pix(double valorPago);
 
-    /** @brief Devolve o próprio preço base, pois o PIX não altera o valor. */
+    /** @brief Devolve o próprio preço base. */
     double calcularValorFinal(double precoBase) const override;
 
     /** @brief Texto "PIX". */
     std::string descricao() const override;
 
-    /**
-     * @brief Confere se o valor transferido é exatamente o valor final.
-     * @throws PagamentoInvalidoException se o valor pago for diferente do total.
-     */
+    /** @brief Lança PagamentoInvalidoException se o valor transferido for diferente do valor final. */
     void validarPagamento(double valorFinal) const override;
 
     /** @brief Valor que o cliente transferiu. */
@@ -41,5 +23,3 @@ public:
 private:
     double valorPago_;
 };
-
-#endif
