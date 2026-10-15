@@ -1,24 +1,46 @@
 #ifndef ESTOQUE_HPP
 #define ESTOQUE_HPP
 
-
+#include <string>
+//suzane ferreira 
+/**
+ @brief Classe responsável por gerenciar o estoque de produtos da loja.
+ 
+Armazena e controla a quantidade dos itens, permitindo adicionar,
+buscar e dar baixa em produtos, além de alertar sobre estoque esgotado.
+ */
 class Estoque {
+private:
+    /**
+     @brief Quantidade total de itens atualmente no estoque.
+     */
+    int quantidadeTotalItens;
 
-    //aqui é o conhecimento, os meus atributos/dados
-    private: 
-    int qtd_total_de_itens; 
-
-    //aqui é a realização, as minhas ações/métodos
-    public:
+public:
+    /**
+     @brief Adiciona um novo produto à lista do estoque.
+     */
     void adicionarProduto();
-    void buscarProdutoPorId(int id);
-    void darBaixaQuantidade(int id, int quantidadeComprada);
-    bool alertarProdutoEsgotado(int id);
 
-    // Adicionados pelo Marco (Vendas e Pagamentos): a Venda precisa checar
-    // se tem quantidade antes de vender, e devolver o item se a venda for cancelada.
-    bool verificarDisponibilidade(int id, int quantidadeDesejada);
-    void devolverQuantidade(int id, int quantidadeDevolvida);
+    /**
+     @brief Busca um produto específico utilizando o seu identificador.
+     @param id Identificador único (ID) numérico do produto procurado.
+     */
+    void buscarProdutoPorId(int id);
+
+    /**
+     @brief Diminui a quantidade de um produto no estoque após uma venda.
+     @param id Identificador único (ID) numérico do produto vendido.
+     @param quantidadeComprada Quantidade de itens que foram comprados e devem ser debitados.
+     */
+    void darBaixaQuantidade(int id, int quantidadeComprada);
+
+    /**
+     @brief Verifica se um produto está com a quantidade zerada (esgotado).
+     @param id Identificador único (ID) do produto a ser verificado.
+     @return true se o produto estiver esgotado, false caso ainda haja estoque.
+     */
+    bool alertarProdutoEsgotado(int id);
 };
 
-#endif 
+#endif
