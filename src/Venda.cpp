@@ -108,3 +108,7 @@ std::string Venda::getData() const {
 std::string Venda::getIdVendedor() const {
     return vendedor_->getId();
 }
+
+std::string Venda::getCpfCliente() const {
+    return cliente_->getCpf();
+}

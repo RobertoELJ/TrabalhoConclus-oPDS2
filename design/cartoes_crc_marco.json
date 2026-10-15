@@ -168,7 +168,8 @@
     "realizacao": [
       "Listar as vendas de um período",
       "Somar o total vendido, sem contar as canceladas",
-      "Somar a comissão de um vendedor no período"
+      "Somar a comissão de um vendedor no período",
+      "Listar as compras concluídas de um cliente"
     ],
     "collaborators": [
       "Venda"

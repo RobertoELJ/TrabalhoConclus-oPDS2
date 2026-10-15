@@ -96,7 +96,7 @@ Cartão 8: Boleto (extra)
 
 Cartão 9: RelatorioVendas (extra)
 * Conhecimento: As vendas que foram adicionadas ao relatório.
-* Realização: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de um vendedor no período.
+* Realização: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de um vendedor no período; Lista as compras de um cliente.
 * Colaboradores: Venda.
 
 Cartão 10: PagamentoInvalidoException

@@ -26,6 +26,16 @@ std::vector<Venda> RelatorioVendas::vendasDoPeriodo(const std::string& inicio, c
     return resultado;
 }
 
+std::vector<Venda> RelatorioVendas::vendasDoCliente(const std::string& cpf) const {
+    std::vector<Venda> resultado;
+    for (const Venda& venda : vendas_) {
+        if (venda.estaConcluida() && venda.getCpfCliente() == cpf) {
+            resultado.push_back(venda);
+        }
+    }
+    return resultado;
+}
+
 double RelatorioVendas::totalVendido(const std::string& inicio, const std::string& fim) const {
     double total = 0.0;
     for (const Venda& venda : vendasDoPeriodo(inicio, fim)) {
