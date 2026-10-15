@@ -14,7 +14,7 @@ TEST_CASE("FormaPagamento: preco base negativo lanca excecao em qualquer forma")
     formas.emplace_back(new Dinheiro(0.0, 0.0));
     formas.emplace_back(new Pix(0.0));
     formas.emplace_back(new Cartao(1, 0.0));
-    formas.emplace_back(new Boleto(1, 0.0));
+    formas.emplace_back(new Boleto(1, 1));
     formas.emplace_back(new Financiamento(0.0, 1, 0.0));
 
     for (std::size_t i = 0; i < formas.size(); ++i) {
@@ -27,7 +27,7 @@ TEST_CASE("FormaPagamento: a Venda usa qualquer forma pela interface comum") {
     formas.emplace_back(new Dinheiro(10.0, 1000.0));
     formas.emplace_back(new Pix(1000.0));
     formas.emplace_back(new Cartao(2, 10.0));
-    formas.emplace_back(new Boleto(5, 1000.0));
+    formas.emplace_back(new Boleto(2, 5));
     formas.emplace_back(new Financiamento(0.0, 10, 1.0));
 
     const double esperado[] = {900.0, 1000.0, 1100.0, 1000.0, 1100.0};

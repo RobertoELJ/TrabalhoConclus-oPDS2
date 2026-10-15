@@ -2,28 +2,34 @@
 
 #include "FormaPagamento.hpp"
 
-/** @brief Pagamento por boleto: sem desconto, sem juros e sem troco; o valor tem que ser exato. */
+/** @brief Pagamento por boleto em 1 a 32 parcelas, sem juros. Com 1 parcela é à vista. */
 class Boleto : public FormaPagamento {
 public:
-    /** @brief Cria o pagamento com o prazo em dias e o valor pago. Lança PagamentoInvalidoException se o prazo não for maior que zero ou o valor for negativo. */
-    Boleto(int diasParaVencimento, double valorPago);
+    /** @brief Maior número de parcelas aceito. */
+    static const int MAX_PARCELAS = 32;
 
-    /** @brief Devolve o próprio preço base. */
+    /** @brief Cria o pagamento com o número de parcelas e os dias até o primeiro vencimento. Lança PagamentoInvalidoException se as parcelas saírem de 1 até MAX_PARCELAS ou se o prazo não for maior que zero. */
+    Boleto(int numeroParcelas, int diasParaVencimento);
+
+    /** @brief Devolve o próprio preço base, pois o boleto não tem juros. */
     double calcularValorFinal(double precoBase) const override;
 
-    /** @brief Texto como "Boleto (vencimento em 3 dias)". */
+    /** @brief Texto como "Boleto em 3x (primeiro vencimento em 5 dias)". */
     std::string descricao() const override;
 
-    /** @brief Lança PagamentoInvalidoException se o valor pago for diferente do valor final. */
+    /** @brief Os boletos são pagos depois, então esta validação sempre passa. */
     void validarPagamento(double valorFinal) const override;
 
-    /** @brief Prazo em dias até o vencimento. */
+    /** @brief Valor de cada boleto: preço dividido pelo número de parcelas. */
+    double valorDaParcela(double precoBase) const;
+
+    /** @brief Quantidade de parcelas. */
+    int getNumeroParcelas() const;
+
+    /** @brief Dias até o primeiro vencimento. */
     int getDiasParaVencimento() const;
 
-    /** @brief Valor pago na compensação. */
-    double getValorPago() const;
-
 private:
+    int numeroParcelas_;
     int diasParaVencimento_;
-    double valorPago_;
 };

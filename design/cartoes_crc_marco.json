@@ -144,12 +144,13 @@
     "subclasses": "",
     "type": 1,
     "conhecimento": [
-      "Prazo em dias até o vencimento",
-      "Valor pago na compensação do boleto"
+      "Número de parcelas",
+      "Dias até o primeiro vencimento"
     ],
     "realizacao": [
-      "Conferir que o valor pago é igual ao total",
-      "Retornar troco sempre zero"
+      "Devolver o preço sem juros",
+      "Calcular o valor de cada boleto",
+      "Recusar parcelas ou prazo inválidos"
     ],
     "collaborators": [
       "FormaPagamento",

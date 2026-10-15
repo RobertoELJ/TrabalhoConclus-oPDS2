@@ -1,20 +1,17 @@
 #include "Boleto.hpp"
 
-#include <cmath>
 #include <sstream>
 #include "PagamentoInvalidoException.hpp"
 
-namespace {
-const double TOLERANCIA = 0.005;
-}
+const int Boleto::MAX_PARCELAS;
 
-Boleto::Boleto(int diasParaVencimento, double valorPago)
-    : diasParaVencimento_(diasParaVencimento), valorPago_(valorPago) {
+Boleto::Boleto(int numeroParcelas, int diasParaVencimento)
+    : numeroParcelas_(numeroParcelas), diasParaVencimento_(diasParaVencimento) {
+    if (numeroParcelas < 1 || numeroParcelas > MAX_PARCELAS) {
+        throw PagamentoInvalidoException("O numero de parcelas deve ser de 1 ate 32.");
+    }
     if (diasParaVencimento <= 0) {
         throw PagamentoInvalidoException("O prazo do boleto deve ser maior que zero dias.");
-    }
-    if (valorPago < 0.0) {
-        throw PagamentoInvalidoException("O valor pago nao pode ser negativo.");
     }
 }
 
@@ -27,20 +24,21 @@ double Boleto::calcularValorFinal(double precoBase) const {
 
 std::string Boleto::descricao() const {
     std::ostringstream texto;
-    texto << "Boleto (vencimento em " << diasParaVencimento_ << " dias)";
+    texto << "Boleto em " << numeroParcelas_ << "x (primeiro vencimento em "
+          << diasParaVencimento_ << " dias)";
     return texto.str();
 }
 
-void Boleto::validarPagamento(double valorFinal) const {
-    if (std::fabs(valorPago_ - valorFinal) > TOLERANCIA) {
-        throw PagamentoInvalidoException("O valor pago do boleto deve ser igual ao total da venda.");
-    }
+void Boleto::validarPagamento(double) const {}
+
+double Boleto::valorDaParcela(double precoBase) const {
+    return calcularValorFinal(precoBase) / numeroParcelas_;
+}
+
+int Boleto::getNumeroParcelas() const {
+    return numeroParcelas_;
 }
 
 int Boleto::getDiasParaVencimento() const {
     return diasParaVencimento_;
-}
-
-double Boleto::getValorPago() const {
-    return valorPago_;
 }

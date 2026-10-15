@@ -90,8 +90,8 @@ Cartão 7: Financiamento (extra)
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 8: Boleto (extra)
-* Conhecimento: Prazo em dias até o vencimento; Valor pago na compensação.
-* Realização: Confere que o valor pago é igual ao total; Retorna troco sempre zero.
+* Conhecimento: Número de parcelas; Dias até o primeiro vencimento.
+* Realização: Devolve o preço sem juros; Calcula o valor de cada boleto; Recusa parcelas ou prazo inválidos.
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 9: RelatorioVendas (extra)
