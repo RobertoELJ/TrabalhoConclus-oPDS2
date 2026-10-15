@@ -17,10 +17,10 @@ public:
     /** @brief Percentual de comissão. */
     double getPercentualComissao() const;
 
-    /** @brief Comissão sobre o valor de uma venda. */
+    /** @brief Comissão sobre uma venda: valor da venda vezes o percentual, dividido por 100. */
     double calcularComissao(double valorVenda) const;
 
-    /** @brief Diz se o desconto pedido (0 a 100) está dentro do limite liberado. */
+    /** @brief Diz se o desconto pedido (0 a 100) é menor ou igual ao limite liberado pelo gerente. */
     bool aprovarDesconto(double percentualDesconto) const;
 
 private:

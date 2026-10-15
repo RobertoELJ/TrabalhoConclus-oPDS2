@@ -33,9 +33,9 @@
       "Pedir pra forma de pagamento o valor final e conferir se o pagamento cobre o total",
       "Ver se o desconto passou do limite e pedir aprovação do gerente",
       "Pedir a comissão pro funcionário e guardar o valor",
-      "Dar baixa no estoque quando confirma",
+      "Cancelar a venda e zerar a comissão",
       "Gerar o comprovante",
-      "Virar uma linha de texto (e voltar a ser venda a partir dela) pra salvar no arquivo"
+      "Virar uma linha de texto pra salvar no arquivo"
     ],
     "collaborators": [
       "Cliente",
@@ -43,7 +43,6 @@
       "Gerente",
       "Carrinho",
       "FormaPagamento",
-      "Estoque",
       "Caixa"
     ]
   },

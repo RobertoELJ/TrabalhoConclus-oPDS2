@@ -27,7 +27,7 @@ public:
     /** @brief Atualiza os dados de um veículo já cadastrado. */
     bool atualizarVeiculo(Cadastro_Veiculos& cadastro, const std::string& placa, const Veiculo& novosDados);
 
-    /** @brief Comissão sobre o valor de uma venda. */
+    /** @brief Comissão sobre uma venda: valor da venda vezes o percentual, dividido por 100. */
     double calcularComissao(double valorVenda) const;
 
 private:
