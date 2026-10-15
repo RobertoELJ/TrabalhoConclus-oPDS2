@@ -38,6 +38,15 @@ public:
     /** @brief Diz se a venda foi cancelada. */
     bool estaCancelada() const;
 
+    /** @brief Define a data da venda no formato AAAA-MM-DD. Lança PagamentoInvalidoException se o formato estiver errado. */
+    void definirData(const std::string& data);
+
+    /** @brief Data da venda (vazia se ainda não foi definida). */
+    std::string getData() const;
+
+    /** @brief Código do vendedor responsável pela venda. */
+    std::string getIdVendedor() const;
+
 private:
     Cliente* cliente_;
     Vendedor* vendedor_;
@@ -46,4 +55,5 @@ private:
     double comissao_;
     bool concluida_;
     bool cancelada_;
+    std::string data_;
 };

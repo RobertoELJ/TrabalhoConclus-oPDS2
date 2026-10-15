@@ -167,3 +167,33 @@ TEST_CASE("Venda: linha de arquivo tem CPF, vendedor e situacao") {
     venda.cancelar();
     CHECK(venda.toLinha() == "123;V1;1000;0;cancelada");
 }
+
+TEST_CASE("Venda: sem data definida a data e vazia") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    CHECK(venda.getData() == "");
+}
+
+TEST_CASE("Venda: data no formato AAAA-MM-DD e aceita") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    venda.definirData("2026-10-15");
+    CHECK(venda.getData() == "2026-10-15");
+}
+
+TEST_CASE("Venda: data em outro formato lanca excecao") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    CHECK_THROWS_AS(venda.definirData("15/10/2026"), PagamentoInvalidoException);
+    CHECK_THROWS_AS(venda.definirData(""), PagamentoInvalidoException);
+}
+
+TEST_CASE("Venda: devolve o codigo do vendedor") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    CHECK(venda.getIdVendedor() == "V1");
+}

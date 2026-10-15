@@ -93,3 +93,18 @@ bool Venda::estaConcluida() const {
 bool Venda::estaCancelada() const {
     return cancelada_;
 }
+
+void Venda::definirData(const std::string& data) {
+    if (data.size() != 10 || data[4] != '-' || data[7] != '-') {
+        throw PagamentoInvalidoException("A data deve estar no formato AAAA-MM-DD.");
+    }
+    data_ = data;
+}
+
+std::string Venda::getData() const {
+    return data_;
+}
+
+std::string Venda::getIdVendedor() const {
+    return vendedor_->getId();
+}
