@@ -62,7 +62,7 @@ TEST_CASE("Alterar Disponibilidade"){
     CHECK(v.Disponivel() == false);
 }
 
-TEST_CASE(Validar os dados do veiculo){
+TEST_CASE("Validar os dados do veiculo"){
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     CHECK(v.validarDados() == true);
 }
