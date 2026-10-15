@@ -8,7 +8,7 @@ const int Boleto::MAX_PARCELAS;
 Boleto::Boleto(int numeroParcelas, int diasParaVencimento)
     : numeroParcelas_(numeroParcelas), diasParaVencimento_(diasParaVencimento) {
     if (numeroParcelas < 1 || numeroParcelas > MAX_PARCELAS) {
-        throw PagamentoInvalidoException("O numero de parcelas deve ser de 1 ate 32.");
+        throw PagamentoInvalidoException("O numero de parcelas deve ser de 1 ate 36.");
     }
     if (diasParaVencimento <= 0) {
         throw PagamentoInvalidoException("O prazo do boleto deve ser maior que zero dias.");

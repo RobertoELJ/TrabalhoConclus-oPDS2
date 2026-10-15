@@ -2,11 +2,11 @@
 
 #include "FormaPagamento.hpp"
 
-/** @brief Pagamento por boleto em 1 a 32 parcelas, sem juros. Com 1 parcela é à vista. */
+/** @brief Pagamento por boleto em 1 a 36 parcelas, sem juros. Com 1 parcela é à vista. */
 class Boleto : public FormaPagamento {
 public:
     /** @brief Maior número de parcelas aceito. */
-    static const int MAX_PARCELAS = 32;
+    static const int MAX_PARCELAS = 36;
 
     /** @brief Cria o pagamento com o número de parcelas e os dias até o primeiro vencimento. Lança PagamentoInvalidoException se as parcelas saírem de 1 até MAX_PARCELAS ou se o prazo não for maior que zero. */
     Boleto(int numeroParcelas, int diasParaVencimento);
