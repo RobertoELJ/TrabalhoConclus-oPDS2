@@ -49,4 +49,5 @@ O Makefile usa sozinho todos os `.cpp` de `src/` e todos os `tests/teste_*.cpp`;
 - `FormaPagamento` é abstrata; `Dinheiro`, `Pix`, `Cartao`, `Boleto` e `Financiamento` calculam o valor final cada uma do seu jeito.
 - `Carrinho` guarda os itens (`ItemCarrinho`) e calcula o total.
 - `Venda` junta cliente, vendedor, carrinho e pagamento: confere o desconto com o gerente, calcula a comissão, cancela e gera o comprovante. Dar baixa no estoque é papel de quem chama (o Caixa).
+- `RelatorioVendas` soma o total vendido e a comissão de um vendedor num período (datas `AAAA-MM-DD`; vendas canceladas ficam de fora).
 - Erros: `PagamentoInvalidoException` e `PermissaoNegadaException`.

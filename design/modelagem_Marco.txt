@@ -95,9 +95,9 @@ Cartão 8: Boleto (extra)
 * Colaboradores: FormaPagamento, PagamentoInvalidoException.
 
 Cartão 9: RelatorioVendas (extra)
-* Conhecimento: Não guarda estado próprio; consulta as vendas já registradas.
-* Realização: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de cada vendedor no período.
-* Colaboradores: Venda, Vendedor, Loja.
+* Conhecimento: As vendas que foram adicionadas ao relatório.
+* Realização: Lista as vendas de um período; Soma o total vendido (sem contar as canceladas); Soma a comissão de um vendedor no período.
+* Colaboradores: Venda.
 
 Cartão 10: PagamentoInvalidoException
 * Conhecimento: Mensagem explicando o que está errado no pagamento.

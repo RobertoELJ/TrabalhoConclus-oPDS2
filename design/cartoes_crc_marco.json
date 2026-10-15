@@ -162,17 +162,15 @@
     "subclasses": "",
     "type": 1,
     "conhecimento": [
-      "Não guarda estado próprio; consulta as vendas já registradas"
+      "As vendas que foram adicionadas ao relatório"
     ],
     "realizacao": [
       "Listar as vendas de um período",
       "Somar o total vendido, sem contar as canceladas",
-      "Somar a comissão de cada vendedor no período"
+      "Somar a comissão de um vendedor no período"
     ],
     "collaborators": [
-      "Venda",
-      "Vendedor",
-      "Loja"
+      "Venda"
     ]
   },
   {
