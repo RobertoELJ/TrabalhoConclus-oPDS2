@@ -32,4 +32,21 @@ Sistema de gerenciamento de uma loja/concessionária de veículos: cadastro de m
 
 ## Como compilar e rodar
 
-(a preencher pelo grupo junto do Makefile no checkpoint C7)
+Precisa de g++ com C++11, make e, para a cobertura, gcovr (`pip install gcovr`).
+
+| Comando | O que faz |
+|---|---|
+| `make` | compila o programa em `build/` |
+| `make run` | compila e executa o programa |
+| `make test` | compila e roda os testes de unidade (doctest, `tests/teste_*.cpp`) |
+| `make coverage` | roda os testes e mostra a cobertura de `src/` com gcovr (mínimo de 60%) |
+| `make clean` | apaga os arquivos gerados |
+
+O Makefile usa sozinho todos os `.cpp` de `src/` e todos os `tests/teste_*.cpp`; basta o arquivo existir na pasta. Só `teste_main.cpp` define o `main` do doctest.
+
+## Vendas e Pagamentos
+
+- `FormaPagamento` é abstrata; `Dinheiro`, `Pix`, `Cartao`, `Boleto` e `Financiamento` calculam o valor final cada uma do seu jeito.
+- `Carrinho` guarda os itens (`ItemCarrinho`) e calcula o total.
+- `Venda` junta cliente, vendedor, carrinho e pagamento: confere o desconto com o gerente, calcula a comissão, cancela e gera o comprovante. Dar baixa no estoque é papel de quem chama (o Caixa).
+- Erros: `PagamentoInvalidoException` e `PermissaoNegadaException`.
