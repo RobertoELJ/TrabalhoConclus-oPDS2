@@ -15,17 +15,40 @@ MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
 # Não esqueçam de colocar a barra invertida \ no final da linha ao adicionar
 SRC_FILES = src/Estoque.cpp \
 			src/GerenciadorDeArquivos.cpp
-			# MATHEUS \
-			# ROBERTO \
-			# MARCO ANTONIO \
+			# MATHEUS
+			# ROBERTO
+			# MARCO ANTONIO
+SRC_FILES += src/Boleto.cpp \
+			src/Carrinho.cpp \
+			src/Cartao.cpp \
+			src/Dinheiro.cpp \
+			src/Financiamento.cpp \
+			src/FormaPagamento.cpp \
+			src/ItemCarrinho.cpp \
+			src/PagamentoInvalidoException.cpp \
+			src/PermissaoNegadaException.cpp \
+			src/Pix.cpp \
+			src/RelatorioVendas.cpp \
+			src/Venda.cpp
 
 # COLOQUEM OS SEUS ARQUIVOS DE TESTE AQUI EMBAIXO!
 TEST_FILES = tests/teste_main.cpp \
 			tests/teste_estoque.cpp \
 			tests/teste_persistencia.cpp
-			# MATHEUS \
-			# ROBERTO \
-			# MARCO ANTONIO \
+			# MATHEUS
+			# ROBERTO
+			# MARCO ANTONIO
+TEST_FILES += tests/teste_boleto.cpp \
+			tests/teste_carrinho.cpp \
+			tests/teste_cartao.cpp \
+			tests/teste_dinheiro.cpp \
+			tests/teste_excecoes.cpp \
+			tests/teste_financiamento.cpp \
+			tests/teste_item_carrinho.cpp \
+			tests/teste_pix.cpp \
+			tests/teste_polimorfismo_pagamento.cpp \
+			tests/teste_relatorio_vendas.cpp \
+			tests/teste_venda.cpp
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 TEST_OBJ_FILES = $(TEST_FILES:.cpp=.o)
