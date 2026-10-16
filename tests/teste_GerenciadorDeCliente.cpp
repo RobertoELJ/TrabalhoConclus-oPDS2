@@ -40,7 +40,7 @@ TEST_CASE("Alterar o email do cliente") {
     }
 }
 
-TEST_CASE("Mostrar clientes") `{
+TEST_CASE("Mostrar clientes") {
     GerenciamentoDeClientes Cliente;
     Cliente.cadastrarCliente("João", "joao@email.com", "12345678911");
     CHECK_NOTHROW(Cliente.mostrarClientes());
