@@ -11,11 +11,11 @@ git USER STORIES (PESSOAS)
 
     O sistema deve permitir a alteração do nome do cliente caso haja algum erro de digitação no cadastro.
 
-    O sistema deve vincular seu historico de compras a seus dados pessoais.
+    //fazer depois O sistema deve vincular seu historico de compras a seus dados pessoais.
 
 2.Título: Sistema de Gerenciamento de Vendedores 
 *Descrição: Como gerente de vendedores eu quero ter controle das vendas e dos vendedores
-*Criterios de aceitação:
+*Criterios de aceitação:    
 	
     Visualizar todos os vendedores
 
