@@ -17,6 +17,7 @@ SRC_FILES = src/Estoque.cpp \
 			src/GerenciadorDeArquivos.cpp
 			# MATHEUS
 			# ROBERTO
+			src/GerenciamentoDeClientes.cpp \
 			# MARCO ANTONIO
 SRC_FILES += src/Boleto.cpp \
 			src/Carrinho.cpp \
@@ -37,6 +38,7 @@ TEST_FILES = tests/teste_main.cpp \
 			tests/teste_persistencia.cpp
 			# MATHEUS
 			# ROBERTO
+			tests/teste_GerenciadorDeCliente.cpp
 			# MARCO ANTONIO
 TEST_FILES += tests/teste_boleto.cpp \
 			tests/teste_carrinho.cpp \
