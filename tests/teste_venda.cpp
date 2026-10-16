@@ -191,6 +191,13 @@ TEST_CASE("Venda: data em outro formato lanca excecao") {
     CHECK_THROWS_AS(venda.definirData(""), PagamentoInvalidoException);
 }
 
+TEST_CASE("Venda: devolve o CPF do cliente") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    CHECK(venda.getCpfCliente() == "123");
+}
+
 TEST_CASE("Venda: devolve o codigo do vendedor") {
     Cliente cliente("Ana", "123", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);

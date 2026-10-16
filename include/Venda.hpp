@@ -47,6 +47,9 @@ public:
     /** @brief Código do vendedor responsável pela venda. */
     std::string getIdVendedor() const;
 
+    /** @brief CPF do cliente da venda. */
+    std::string getCpfCliente() const;
+
 private:
     Cliente* cliente_;
     Vendedor* vendedor_;

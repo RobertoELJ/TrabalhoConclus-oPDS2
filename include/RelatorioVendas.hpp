@@ -19,6 +19,9 @@ public:
     /** @brief Soma da comissão das vendas do período feitas pelo vendedor com esse código. */
     double comissaoDoVendedor(const std::string& idVendedor, const std::string& inicio, const std::string& fim) const;
 
+    /** @brief Vendas concluídas do cliente com esse CPF, de qualquer data. */
+    std::vector<Venda> vendasDoCliente(const std::string& cpf) const;
+
 private:
     std::vector<Venda> vendas_;
 };
