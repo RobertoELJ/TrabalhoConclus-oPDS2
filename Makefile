@@ -19,18 +19,6 @@ SRC_FILES = src/Estoque.cpp \
 			# ROBERTO
 			src/GerenciamentoDeClientes.cpp \
 			# MARCO ANTONIO
-SRC_FILES += src/Boleto.cpp \
-			src/Carrinho.cpp \
-			src/Cartao.cpp \
-			src/Dinheiro.cpp \
-			src/Financiamento.cpp \
-			src/FormaPagamento.cpp \
-			src/ItemCarrinho.cpp \
-			src/PagamentoInvalidoException.cpp \
-			src/PermissaoNegadaException.cpp \
-			src/Pix.cpp \
-			src/RelatorioVendas.cpp \
-			src/Venda.cpp
 
 # COLOQUEM OS SEUS ARQUIVOS DE TESTE AQUI EMBAIXO!
 TEST_FILES = tests/teste_main.cpp \
