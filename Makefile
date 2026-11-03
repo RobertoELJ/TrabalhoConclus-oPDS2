@@ -1,5 +1,5 @@
 # Makefile
-# Fazendo a base e minhas partes de estoque e persistência - Suzane
+# Refazendo com wildcard e filter-out pra diminuir erros- Suzane
 
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -I include/ --coverage
@@ -11,34 +11,11 @@ TEST_TARGET = build/test_loja
 MAIN_SRC = src/main.cpp
 MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
 
-# COLOQUEM OS SEUS ARQUIVOS .cpp AQUI EMBAIXO pf!
-# Não esqueçam de colocar a barra invertida \ no final da linha ao adicionar
-SRC_FILES = src/Estoque.cpp \
-			src/GerenciadorDeArquivos.cpp
-			# MATHEUS
-			# ROBERTO
-			src/GerenciamentoDeClientes.cpp \
-			# MARCO ANTONIO
+# Busca automática de todos os .cpp em src/, excluindo o main.cpp
+SRC_FILES = $(filter-out $(MAIN_SRC), $(wildcard src/*.cpp))
 
-# COLOQUEM OS SEUS ARQUIVOS DE TESTE AQUI EMBAIXO!
-TEST_FILES = tests/teste_main.cpp \
-			tests/teste_estoque.cpp \
-			tests/teste_persistencia.cpp
-			# MATHEUS
-			# ROBERTO
-			tests/teste_GerenciadorDeCliente.cpp
-			# MARCO ANTONIO
-TEST_FILES += tests/teste_boleto.cpp \
-			tests/teste_carrinho.cpp \
-			tests/teste_cartao.cpp \
-			tests/teste_dinheiro.cpp \
-			tests/teste_excecoes.cpp \
-			tests/teste_financiamento.cpp \
-			tests/teste_item_carrinho.cpp \
-			tests/teste_pix.cpp \
-			tests/teste_polimorfismo_pagamento.cpp \
-			tests/teste_relatorio_vendas.cpp \
-			tests/teste_venda.cpp
+# Busca automática de todos os arquivos de teste na pasta tests/
+TEST_FILES = $(wildcard tests/*.cpp)
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 TEST_OBJ_FILES = $(TEST_FILES:.cpp=.o)
