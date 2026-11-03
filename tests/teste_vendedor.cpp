@@ -27,7 +27,7 @@ TEST_CASE("Consultar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
     Cadastro_Veiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
-    sale.cadastrarVeiculo(v);
+    sale.cadastrarVeiculo(registro,v);
     const Veiculo* find = sale.consultarVeiculo(registro, "ABC1D23");
     REQUIRE(find != nullptr);
     CHECK(find->getPlaca() == "ABC1D23");
@@ -38,7 +38,7 @@ TEST_CASE("Atualizar veiculo pelo vendedor"){
     Cadastro_Veiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     Veiculo newData("NovaMarca", "NovoModelo", "ABC1D23", 2023, 85000);
-    sale.cadastrarVeiculo(v);
+    sale.cadastrarVeiculo(registro,v);
     CHECK(sale.atualizarVeiculo(registro, "ABC1D23", newData) == true);
 }
 
