@@ -14,19 +14,24 @@ MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
 # COLOQUEM OS SEUS ARQUIVOS .cpp AQUI EMBAIXO pf!
 # Não esqueçam de colocar a barra invertida \ no final da linha ao adicionar
 SRC_FILES = src/Estoque.cpp \
-			src/GerenciadorDeArquivos.cpp
-			# MATHEUS
-			# ROBERTO
-			src/GerenciamentoDeClientes.cpp \
-			# MARCO ANTONIO
+            src/GerenciadorDeArquivos.cpp
 
-# COLOQUEM OS SEUS ARQUIVOS DE TESTE AQUI EMBAIXO!
+# MATHEUS
+
+# ROBERTO
+SRC_FILES += src/GerenciamentoDeClientes.cpp
+
+# MARCO ANTONIO
 TEST_FILES = tests/teste_main.cpp \
-			tests/teste_estoque.cpp \
-			tests/teste_persistencia.cpp
-			# MATHEUS
-			# ROBERTO
-			tests/teste_GerenciadorDeCliente.cpp
+             tests/teste_estoque.cpp \
+             tests/teste_persistencia.cpp
+
+# MATHEUS
+
+# ROBERTO
+TEST_FILES += tests/teste_GerenciadorDeCliente.cpp
+
+# MARCO ANTONIO
 			# MARCO ANTONIO
 TEST_FILES += tests/teste_boleto.cpp \
 			tests/teste_carrinho.cpp \
