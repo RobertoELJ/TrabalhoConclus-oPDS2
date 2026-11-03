@@ -18,28 +18,28 @@ TEST_CASE("Consultar percentual de comissão do vendedor") {
 
 TEST_CASE("Cadastrar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos register;
+    Cadastro_Veiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
-    CHECK(sale.cadastrarVeiculo(register, v) == true);
+    CHECK(sale.cadastrarVeiculo(registro, v) == true);
 }
 
 TEST_CASE("Consultar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos register;
+    Cadastro_Veiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
-    sale.cadastrar_Veiculo(v);
-    const Veiculo* find = sale.consultarVeiculo(register, "ABC1D23");
+    sale.cadastrarVeiculo(v);
+    const Veiculo* find = sale.consultarVeiculo(registro, "ABC1D23");
     REQUIRE(find != nullptr);
     CHECK(find->getPlaca() == "ABC1D23");
 }
 
 TEST_CASE("Atualizar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos register;
+    Cadastro_Veiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     Veiculo newData("NovaMarca", "NovoModelo", "ABC1D23", 2023, 85000);
-    sale.cadastrar_Veiculo(v);
-    CHECK(sale.atualizarVeiculo(register, "ABC1D23", newData) == true);
+    sale.cadastrarVeiculo(v);
+    CHECK(sale.atualizarVeiculo(registro, "ABC1D23", newData) == true);
 }
 
 TEST_CASE("Calcular comissão do vendedor") {
