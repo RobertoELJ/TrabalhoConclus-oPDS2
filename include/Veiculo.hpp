@@ -54,7 +54,7 @@ public:
     /** @brief Consulta a disponibilidade do veículo 
      * @return true caso o veículo esteja disponível, false caso o veículo não esteja disponível
     */
-    bool Disponivel() const;
+    bool estaDisponivel() const;
 
     /**
      * @brief Altera a marca do veículo

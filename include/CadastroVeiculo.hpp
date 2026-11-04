@@ -48,10 +48,10 @@ public:
   /**
    * @brief Atualiza os dados de um veículo cadastrado
    * @param placa Placa que identifica o veículo
-   * @param new_Dados Os novos dados que serão cadastrados/atualizados
+   * @param novosDados Os novos dados que serão cadastrados/atualizados
    * @return true se a atualização seja feita, false caso o veículo não exista ou se os dados forem inválidos
    */
-  bool atualizarVeiculo(const std::string& placa, const Veiculo& new_Dados);
+  bool atualizarVeiculo(const std::string& placa, const Veiculo& novosDados);
 
   /**
    * @brief Retorna os veículos cadastrados

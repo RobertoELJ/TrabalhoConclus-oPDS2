@@ -18,7 +18,7 @@ TEST_CASE("Buscar veiculo por placa") {
     CadastroVeiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     registro.cadastrarVeiculo(v);
-    const Veiculo* find = registro.buscarVeiculos("ABC1D23");
+    const Veiculo* find = registro.buscarVeiculo("ABC1D23");
     REQUIRE(find != nullptr);
     CHECK(find->getPlaca() == "ABC1D23");
 }
@@ -30,7 +30,7 @@ TEST_CASE("Atualizar veiculo") {
     registro.cadastrarVeiculo(v);
     CHECK(registro.atualizarVeiculo("ABC1D23", newData) == true);
 
-    const Veiculo* updated = registro.buscarVeiculos("ABC1D23");
+    const Veiculo* updated = registro.buscarVeiculo("ABC1D23");
     REQUIRE(updated != nullptr);
     CHECK(updated->getPreco() == 85000);
 }

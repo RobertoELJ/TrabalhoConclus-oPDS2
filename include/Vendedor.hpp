@@ -19,13 +19,13 @@ public:
     double getPercentualComissao() const;
 
     /** @brief Cadastra um veículo no cadastro informado. */
-    bool cadastrarVeiculo(Cadastro_Veiculos& cadastro, const Veiculo& veiculo);
+    bool cadastrarVeiculo(CadastroVeiculos& cadastro, const Veiculo& veiculo);
 
     /** @brief Consulta um veículo pela placa. */
-    const Veiculo* consultarVeiculo(const Cadastro_Veiculos& cadastro, const std::string& placa) const;
+    const Veiculo* consultarVeiculo(const CadastroVeiculos& cadastro, const std::string& placa) const;
 
     /** @brief Atualiza os dados de um veículo já cadastrado. */
-    bool atualizarVeiculo(Cadastro_Veiculos& cadastro, const std::string& placa, const Veiculo& novosDados);
+    bool atualizarVeiculo(CadastroVeiculos& cadastro, const std::string& placa, const Veiculo& novosDados);
 
     /** @brief Comissão sobre uma venda: valor da venda vezes o percentual, dividido por 100. */
     double calcularComissao(double valorVenda) const;

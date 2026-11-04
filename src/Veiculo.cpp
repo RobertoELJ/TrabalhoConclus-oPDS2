@@ -23,7 +23,7 @@ double Veiculo::getPreco() const {
     return preco;
 }
 
-bool Veiculo::Disponivel() const {
+bool Veiculo::estaDisponivel() const {
     return disponivel;
 }
 
