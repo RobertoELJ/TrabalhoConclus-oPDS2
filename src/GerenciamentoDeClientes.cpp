@@ -1,80 +1,63 @@
+#ifndef GERENCIAMENTODECLIENTES_CPP
+#define GERENCIAMENTODECLIENTES_CPP
 #include "GerenciamentoDeClientes.hpp"
-#include <iostream>
-#include <stdexcept>
-#include <cctype>
 
-bool GerenciamentoDeClientes::validarEmail(const std::string& email) const {
-    if (email.empty()) return false;
-    if (email.front() == '@') return false;
-    if (email.find('@') == std::string::npos) return false;
-    if (email.find('.') == std::string::npos) return false;
-    if (email.find('@') > email.rfind('.')) return false;
-    if (email.find(' ') != std::string::npos) return false;
-    return true;
+bool validarEmail(std::string email) {
+    if(email.find('@') == std::string::npos) {
+        std::cout << "Email inválido." << std::endl;
+        return 1;
+    } else if(email.find('.') == std::string::npos) {
+        std::cout << "Email inválido." << std::endl;
+        return 1;
+    } else if(email.find('@') > email.rfind('.')) {
+        std::cout << "Email inválido." << std::endl;
+        return 1;
+    } else if(email.find(' ') != std::string::npos) {
+        std::cout << "Email inválido." << std::endl;
+        return 1;
+    } else return 0;
 }
 
-bool GerenciamentoDeClientes::validarCPF(const std::string& CPF) const {
-    if (CPF.length() != 11) return false;
-    for (char c : CPF) {
-        if (!std::isdigit(c)) return false;
-    }
-    return true;
+bool validarCPF(std::string CPF) {
+    if(CPF.length() != 11) {
+        std::cout << "CPF inválido." << std::endl;
+        return 1;
+    } else return 0;
 }
 
-void GerenciamentoDeClientes::cadastrarCliente(const std::string& nome, const std::string& email, const std::string& cpf) {
-    if (nome.empty()) {
-        throw std::invalid_argument("Nome invalido.");
+void GerenciamentoDeClientes::cadastrarCliente(std::string nome, std::string email, std::string cpf) {
+    this->nome = nome;
+
+    if(GerenciamentoDeClientes::validarEmail(email)) {
+        this->email = email;
     }
-    if (!validarEmail(email)) {
-        throw std::invalid_argument("Email invalido.");
-    }
-    if (!validarCPF(cpf)) {
-        throw std::invalid_argument("CPF invalido.");
-    }
-    
-    for (const auto& cliente : clientes_) {
-        if (cliente.getCpf() == cpf) {
-            throw std::invalid_argument("CPF ja cadastrado.");
-        }
+    if(GerenciamentoDeClientes::validarCPF(cpf)){
+        this->cpf = cpf;
     }
 
-    clientes_.push_back(Cliente(nome, cpf, email));
-}
-
-int GerenciamentoDeClientes::getQuantidadeClientes() const {
-    return static_cast<int>(clientes_.size());
 }
 
 void GerenciamentoDeClientes::mostrarClientes() const {
-    if (clientes_.empty()) {
-        std::cout << "Nenhum cliente cadastrado." << std::endl;
-        return;
-    }
-
-    for (size_t i = 0; i < clientes_.size(); ++i) {
-        std::cout << "ID: " << i + 1 << std::endl;
-        std::cout << "Nome: " << clientes_[i].getNome() << std::endl;
-        std::cout << "Email: " << clientes_[i].getEmail() << std::endl;
-        std::cout << "CPF: " << clientes_[i].getCpf() << std::endl;
-    }
+   int IdCliente = idCliente;
+   
+    while(idCliente > 0) {
+       std::cout << "ID: " << idCliente << std::endl;
+       std::cout << "Nome: " << nome << std::endl;
+       std::cout << "Email: " << email << std::endl;
+       std::cout << "CPF: " << cpf << std::endl;
+       IdCliente--;
+   }
 }
 
-void GerenciamentoDeClientes::alterarNomeCliente(int id, const std::string& novoNome) {
-    if (id < 1 || id > static_cast<int>(clientes_.size())) {
-        throw std::out_of_range("ID invalido.");
-    }
-    if (novoNome.empty()) {
-        throw std::invalid_argument("Nome invalido.");
-    }
-    clientes_[id - 1].alteraNome(novoNome);
+void GerenciamentoDeClientes::alterarNomeCliente(int id, std::string novoNome) {
+    this->nome = novoNome;
 }
 
-void GerenciamentoDeClientes::alterarEmailCliente(int id, const std::string& novoEmail) {
-    if (id < 1 || id > static_cast<int>(clientes_.size())) {
-        throw std::out_of_range("ID invalido.");
-    }
-    if (!validarEmail(novoEmail)) {
-        throw std::invalid_argument("Email invalido.");
-    }
-    clientes_[id - 1].alteraEmail(novoEmail);
+void GerenciamentoDeClientes::alterarEmailCliente(int id, std::string novoEmail) {
+    if(validarEmail(novoEmail)) {
+       this->email = novoEmail; 
 }
+}
+
+
+#endif
