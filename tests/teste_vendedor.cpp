@@ -18,14 +18,14 @@ TEST_CASE("Consultar percentual de comissão do vendedor") {
 
 TEST_CASE("Cadastrar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos registro;
+    CadastroVeiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     CHECK(sale.cadastrarVeiculo(registro, v) == true);
 }
 
 TEST_CASE("Consultar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos registro;
+    CadastroVeiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     sale.cadastrarVeiculo(registro,v);
     const Veiculo* find = sale.consultarVeiculo(registro, "ABC1D23");
@@ -35,7 +35,7 @@ TEST_CASE("Consultar veiculo pelo vendedor"){
 
 TEST_CASE("Atualizar veiculo pelo vendedor"){
     Vendedor sale("Nome", "123", 7);
-    Cadastro_Veiculos registro;
+    CadastroVeiculos registro;
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     Veiculo newData("NovaMarca", "NovoModelo", "ABC1D23", 2023, 85000);
     sale.cadastrarVeiculo(registro,v);
