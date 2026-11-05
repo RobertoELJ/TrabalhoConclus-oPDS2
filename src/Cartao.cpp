@@ -10,13 +10,13 @@ Cartao::Cartao(int numeroParcelas, double taxaJuros)
     if (numeroParcelas < 1 || numeroParcelas > MAX_PARCELAS) {
         throw PagamentoInvalidoException("O numero de parcelas deve ser de 1 ate 12.");
     }
-    if (taxaJuros < 0.0) {
+    if (!(taxaJuros >= 0.0)) {
         throw PagamentoInvalidoException("A taxa de juros nao pode ser negativa.");
     }
 }
 
 double Cartao::calcularValorFinal(double precoBase) const {
-    if (precoBase < 0.0) {
+    if (!(precoBase >= 0.0)) {
         throw PagamentoInvalidoException("O preco base nao pode ser negativo.");
     }
     return precoBase * (1.0 + taxaJuros_ / 100.0);

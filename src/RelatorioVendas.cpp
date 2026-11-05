@@ -14,6 +14,9 @@ void RelatorioVendas::adicionar(const Venda& venda) {
 }
 
 std::vector<Venda> RelatorioVendas::vendasDoPeriodo(const std::string& inicio, const std::string& fim) const {
+    if (!Venda::dataValida(inicio) || !Venda::dataValida(fim)) {
+        throw std::invalid_argument("As datas devem estar no formato AAAA-MM-DD.");
+    }
     if (inicio > fim) {
         throw std::invalid_argument("A data inicial nao pode ser depois da final.");
     }
@@ -27,6 +30,9 @@ std::vector<Venda> RelatorioVendas::vendasDoPeriodo(const std::string& inicio, c
 }
 
 std::vector<Venda> RelatorioVendas::vendasDoCliente(const std::string& cpf) const {
+    if (cpf.empty()) {
+        throw std::invalid_argument("Informe o CPF do cliente.");
+    }
     std::vector<Venda> resultado;
     for (const Venda& venda : vendas_) {
         if (venda.estaConcluida() && venda.getCpfCliente() == cpf) {
@@ -45,6 +51,9 @@ double RelatorioVendas::totalVendido(const std::string& inicio, const std::strin
 }
 
 double RelatorioVendas::comissaoDoVendedor(const std::string& idVendedor, const std::string& inicio, const std::string& fim) const {
+    if (idVendedor.empty()) {
+        throw std::invalid_argument("Informe o codigo do vendedor.");
+    }
     double total = 0.0;
     for (const Venda& venda : vendasDoPeriodo(inicio, fim)) {
         if (venda.getIdVendedor() == idVendedor) {

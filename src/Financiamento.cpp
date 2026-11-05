@@ -8,16 +8,16 @@ Financiamento::Financiamento(double entrada, int prazoMeses, double taxaMensal)
     if (prazoMeses <= 0) {
         throw PagamentoInvalidoException("O prazo do financiamento deve ser maior que zero meses.");
     }
-    if (entrada < 0.0) {
+    if (!(entrada >= 0.0)) {
         throw PagamentoInvalidoException("A entrada nao pode ser negativa.");
     }
-    if (taxaMensal < 0.0) {
+    if (!(taxaMensal >= 0.0)) {
         throw PagamentoInvalidoException("A taxa mensal nao pode ser negativa.");
     }
 }
 
 double Financiamento::calcularValorFinal(double precoBase) const {
-    if (precoBase < 0.0) {
+    if (!(precoBase >= 0.0)) {
         throw PagamentoInvalidoException("O preco base nao pode ser negativo.");
     }
     if (entrada_ > precoBase) {

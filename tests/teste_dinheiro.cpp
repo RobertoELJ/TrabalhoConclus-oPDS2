@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "Dinheiro.hpp"
 #include "PagamentoInvalidoException.hpp"
@@ -59,4 +60,11 @@ TEST_CASE("Dinheiro: getters devolvem o que foi informado") {
 TEST_CASE("Dinheiro: descricao menciona dinheiro") {
     Dinheiro d(5.0, 250.0);
     CHECK(d.descricao().find("Dinheiro") != std::string::npos);
+}
+
+TEST_CASE("Dinheiro: valores NaN lancam excecao") {
+    const double invalido = std::nan("");
+    CHECK_THROWS_AS(Dinheiro(invalido, 100.0), PagamentoInvalidoException);
+    CHECK_THROWS_AS(Dinheiro(5.0, invalido), PagamentoInvalidoException);
+    CHECK_THROWS_AS(Dinheiro(5.0, 100.0).calcularValorFinal(invalido), PagamentoInvalidoException);
 }

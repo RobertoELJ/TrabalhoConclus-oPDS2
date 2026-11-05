@@ -8,13 +8,13 @@ const double TOLERANCIA = 0.005;
 }
 
 Pix::Pix(double valorPago) : valorPago_(valorPago) {
-    if (valorPago < 0.0) {
+    if (!(valorPago >= 0.0)) {
         throw PagamentoInvalidoException("O valor pago nao pode ser negativo.");
     }
 }
 
 double Pix::calcularValorFinal(double precoBase) const {
-    if (precoBase < 0.0) {
+    if (!(precoBase >= 0.0)) {
         throw PagamentoInvalidoException("O preco base nao pode ser negativo.");
     }
     return precoBase;

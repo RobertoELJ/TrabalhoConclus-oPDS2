@@ -4,7 +4,10 @@
 
 ItemCarrinho::ItemCarrinho(const std::string& descricao, double precoUnitario, int quantidade)
     : descricao_(descricao), precoUnitario_(precoUnitario), quantidade_(quantidade) {
-    if (precoUnitario <= 0.0) {
+    if (descricao.empty()) {
+        throw PagamentoInvalidoException("O item precisa de uma descricao.");
+    }
+    if (!(precoUnitario > 0.0)) {
         throw PagamentoInvalidoException("O preco do item deve ser maior que zero.");
     }
     if (quantidade <= 0) {

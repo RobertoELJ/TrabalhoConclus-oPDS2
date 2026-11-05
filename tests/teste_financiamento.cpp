@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "Financiamento.hpp"
 #include "PagamentoInvalidoException.hpp"
@@ -64,4 +65,11 @@ TEST_CASE("Financiamento: getters devolvem o que foi informado") {
 TEST_CASE("Financiamento: descricao mostra o prazo") {
     Financiamento f(300.0, 24, 1.5);
     CHECK(f.descricao().find("24x") != std::string::npos);
+}
+
+TEST_CASE("Financiamento: entrada, taxa e preco NaN lancam excecao") {
+    const double invalido = std::nan("");
+    CHECK_THROWS_AS(Financiamento(invalido, 10, 2.0), PagamentoInvalidoException);
+    CHECK_THROWS_AS(Financiamento(100.0, 10, invalido), PagamentoInvalidoException);
+    CHECK_THROWS_AS(Financiamento(100.0, 10, 2.0).calcularValorFinal(invalido), PagamentoInvalidoException);
 }

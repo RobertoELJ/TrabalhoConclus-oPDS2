@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "Pix.hpp"
 #include "PagamentoInvalidoException.hpp"
@@ -39,4 +40,10 @@ TEST_CASE("Pix: getter devolve o valor pago") {
 TEST_CASE("Pix: descricao menciona PIX") {
     Pix p(120.0);
     CHECK(p.descricao().find("PIX") != std::string::npos);
+}
+
+TEST_CASE("Pix: valores NaN lancam excecao") {
+    const double invalido = std::nan("");
+    CHECK_THROWS_AS(Pix(std::nan("")), PagamentoInvalidoException);
+    CHECK_THROWS_AS(Pix(10.0).calcularValorFinal(invalido), PagamentoInvalidoException);
 }
