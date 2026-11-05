@@ -20,7 +20,7 @@ bool CadastroVeiculos::placaCadastrada(const std::string& placa) const {
     return false;
 }
 
-const Veiculo* CadastroVeiculos::buscarVeiculos(const std::string& placa) const {
+const Veiculo* CadastroVeiculos::buscarVeiculo(const std::string& placa) const {
     for (const Veiculo& veiculo : veiculos) {
         if (veiculo.getPlaca() == placa) {
             return &veiculo;
