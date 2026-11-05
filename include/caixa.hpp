@@ -21,6 +21,7 @@ private:
      * @brief Venda que está sendo realizada atualmente.
      */
     Venda* vendaAtual;
+    FormaPagamento* pagamentoAtual;
 
 public:
 
