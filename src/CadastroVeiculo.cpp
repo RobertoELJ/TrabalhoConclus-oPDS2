@@ -1,3 +1,5 @@
+#include "CadastroVeiculo.hpp"
+
 bool CadastroVeiculos::cadastrarVeiculo(const Veiculo& veiculo) {
     if (!veiculo.validarDados()) {
         return false;
