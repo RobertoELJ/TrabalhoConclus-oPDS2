@@ -50,4 +50,4 @@ O Makefile usa sozinho todos os `.cpp` de `src/` e todos os `tests/teste_*.cpp`;
 - `Carrinho` guarda os itens (`ItemCarrinho`) e calcula o total.
 - `Venda` junta cliente, vendedor, carrinho e pagamento: confere o desconto com o gerente, calcula a comissão, cancela e gera o comprovante. Dar baixa no estoque é papel de quem chama (o Caixa).
 - `RelatorioVendas` soma o total vendido e a comissão de um vendedor num período (datas `AAAA-MM-DD`) e lista as compras de um cliente pelo CPF; vendas canceladas ficam de fora.
-- Erros: `PagamentoInvalidoException` e `PermissaoNegadaException`.
+- Erros: `PagamentoInvalidoException` (dado inválido, inclusive NaN, ou data fora de AAAA-MM-DD) e `PermissaoNegadaException` (desconto sem aprovação do gerente). O relatório lança `std::invalid_argument` para período, CPF ou código vazio. Quem chama (o Caixa) captura.
