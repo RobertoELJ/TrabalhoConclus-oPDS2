@@ -80,18 +80,6 @@ public:
      */
     void alterarEmailCliente(int id, const std::string& novoEmail);
 
-    /**
-     * @brief transforma os clientes em strings (nome;cpf;email) pra salvar no txt
-     * @return vetor com as linhas formatadas
-     */
-    std::vector<std::string> paraLinhas() const;
-
-    /**
-     * @brief le o vetor de strings vindo do txt e cadastra a galera toda
-     * @param linhas linhas lidas do txt
-     * @throws std::invalid_argument se alguma linha tiver bugada (mostra o numero da linha no erro)
-     */
-    void carregarDeLinhas(const std::vector<std::string>& linhas);
 };
 
 #endif

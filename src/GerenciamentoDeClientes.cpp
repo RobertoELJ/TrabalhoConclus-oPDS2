@@ -3,24 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <cctype>
-#include <sstream>
 
-namespace {
-
-// fatiador de string padrao usando stringstream
-std::vector<std::string> dividirCampos(const std::string& linha) {
-    std::vector<std::string> campos;
-    std::stringstream ss(linha);
-    std::string pedaco;
-    
-    // corta no ponto e virgula
-    while (std::getline(ss, pedaco, ';')) {
-        campos.push_back(pedaco);
-    }
-    return campos;
-}
-
-}  // namespace
 
 bool GerenciamentoDeClientes::nomeValido(const std::string& nome) const {
     return !nome.empty() && nome.find_first_of(";\r\n") == std::string::npos;
@@ -114,36 +97,3 @@ void GerenciamentoDeClientes::alterarEmailCliente(int id, const std::string& nov
     clientes_[id - 1].alteraEmail(novoEmail);
 }
 
-std::vector<std::string> GerenciamentoDeClientes::paraLinhas() const {
-    std::vector<std::string> linhas;
-    // formata pra id;cpf;email usando auto
-    for (const auto& cliente : clientes_) {
-        linhas.push_back(cliente.getNome() + ";" + cliente.getCpf() + ";" + cliente.getEmail());
-    }
-    return linhas;
-}
-
-void GerenciamentoDeClientes::carregarDeLinhas(const std::vector<std::string>& linhas) {
-    GerenciamentoDeClientes temporario(*this); // copia de backup
-    
-    int numeroLinha = 1;
-    for (const auto& linha : linhas) {
-        std::string onde = "Linha " + std::to_string(numeroLinha) + " de clientes: ";
-        
-        auto campos = dividirCampos(linha);
-        if (campos.size() != 3) {
-            throw std::invalid_argument(onde + "formato invalido (esperado nome;cpf;email).");
-        }
-        
-        try {
-            // arrumado! assinatura eh (nome, email, cpf) e txt eh (0=nome, 1=cpf, 2=email)
-            temporario.cadastrarCliente(campos[0], campos[2], campos[1]);
-        } catch (const std::invalid_argument& erro) {
-            throw std::invalid_argument(onde + erro.what());
-        }
-        numeroLinha++;
-    }
-    
-    // se nao quebrou em nenhuma linha, efetiva a mudanca
-    clientes_.swap(temporario.clientes_);
-}
