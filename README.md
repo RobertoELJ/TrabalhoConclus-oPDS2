@@ -23,8 +23,6 @@ Uma loja de carros precisa controlar, ao mesmo tempo, os veículos que tem para 
 
 ## Motivação:
 
-E## Motivação
-
 O tema surgiu como uma ideia de  integrante do grupo, e o grupo aderiu. Não partimos de um problema real de uma loja específica, apenas escolhemos loja de carros por ser um domínio fácil de entender para todos e para diferenciar dos outros grupos. 
 
 ## Funcionalidades:
