@@ -1,46 +1,68 @@
 #ifndef ESTOQUE_HPP
 #define ESTOQUE_HPP
 
+#include <map>
 #include <string>
-//suzane ferreira 
+#include <vector>
+
 /**
- @brief Classe responsável por gerenciar o estoque de produtos da loja.
- 
-Armazena e controla a quantidade dos itens, permitindo adicionar,
-buscar e dar baixa em produtos, além de alertar sobre estoque esgotado.
+ * @brief classe responsável por gerenciar o estoque de produtos
  */
 class Estoque {
 private:
-    /**
-     @brief Quantidade total de itens atualmente no estoque.
-     */
-    int quantidadeTotalItens;
+    struct Produto {
+        std::string descricao;
+        int quantidade;
+    };
+
+    std::map<int, Produto> produtos_;
+
+    const Produto& obterProduto(int id) const;
 
 public:
-    /**
-     @brief Adiciona um novo produto à lista do estoque.
-     */
-    void adicionarProduto();
+    Estoque();
 
     /**
-     @brief Busca um produto específico utilizando o seu identificador.
-     @param id Identificador único (ID) numérico do produto procurado.
+     * @brief 
+     * @param id ID do produto, deve ser > 0
+     * @param descricao Nome do produto 
+     * @param quantidade Quantidade a adicionar
      */
-    void buscarProdutoPorId(int id);
+    void adicionarProduto(int id, const std::string& descricao, int quantidade);
 
     /**
-     @brief Diminui a quantidade de um produto no estoque após uma venda.
-     @param id Identificador único (ID) numérico do produto vendido.
-     @param quantidadeComprada Quantidade de itens que foram comprados e devem ser debitados.
+     * @brief 
+     * @param id ID do produto
+     * @return Quantidade atual no estoque
      */
-    void darBaixaQuantidade(int id, int quantidadeComprada);
+    int buscarProdutoPorId(int id) const;
 
     /**
-     @brief Verifica se um produto está com a quantidade zerada (esgotado).
-     @param id Identificador único (ID) do produto a ser verificado.
-     @return true se o produto estiver esgotado, false caso ainda haja estoque.
+     * @brief 
+     * @param id ID do produto
      */
-    bool alertarProdutoEsgotado(int id);
+    std::string getDescricaoProduto(int id) const;
+
+    /**
+     * @brief 
+     * @param id ID do produto
+     * @param qtd Quantidade vendida 
+     */
+    void darBaixaQuantidade(int id, int qtd);
+
+    /**
+     * @brief 
+     * @param id ID do produto
+     * @param qtd Quantidade devolvida
+     */
+    void devolverQuantidade(int id, int qtd);
+
+    // vai verificar se o estoque do produto zerou
+    bool alertarProdutoEsgotado(int id) const;
+
+    long long getTotalItens() const;
+
+    std::vector<int> listarIds() const;
 };
 
 #endif
