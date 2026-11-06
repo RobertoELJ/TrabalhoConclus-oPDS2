@@ -1,10 +1,25 @@
 USER STORIES (ESTOQUE E PERSISTÊNCIA)
 
-1. Cadastro e Entrada de Novos Produtos:
-- Descrição: Como funcionário responsável pelo Estoque, eu quero cadastrar novos produtos no sistema e atualizar a quantidade de itens recebidos, para que o setor de Vendas saiba o que está disponível.
-- Critérios de Validação: O sistema não pode aceitar o cadastro sem nome, código (ID) e preço válido; a quantidade nunca pode ser negativa; se o código já existir, o sistema deve apenas somar a quantidade.
+1. Cadastro e Entrada de Produtos
+- Descrição: Como funcionário, eu quero cadastrar produtos e registrar a entrada de novos, para que saibam o que está disponível.
+- Critérios de Validação:
+  - O produto só é aceito com ID maior que zero, descrição não vazia e quantidade maior que zero; caso contrário o sistema informa o erro.
+  - Se o ID já existir com a mesma descrição, a quantidade informada é somada à que já estava no estoque.
+  - Se o ID já existir com uma descrição diferente, o cadastro é recusado e o estoque não muda.
+  - Ao consultar um ID que não existe, o sistema informa que o produto não foi encontrado.
 
-2. Salvamento e Recuperação de Dados:
-- Descrição: Como administrador do sistema, eu quero que todos os dados (estoque, veículos e clientes) sejam salvos em arquivos ao fechar o programa e carregados ao abrir, para não perder informações.
-- Critérios de Validação: O sistema deve criar um arquivo automaticamente se for a primeira vez; adições de novos clientes/produtos devem refletir no arquivo; o programa não pode fechar com erro se o arquivo estiver vazio.
+2. Baixa no Estoque após a Venda
+- Descrição: Como vendedor, eu quero que a quantidade do produto diminua quando uma venda é feita, para não vender mais do que existe.
+- Critérios de Validação:
+  - A baixa diminui a quantidade do produto exatamente no valor vendido.
+  - Se a quantidade pedida for maior que o saldo, a baixa é recusada com uma mensagem de erro e o estoque não muda.
+  - Quantidade zero ou negativa na baixa é recusada.
+  - Quando a quantidade chega a zero, o sistema indica que o produto está esgotado.
 
+3. Salvamento e Recuperação do Estoque
+- Descrição: Como administrador do sistema, eu quero que o estoque seja salvo em arquivo ao fechar o programa e carregado ao abrir, para não perder as informações.
+- Critérios de Validação:
+  - Na primeira execução, se o arquivo não existir, o sistema cria um arquivo vazio e começa com o estoque vazio, sem erro.
+  - Ao abrir, o sistema carrega os produtos gravados na última execução, com as mesmas quantidades.
+  - Se uma linha do arquivo estiver inválida, o sistema informa o nome do arquivo e o número da linha, e não carrega nenhum produto pela metade.
+  - Ao fechar, o sistema grava o estoque atual no arquivo, substituindo o conteúdo anterior.

@@ -7,23 +7,27 @@
     "responsibilities": [
       "Conhecimento:",
       "",
-      "Sabe quais são todos os produtos guardados",
+      "Sabe quais produtos existem (ID e descrição)",
       "",
-      "Conhece a quantidade atualizada de cada item",
+      "Sabe a quantidade disponível de cada produto",
       "",
       "Realização:",
       "",
-      "Adiciona um novo Produto à lista",
+      "Adiciona um produto novo ou repõe a quantidade de um que já existe",
       "",
-      "Busca um produto pelo ID",
+      "Busca a quantidade de um produto pelo ID",
       "",
-      "Dá baixa na quantidade após uma compra",
+      "Dá baixa na quantidade depois de uma venda, recusando uma q seja maior que o saldo",
       "",
-      "Alerta se um produto está esgotado"
+      "Avisa quando um produto esta esgotado",
+      "",
+      "Informa o total de itens e a lista de IDs cadastrados",
+      "",
+      "Recusa dados inválidos (ID, descrição ou quantidade) e lança uma exceção"
     ],
     "collaborators": [
-      "Produto",
-      "Venda"
+      "GerenciadorDeArquivos",
+      "Caixa"
     ]
   },
   {
@@ -34,22 +38,23 @@
     "responsibilities": [
       "Conhecimento:",
       "",
-      "Conhece os caminhos dos arquivos (.txt)",
-      "",
-      "Sabe o status atual do arquivo (aberto/fechado/erro)",
+      "Sabe onde fica o arquivo de texto do estoque (pasta data/)",
       "",
       "Realização:",
       "",
-      "Lê os dados ao iniciar o programa",
+      "Cria o arquivo vazio caso ele ainda não exista",
       "",
-      "Grava as listas atualizadas de clientes, veículos e produtos antes de fechar",
+      "Le as linhas de um arquivo de texto e grava linhas nele",
       "",
-      "Cria um arquivo novo caso não exista"
+      "Carrega o estoque ao iniciar o programa, validando cada linha",
+      "",
+      "Grava o estoque no arquivo antes de o programa fechar",
+      "",
+      "Informa o arquivo e a linha quando encontra um dado inválido"
     ],
     "collaborators": [
       "Estoque",
-      "Cliente",
-      "Veículo"
+      "Menu (main)"
     ]
   }
 ]
