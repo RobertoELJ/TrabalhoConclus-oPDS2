@@ -1,20 +1,6 @@
 #include "Veiculo.hpp"
 #include <stdexcept>
-#include <cmath>
 
-namespace{
-    bool textoValido(const std::string& texto) {
-        return texto.find_first_not_of(" \t\n\r") != std::string::npos;
-    }
-
-    bool anoValido(int ano) {
-        return ano >= 1886 && ano < 2027;
-    }
-
-    bool precoValido(double preco) {
-        return std::isfinite(preco) && preco >= 0;
-    }
-}
 
 Veiculo::Veiculo(const std::string& marca, const std::string& modelo, const std::string& placa, int ano, double preco)
     : marca(marca), modelo(modelo), placa(placa), ano(ano), preco(preco), disponivel(true) {
@@ -50,7 +36,7 @@ bool Veiculo::estaDisponivel() const {
 
 std::string Veiculo::setMarca(const std::string& newMarca) {
 
-    if (!textoValido(newMarca)) {
+    if (newMarca.empty()) {
         throw std::invalid_argument("Marca invalida");
     }
 
@@ -60,7 +46,7 @@ std::string Veiculo::setMarca(const std::string& newMarca) {
 
 std::string Veiculo::setModelo(const std::string& newModelo) {
 
-    if (!textoValido(newModelo)) {
+    if (newModelo.empty()) {
         throw std::invalid_argument("Modelo invalido");
     }
 
@@ -70,7 +56,7 @@ std::string Veiculo::setModelo(const std::string& newModelo) {
 
 int Veiculo::setAno(int newAno) {
 
-    if (!anoValido(newAno)) {
+    if (newAno <=0) {
         throw std::invalid_argument("Ano invalido");
     }
 
@@ -80,7 +66,7 @@ int Veiculo::setAno(int newAno) {
 
 double Veiculo::setPreco(double newPreco) {
 
-    if (!precoValido(newPreco)) {
+    if (newPreco < 0) {
         throw std::invalid_argument("Preco invalido");
     }
 
@@ -95,15 +81,15 @@ bool Veiculo::setDisponivel(bool newDisponivel) {
 
 bool Veiculo::validarDados() const {
 
-    if(!textoValido(marca) || !textoValido(modelo) || !textoValido(placa)) {
+    if (marca.empty() || modelo.empty() || placa.empty()) {
         return false;
     }
 
-    if (!anoValido(ano)) { 
+    if (ano <= 0) { 
         return false;
     }
 
-    if (!precoValido(preco)) {
+    if (preco < 0) {
         return false;
     }
     return true;
