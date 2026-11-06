@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "Boleto.hpp"
 #include "PagamentoInvalidoException.hpp"
@@ -53,4 +54,8 @@ TEST_CASE("Boleto: descricao mostra as parcelas e o prazo") {
     Boleto b(3, 5);
     CHECK(b.descricao().find("3x") != std::string::npos);
     CHECK(b.descricao().find("5 dias") != std::string::npos);
+}
+
+TEST_CASE("Boleto: preco NaN lanca excecao") {
+    CHECK_THROWS_AS(Boleto(3, 5).calcularValorFinal(std::nan("")), PagamentoInvalidoException);
 }

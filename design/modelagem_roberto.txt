@@ -5,7 +5,7 @@ git USER STORIES (PESSOAS)
 *Criterios de aceitação:
     Deve ser possivel cadastrar um cliente utilizando seu Nome, email e CPF
 
-    O sistema deve permitir a alteração do email do cliente caso ele queira trocar de conta, de forma que não perda os dados relacionados a primeira.
+    O sistema deve permitir a alteração do email do cliente caso ele queira trocar de conta.
 
     O sistema deve validar suas informações como email e CPF de forma que contemplem formatos reais
 

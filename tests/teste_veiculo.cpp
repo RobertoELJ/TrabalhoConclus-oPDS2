@@ -29,7 +29,7 @@ TEST_CASE("Consultar Preco"){
 TEST_CASE("Consultar Disponibilidade"){
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     v.setDisponivel(true);
-    CHECK(v.Disponivel() == true);
+    CHECK(v.estaDisponivel() == true);
 }
 
 TEST_CASE("Alterar Marca"){
@@ -59,7 +59,7 @@ TEST_CASE("Alterar Preco"){
 TEST_CASE("Alterar Disponibilidade"){
     Veiculo v("Marca", "Modelo", "ABC1D23", 2026, 75000);
     v.setDisponivel(false);
-    CHECK(v.Disponivel() == false);
+    CHECK(v.estaDisponivel() == false);
 }
 
 TEST_CASE("Validar os dados do veiculo"){

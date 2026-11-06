@@ -1,5 +1,7 @@
 #include "Venda.hpp"
 
+#include <cctype>
+#include <cstdlib>
 #include <iomanip>
 #include <sstream>
 #include "Cliente.hpp"
@@ -27,7 +29,7 @@ void Venda::finalizar(FormaPagamento* pagamento, double percentualDesconto, Gere
     if (pagamento == nullptr) {
         throw PagamentoInvalidoException("Escolha uma forma de pagamento.");
     }
-    if (percentualDesconto < 0.0 || percentualDesconto > 100.0) {
+    if (!(percentualDesconto >= 0.0 && percentualDesconto <= 100.0)) {
         throw PagamentoInvalidoException("O desconto deve estar entre 0 e 100.");
     }
     if (percentualDesconto > 0.0 && (gerente == nullptr || !gerente->aprovarDesconto(percentualDesconto))) {
@@ -94,8 +96,22 @@ bool Venda::estaCancelada() const {
     return cancelada_;
 }
 
-void Venda::definirData(const std::string& data) {
+bool Venda::dataValida(const std::string& data) {
     if (data.size() != 10 || data[4] != '-' || data[7] != '-') {
+        return false;
+    }
+    for (std::size_t i = 0; i < data.size(); ++i) {
+        if (i != 4 && i != 7 && !std::isdigit(static_cast<unsigned char>(data[i]))) {
+            return false;
+        }
+    }
+    const int mes = std::atoi(data.substr(5, 2).c_str());
+    const int dia = std::atoi(data.substr(8, 2).c_str());
+    return mes >= 1 && mes <= 12 && dia >= 1 && dia <= 31;
+}
+
+void Venda::definirData(const std::string& data) {
+    if (!dataValida(data)) {
         throw PagamentoInvalidoException("A data deve estar no formato AAAA-MM-DD.");
     }
     data_ = data;

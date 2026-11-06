@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "Carrinho.hpp"
 #include "Cartao.hpp"
@@ -203,4 +204,31 @@ TEST_CASE("Venda: devolve o codigo do vendedor") {
     Vendedor vendedor("Joao", "V1", 5.0);
     Venda venda(&cliente, &vendedor, carrinhoDeMil());
     CHECK(venda.getIdVendedor() == "V1");
+}
+
+TEST_CASE("Venda: desconto NaN lanca excecao e nao conclui") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Gerente gerente("Maria", "G1", 2.0, 10.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    Dinheiro pagamento(0.0, 1000.0);
+    CHECK_THROWS_AS(venda.finalizar(&pagamento, std::nan(""), &gerente), PagamentoInvalidoException);
+    CHECK_FALSE(venda.estaConcluida());
+}
+
+TEST_CASE("Venda: data com mes, dia ou letras invalidos lanca excecao") {
+    Cliente cliente("Ana", "123", "ana@email.com");
+    Vendedor vendedor("Joao", "V1", 5.0);
+    Venda venda(&cliente, &vendedor, carrinhoDeMil());
+    CHECK_THROWS_AS(venda.definirData("2026-13-01"), PagamentoInvalidoException);
+    CHECK_THROWS_AS(venda.definirData("2026-10-32"), PagamentoInvalidoException);
+    CHECK_THROWS_AS(venda.definirData("2026-00-10"), PagamentoInvalidoException);
+    CHECK_THROWS_AS(venda.definirData("2026-1a-01"), PagamentoInvalidoException);
+    CHECK(venda.getData() == "");
+}
+
+TEST_CASE("Venda: dataValida confere o formato") {
+    CHECK(Venda::dataValida("2026-10-15"));
+    CHECK_FALSE(Venda::dataValida("15/10/2026"));
+    CHECK_FALSE(Venda::dataValida("2026-10-1"));
 }

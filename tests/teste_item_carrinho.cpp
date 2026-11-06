@@ -1,3 +1,4 @@
+#include <cmath>
 #include "doctest.h"
 #include "ItemCarrinho.hpp"
 #include "PagamentoInvalidoException.hpp"
@@ -33,4 +34,12 @@ TEST_CASE("ItemCarrinho: quantidade zero lanca excecao") {
 
 TEST_CASE("ItemCarrinho: quantidade negativa lanca excecao") {
     CHECK_THROWS_AS(ItemCarrinho("Carro", 100.0, -1), PagamentoInvalidoException);
+}
+
+TEST_CASE("ItemCarrinho: preco NaN lanca excecao") {
+    CHECK_THROWS_AS(ItemCarrinho("Carro", std::nan(""), 1), PagamentoInvalidoException);
+}
+
+TEST_CASE("ItemCarrinho: descricao vazia lanca excecao") {
+    CHECK_THROWS_AS(ItemCarrinho("", 100.0, 1), PagamentoInvalidoException);
 }

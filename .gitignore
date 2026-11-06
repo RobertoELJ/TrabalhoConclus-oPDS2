@@ -1,0 +1,6 @@
+*.o
+*.gcno
+*.gcda
+*.exe
+build/*
+!build/.gitkeep

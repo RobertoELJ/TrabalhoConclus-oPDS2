@@ -16,7 +16,7 @@ Boleto::Boleto(int numeroParcelas, int diasParaVencimento)
 }
 
 double Boleto::calcularValorFinal(double precoBase) const {
-    if (precoBase < 0.0) {
+    if (!(precoBase >= 0.0)) {
         throw PagamentoInvalidoException("O preco base nao pode ser negativo.");
     }
     return precoBase;

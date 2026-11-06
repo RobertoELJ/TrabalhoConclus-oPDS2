@@ -50,6 +50,9 @@ public:
     /** @brief CPF do cliente da venda. */
     std::string getCpfCliente() const;
 
+    /** @brief Diz se o texto está no formato AAAA-MM-DD, com mês de 1 a 12 e dia de 1 a 31. */
+    static bool dataValida(const std::string& data);
+
 private:
     Cliente* cliente_;
     Vendedor* vendedor_;

@@ -116,3 +116,15 @@ TEST_CASE("RelatorioVendas: data inicial depois da final lanca excecao") {
     RelatorioVendas relatorio;
     CHECK_THROWS_AS(relatorio.totalVendido("2026-10-31", "2026-10-01"), std::invalid_argument);
 }
+
+TEST_CASE("RelatorioVendas: periodo com data fora do formato lanca excecao") {
+    RelatorioVendas relatorio;
+    CHECK_THROWS_AS(relatorio.totalVendido("01/10/2026", "2026-10-31"), std::invalid_argument);
+    CHECK_THROWS_AS(relatorio.vendasDoPeriodo("2026-10-01", ""), std::invalid_argument);
+}
+
+TEST_CASE("RelatorioVendas: CPF ou codigo de vendedor vazio lanca excecao") {
+    RelatorioVendas relatorio;
+    CHECK_THROWS_AS(relatorio.vendasDoCliente(""), std::invalid_argument);
+    CHECK_THROWS_AS(relatorio.comissaoDoVendedor("", "2026-10-01", "2026-10-31"), std::invalid_argument);
+}

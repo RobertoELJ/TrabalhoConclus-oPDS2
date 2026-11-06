@@ -1,5 +1,5 @@
 # Makefile
-# Fazendo a base e minhas partes de estoque e persistência - Suzane
+# Refazendo com wildcard e filter-out pra diminuir erros- Suzane
 
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -I include/ --coverage
@@ -11,6 +11,7 @@ TEST_TARGET = build/test_loja
 MAIN_SRC = src/main.cpp
 MAIN_OBJ = $(MAIN_SRC:.cpp=.o)
 
+<<<<<<< HEAD
 # COLOQUEM OS SEUS ARQUIVOS .cpp AQUI EMBAIXO pf!
 # Não esqueçam de colocar a barra invertida \ no final da linha ao adicionar
 SRC_FILES = src/Estoque.cpp \
@@ -34,6 +35,13 @@ TEST_FILES += tests/teste_boleto.cpp \
 			tests/teste_polimorfismo_pagamento.cpp \
 			tests/teste_relatorio_vendas.cpp \
 			tests/teste_venda.cpp 
+=======
+# Busca automática de todos os .cpp em src/, excluindo o main.cpp
+SRC_FILES = $(filter-out $(MAIN_SRC), $(wildcard src/*.cpp))
+
+# Busca automática de todos os arquivos de teste na pasta tests/
+TEST_FILES = $(wildcard tests/*.cpp)
+>>>>>>> 6dba5e13f6db01fd78dd30672431c7efa4312e84
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 TEST_OBJ_FILES = $(TEST_FILES:.cpp=.o)

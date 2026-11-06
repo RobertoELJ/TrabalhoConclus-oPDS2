@@ -9,16 +9,16 @@ const double TOLERANCIA = 0.005;
 
 Dinheiro::Dinheiro(double percentualDesconto, double valorPago)
     : percentualDesconto_(percentualDesconto), valorPago_(valorPago) {
-    if (percentualDesconto < 0.0 || percentualDesconto > 100.0) {
+    if (!(percentualDesconto >= 0.0 && percentualDesconto <= 100.0)) {
         throw PagamentoInvalidoException("O desconto deve estar entre 0 e 100.");
     }
-    if (valorPago < 0.0) {
+    if (!(valorPago >= 0.0)) {
         throw PagamentoInvalidoException("O valor pago nao pode ser negativo.");
     }
 }
 
 double Dinheiro::calcularValorFinal(double precoBase) const {
-    if (precoBase < 0.0) {
+    if (!(precoBase >= 0.0)) {
         throw PagamentoInvalidoException("O preco base nao pode ser negativo.");
     }
     return precoBase * (1.0 - percentualDesconto_ / 100.0);
