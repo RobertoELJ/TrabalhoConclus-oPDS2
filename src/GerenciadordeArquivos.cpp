@@ -4,7 +4,6 @@
 #include <sstream>
 #include <stdexcept>
 
-// namespace anonimo pra esconder os helpers do main
 namespace {
 
 // corta a string usando o ponto e virgula
@@ -16,6 +15,10 @@ std::vector<std::string> dividirCampos(const std::string& linha) {
     while (std::getline(ss, pedaco, ';')) {
         campos.push_back(pedaco);
     }
+    // lida com o caso do ultimo campo ser vazio (ex: "1;Pneu;")
+    if (!linha.empty() && linha.back() == ';') {
+        campos.push_back("");
+    }
     return campos;
 }
 
@@ -24,13 +27,31 @@ std::string descreverLinha(const std::string& caminho, int numeroLinha) {
     return "Arquivo '" + caminho + "', linha " + std::to_string(numeroLinha) + ": ";
 }
 
+// converte string pra int garantindo que toda a string foi consumida
+int converterInteiro(const std::string& texto, const std::string& onde) {
+    std::size_t usados = 0;
+    int valor = 0;
+    try {
+        valor = std::stoi(texto, &usados);
+    } catch (const std::exception&) {
+        throw std::runtime_error(onde + "id ou quantidade nao e um numero inteiro valido.");
+    }
+    if (usados != texto.size()) {
+        throw std::runtime_error(onde + "id ou quantidade nao e um numero inteiro valido.");
+    }
+    return valor;
+}
+
 }  // namespace
 
 GerenciadorDeArquivos::GerenciadorDeArquivos(const std::string& pastaDados) {
     if (pastaDados.empty()) {
         throw std::invalid_argument("A pasta de dados nao pode ser vazia.");
     }
-    caminhoArquivoEstoque_ = pastaDados + "/estoque.txt";
+    
+    // garante que o caminho tenha formatacao correta
+    std::string barra = (pastaDados.back() == '/' || pastaDados.back() == '\\') ? "" : "/";
+    caminhoArquivoEstoque_ = pastaDados + barra + "estoque.txt";
 }
 
 void GerenciadorDeArquivos::criarArquivoCasoNaoExista(const std::string& caminho) const {
@@ -38,7 +59,6 @@ void GerenciadorDeArquivos::criarArquivoCasoNaoExista(const std::string& caminho
         throw std::invalid_argument("O caminho do arquivo nao pode ser vazio.");
     }
     
-    // c++11 ja aceita a string direto, n precisa do c_str()
     std::ifstream existente(caminho);
     if (existente.good()) {
         return;
@@ -58,7 +78,7 @@ std::vector<std::string> GerenciadorDeArquivos::lerLinhas(const std::string& cam
     std::vector<std::string> linhas;
     std::string linha;
     while (std::getline(arquivo, linha)) {
-        // limpa o '\r' chato do windows se tiver
+        // limpa o '\r' do windows se existir
         if (!linha.empty() && linha.back() == '\r') {
             linha.pop_back();
         }
@@ -86,7 +106,6 @@ void GerenciadorDeArquivos::gravarLinhas(const std::string& caminho, const std::
 
 void GerenciadorDeArquivos::gravarListasAntesDeFechar(const Estoque& estoque) const {
     std::vector<std::string> linhas;
-    // montando o formato id;descricao;quantidade
     for (int id : estoque.listarIds()) {
         std::ostringstream linha;
         linha << id << ';' << estoque.getDescricaoProduto(id) << ';' << estoque.buscarProdutoPorId(id);
@@ -99,7 +118,7 @@ void GerenciadorDeArquivos::lerDadosAoIniciar(Estoque& estoque) const {
     criarArquivoCasoNaoExista(caminhoArquivoEstoque_);
     auto linhas = lerLinhas(caminhoArquivoEstoque_);
 
-    // backup pro caso de dar pau na metade da leitura do txt
+    // trabalha num backup temporario pra preservar a integridade do estoque caso falhe
     Estoque temporario = estoque;
     int numeroLinha = 1;
     
@@ -111,20 +130,15 @@ void GerenciadorDeArquivos::lerDadosAoIniciar(Estoque& estoque) const {
             throw std::runtime_error(onde + "formato invalido (esperado id;descricao;quantidade).");
         }
         
+        int id = converterInteiro(campos[0], onde);
+        int quantidade = converterInteiro(campos[2], onde);
+        
         try {
-            // std::stoi eh a forma padrao do c++ (melhor que strtol)
-            int id = std::stoi(campos[0]);
-            int quantidade = std::stoi(campos[2]);
             temporario.adicionarProduto(id, campos[1], quantidade);
-        } catch (const std::invalid_argument&) {
-            throw std::runtime_error(onde + "id ou quantidade nao e um numero inteiro valido.");
-        } catch (const std::out_of_range&) {
-            // manter a mesma mensagem se o stoi estourar pra n quebrar os testes do vpl
-            throw std::runtime_error(onde + "id ou quantidade nao e um numero inteiro valido."); 
         } catch (const std::exception& erro) {
-            // repassa os erros de negocio
             throw std::runtime_error(onde + erro.what());
         }
+        
         numeroLinha++;
     }
     estoque = temporario;
