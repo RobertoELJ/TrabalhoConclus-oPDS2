@@ -6,72 +6,92 @@
 #include "Cliente.hpp"
 
 /**
- * @brief Classe responsável por gerenciar os clientes cadastrados no sistema.
+ * @brief Classe responsavel por gerenciar os clientes do sistema.
  */
 class GerenciamentoDeClientes {
 private:
-    /** @brief Vetor que armazena todos os clientes cadastrados. */
+    /** @brief vetor com todos os clientes cadastrados */
     std::vector<Cliente> clientes_;
 
     /**
-     * @brief Valida o formato do e-mail (apenas um @, ponto após @ com caractere intermediário, sem espaços).
-     * @param email E-mail a ser validado.
-     * @return true se o e-mail for válido, false caso contrário.
+     * @brief valida se o email ta no formato certo (tem q ter @ e ponto, sem espaco)
+     * @param email email pra validar
+     * @return true se for valido, false se nao
      */
     bool validarEmail(const std::string& email) const;
 
     /**
-     * @brief Valida o formato do CPF (exatamente 11 dígitos numéricos).
-     * @param cpf CPF a ser validado.
-     * @return true se o CPF for válido, false caso contrário.
+     * @brief valida se o cpf tem exatamente 11 numeros
+     * @param cpf cpf pra validar
+     * @return true se o cpf for valido
      */
     bool validarCPF(const std::string& cpf) const;
 
     /**
-     * @brief Valida se um ID corresponde a uma posição existente no vetor.
-     * @param id Identificador do cliente.
-     * @throws std::out_of_range Se o ID for menor que 1 ou maior que o tamanho da lista.
+     * @brief checa se o id passado realmente existe no vetor
+     * @param id identificador do cliente
+     * @throws std::out_of_range se o id for menor q 1 ou maior q o tamanho do vetor
      */
     void validarId(int id) const;
 
+    /**
+     * @brief checa se o nome nao ta vazio ou com caracteres zuados (tipo ; ou quebra de linha)
+     * @param nome nome pra validar
+     * @return true se o nome for de boa
+     */
+    bool nomeValido(const std::string& nome) const;
+
 public:
     /**
-     * @brief Cadastra um novo cliente no sistema.
-     * @param nome Nome do cliente.
-     * @param email Email do cliente.
-     * @param cpf CPF do cliente.
-     * @throws std::invalid_argument Se nome, email ou cpf forem inválidos, ou se o CPF já existir.
+     * @brief cadastra um cliente novo
+     * @param nome nome do cliente
+     * @param email email do cliente
+     * @param cpf cpf do cliente
+     * @throws std::invalid_argument se algum dado for invalido ou se o cpf ja existir
      */
     void cadastrarCliente(const std::string& nome, const std::string& email, const std::string& cpf);
 
     /**
-     * @brief Retorna a quantidade total de clientes cadastrados.
-     * @return Número inteiro com o total de clientes.
+     * @brief retorna o total de clientes cadastrados
+     * @return inteiro com o tamanho do vetor de clientes
      */
     int getQuantidadeClientes() const;
 
     /**
-     * @brief Imprime no terminal a lista com todos os clientes cadastrados.
+     * @brief printa todos os clientes na tela
      */
     void mostrarClientes() const;
     
     /**
-     * @brief Altera o nome de um cliente existente.
-     * @param id Identificador do cliente (posição + 1).
-     * @param novoNome Novo nome que substituirá o atual.
-     * @throws std::out_of_range Se o ID informado for inválido.
-     * @throws std::invalid_argument Se o novo nome for vazio.
+     * @brief muda o nome do cliente
+     * @param id id do cliente (posicao do vetor + 1)
+     * @param novoNome novo nome que vai ficar
+     * @throws std::out_of_range se o id nao existir
+     * @throws std::invalid_argument se o nome novo for vazio
      */
     void alterarNomeCliente(int id, const std::string& novoNome);
     
     /**
-     * @brief Altera o email de um cliente existente.
-     * @param id Identificador do cliente (posição + 1).
-     * @param novoEmail Novo email que substituirá o atual.
-     * @throws std::out_of_range Se o ID informado for inválido.
-     * @throws std::invalid_argument Se o novo email for inválido.
+     * @brief muda o email do cliente
+     * @param id id do cliente (posicao do vetor + 1)
+     * @param novoEmail novo email que vai ficar
+     * @throws std::out_of_range se o id nao existir
+     * @throws std::invalid_argument se o email novo for invalido
      */
     void alterarEmailCliente(int id, const std::string& novoEmail);
+
+    /**
+     * @brief transforma os clientes em strings (nome;cpf;email) pra salvar no txt
+     * @return vetor com as linhas formatadas
+     */
+    std::vector<std::string> paraLinhas() const;
+
+    /**
+     * @brief le o vetor de strings vindo do txt e cadastra a galera toda
+     * @param linhas linhas lidas do txt
+     * @throws std::invalid_argument se alguma linha tiver bugada (mostra o numero da linha no erro)
+     */
+    void carregarDeLinhas(const std::vector<std::string>& linhas);
 };
 
 #endif
