@@ -3,8 +3,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <cctype>
-#include <sstream>
 
+<<<<<<< HEAD
 GerenciamentoDeClientes::~GerenciamentoDeClientes() {}
 
 namespace {
@@ -23,6 +23,8 @@ std::vector<std::string> dividirCampos(const std::string& linha) {
 }
 
 }  // namespace
+=======
+>>>>>>> 2bee1a0d942f3d931169c670642cb3b331e67cdb
 
 bool GerenciamentoDeClientes::nomeValido(const std::string& nome) const {
     return !nome.empty() && nome.find_first_of(";\r\n") == std::string::npos;
@@ -116,6 +118,7 @@ void GerenciamentoDeClientes::alterarEmailCliente(int id, const std::string& nov
     clientes_[id - 1].alteraEmail(novoEmail);
 }
 
+<<<<<<< HEAD
 std::vector<std::string> GerenciamentoDeClientes::paraLinhas() const {
     std::vector<std::string> linhas;
     // formata pra id;cpf;email usando auto
@@ -160,3 +163,5 @@ Cliente* GerenciamentoDeClientes::buscarCliente(int id) {
     // retorna o ponteiro para o cliente; índice id - 1
     return &clientes_[id - 1];
 }
+=======
+>>>>>>> 2bee1a0d942f3d931169c670642cb3b331e67cdb
