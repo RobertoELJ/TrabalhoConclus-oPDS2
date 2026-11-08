@@ -6,7 +6,7 @@
 #include "Cliente.hpp"
 
 /**
- * @brief Classe responsavel por gerenciar os clientes do sistema.
+ * @brief Classe responsavel por gerenciar a colecao de clientes do sistema.
  */
 class GerenciamentoDeClientes {
 private:
@@ -14,34 +14,17 @@ private:
     std::vector<Cliente> clientes_;
 
     /**
-     * @brief valida se o email ta no formato certo (tem q ter @ e ponto, sem espaco)
-     * @param email email pra validar
-     * @return true se for valido, false se nao
-     */
-    bool validarEmail(const std::string& email) const;
-
-    /**
-     * @brief valida se o cpf tem exatamente 11 numeros
-     * @param cpf cpf pra validar
-     * @return true se o cpf for valido
-     */
-    bool validarCPF(const std::string& cpf) const;
-
-    /**
      * @brief checa se o id passado realmente existe no vetor
-     * @param id identificador do cliente
-     * @throws std::out_of_range se o id for menor q 1 ou maior q o tamanho do vetor
+     * @param id identificador numérico do cliente (baseado em 1)
+     * @throws std::out_of_range se o id for menor que 1 ou maior que o tamanho do vetor
      */
     void validarId(int id) const;
 
-    /**
-     * @brief checa se o nome nao ta vazio ou com caracteres zuados (tipo ; ou quebra de linha)
-     * @param nome nome pra validar
-     * @return true se o nome for de boa
-     */
-    bool nomeValido(const std::string& nome) const;
-
 public:
+    // Construtor e Destrutor padrão
+    GerenciamentoDeClientes() = default;
+    ~GerenciamentoDeClientes();
+
     /**
      * @brief cadastra um cliente novo
      * @param nome nome do cliente
@@ -53,7 +36,6 @@ public:
 
     /**
      * @brief retorna o total de clientes cadastrados
-     * @return inteiro com o tamanho do vetor de clientes
      */
     int getQuantidadeClientes() const;
 
@@ -63,16 +45,16 @@ public:
     void mostrarClientes() const;
     
     /**
-     * @brief muda o nome do cliente
+     * @brief muda o nome do cliente. Delega a validacao para a classe Cliente.
      * @param id id do cliente (posicao do vetor + 1)
      * @param novoNome novo nome que vai ficar
      * @throws std::out_of_range se o id nao existir
-     * @throws std::invalid_argument se o nome novo for vazio
+     * @throws std::invalid_argument se o nome novo for invalido
      */
     void alterarNomeCliente(int id, const std::string& novoNome);
     
     /**
-     * @brief muda o email do cliente
+     * @brief muda o email do cliente. Delega a validacao para a classe Cliente.
      * @param id id do cliente (posicao do vetor + 1)
      * @param novoEmail novo email que vai ficar
      * @throws std::out_of_range se o id nao existir
@@ -82,21 +64,17 @@ public:
 
     /**
      * @brief transforma os clientes em strings (nome;cpf;email) pra salvar no txt
-     * @return vetor com as linhas formatadas
      */
     std::vector<std::string> paraLinhas() const;
 
     /**
-     * @brief le o vetor de strings vindo do txt e cadastra a galera toda
-     * @param linhas linhas lidas do txt
-     * @throws std::invalid_argument se alguma linha tiver bugada (mostra o numero da linha no erro)
+     * @brief le o vetor de strings vindo do txt e cadastra 
      */
     void carregarDeLinhas(const std::vector<std::string>& linhas);
 
     /**
      * @brief remove um cliente do vetor
      * @param id id do cliente (posicao do vetor + 1)
-     * @throws std::out_of_range se o id nao existir
      */
     void removerCliente(int id);
 
@@ -104,7 +82,6 @@ public:
      * @brief busca um cliente pelo id
      * @param id id do cliente (posicao do vetor + 1)
      * @return ponteiro para o cliente encontrado
-     * @throws std::out_of_range se o id nao existir
      */
     Cliente* buscarCliente(int id);
 };

@@ -18,19 +18,17 @@ public:
     std::string getEmail() const;
 
     /** @brief Troca o nome, por exemplo para corrigir erro de digitação. */
-    void alteraNome(const std::string& novoNome);
+    void setNome(const std::string& novoNome);
 
     /** @brief Troca o e-mail cadastrado. */
-    void alteraEmail(const std::string& novoEmail);
+    void setEmail(const std::string& novoEmail);
 
-    /** @brief Diz se o e-mail cadastrado tem formato válido. */
-    bool validaEmail() const;
-
-    /** @brief Diz se o CPF cadastrado tem formato válido. */
-    bool validaCPF() const;
+    /** @brief Troca o CPF cadastrado. */
+    void setCPF(const std::string& novoCPF);
 
 private:
     std::string nome_;
     std::string cpf_;
     std::string email_;
+    int id_;
 };
