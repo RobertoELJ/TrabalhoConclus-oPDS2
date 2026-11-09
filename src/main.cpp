@@ -11,6 +11,7 @@
 #include "Venda.hpp"
 #include "Caixa.hpp"
 #include "Dinheiro.hpp"
+#include "GerenciadorDeArquivos.hpp"
 
 using namespace std;
 
@@ -759,7 +760,15 @@ int main() {
     GerenciamentoDeVendedores gerenciamentoVendedores;
     GerenciamentoDeClientes gerenciamentoClientes;
     Estoque estoque;
- int opcao;
+
+    GerenciadorDeArquivos arquivos("data");
+    try {
+        arquivos.lerDadosAoIniciar(estoque);
+    } catch (const std::exception& erro) {
+        cout << "Erro ao iniciar leitura dos dados: " << erro.what() << "\n";
+    }
+
+    int opcao;
 
     do {
         cout << "\n====================================\n";
@@ -788,26 +797,27 @@ int main() {
                 menuVeiculos(cadastroVeiculos);
                 break;
 
-        case 2:
-    menuEstoque(estoque);
-    break;
-    
-    case 5:
-    menuVendas(
-        cadastroVeiculos,
-        gerenciamentoClientes,
-        gerenciamentoVendedores
-    );
-    break;
+            case 2:
+                menuEstoque(estoque);
+                break;
+            
+            case 5:
+                menuVendas(
+                    cadastroVeiculos,
+                    gerenciamentoClientes,
+                    gerenciamentoVendedores
+                );
+                break;
 
-    case 6:
-    case 7:
-    cout << "Funcionalidade sera implementada em seguida.\n";
-    break;
+            case 6:
+            case 7:
+                cout << "Funcionalidade sera implementada em seguida.\n";
+                break;
 
-        case 3:
-        menuClientes(gerenciamentoClientes, gerenciamentoVendedores);
-        break;
+            case 3:
+                menuClientes(gerenciamentoClientes, gerenciamentoVendedores);
+                break;
+            
             case 4:
                 menuVendedores(gerenciamentoVendedores);
                 break;
@@ -822,6 +832,13 @@ int main() {
         }
 
     } while (opcao != 0);
+
+    //salva o estoque antes de encerrar no return 0
+    try {
+        arquivos.gravarListasAntesDeFechar(estoque);
+    } catch (const std::exception& erro) {
+        cout << "Erro ao gravar dados antes de fechar: " << erro.what() << "\n";
+    }
 
     return 0;
 }
