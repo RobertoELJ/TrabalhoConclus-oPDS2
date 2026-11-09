@@ -27,7 +27,7 @@ TEST_CASE("RelatorioVendas: relatorio vazio tem total zero e nenhuma venda") {
 }
 
 TEST_CASE("RelatorioVendas: soma so as vendas dentro do periodo") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     RelatorioVendas relatorio;
     relatorio.adicionar(vendaConcluida(&cliente, &vendedor, 1000.0, "2026-10-01"));
@@ -38,7 +38,7 @@ TEST_CASE("RelatorioVendas: soma so as vendas dentro do periodo") {
 }
 
 TEST_CASE("RelatorioVendas: o periodo inclui as datas das pontas") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     RelatorioVendas relatorio;
     relatorio.adicionar(vendaConcluida(&cliente, &vendedor, 1000.0, "2026-10-05"));
@@ -46,7 +46,7 @@ TEST_CASE("RelatorioVendas: o periodo inclui as datas das pontas") {
 }
 
 TEST_CASE("RelatorioVendas: venda cancelada nao entra no total") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     Venda cancelada = vendaConcluida(&cliente, &vendedor, 1000.0, "2026-10-05");
     cancelada.cancelar();
@@ -57,7 +57,7 @@ TEST_CASE("RelatorioVendas: venda cancelada nao entra no total") {
 }
 
 TEST_CASE("RelatorioVendas: venda sem data nao entra") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     Carrinho carrinho;
     carrinho.adicionarVeiculo(Veiculo("Fiat", "Uno", "AAA1111", 2020, 1000.0));
@@ -70,7 +70,7 @@ TEST_CASE("RelatorioVendas: venda sem data nao entra") {
 }
 
 TEST_CASE("RelatorioVendas: comissao soma so as vendas do vendedor pedido") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor joao("Joao", "V1", 5.0);
     Vendedor maria("Maria", "V2", 10.0);
     RelatorioVendas relatorio;
@@ -83,7 +83,7 @@ TEST_CASE("RelatorioVendas: comissao soma so as vendas do vendedor pedido") {
 }
 
 TEST_CASE("RelatorioVendas: cliente sem compras tem historico vazio") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     RelatorioVendas relatorio;
     relatorio.adicionar(vendaConcluida(&cliente, &vendedor, 1000.0, "2026-10-05"));
@@ -91,25 +91,25 @@ TEST_CASE("RelatorioVendas: cliente sem compras tem historico vazio") {
 }
 
 TEST_CASE("RelatorioVendas: historico devolve so as compras do cliente pedido") {
-    Cliente ana("Ana", "123", "ana@email.com");
-    Cliente bia("Bia", "456", "bia@email.com");
+    Cliente ana("Ana", "12345678911", "ana@email.com");
+    Cliente bia("Bia", "45612378911", "bia@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     RelatorioVendas relatorio;
     relatorio.adicionar(vendaConcluida(&ana, &vendedor, 1000.0, "2026-10-05"));
     relatorio.adicionar(vendaConcluida(&bia, &vendedor, 2000.0, "2026-10-06"));
     relatorio.adicionar(vendaConcluida(&ana, &vendedor, 3000.0, "2026-11-07"));
-    CHECK(relatorio.vendasDoCliente("123").size() == 2);
-    CHECK(relatorio.vendasDoCliente("456").size() == 1);
+    CHECK(relatorio.vendasDoCliente("12345678911").size() == 2);
+    CHECK(relatorio.vendasDoCliente("45612378911").size() == 1);
 }
 
 TEST_CASE("RelatorioVendas: compra cancelada nao entra no historico do cliente") {
-    Cliente cliente("Ana", "123", "ana@email.com");
+    Cliente cliente("Ana", "12345678911", "ana@email.com");
     Vendedor vendedor("Joao", "V1", 5.0);
     Venda cancelada = vendaConcluida(&cliente, &vendedor, 1000.0, "2026-10-05");
     cancelada.cancelar();
     RelatorioVendas relatorio;
     relatorio.adicionar(cancelada);
-    CHECK(relatorio.vendasDoCliente("123").empty());
+    CHECK(relatorio.vendasDoCliente("12345678911").empty());
 }
 
 TEST_CASE("RelatorioVendas: data inicial depois da final lanca excecao") {
