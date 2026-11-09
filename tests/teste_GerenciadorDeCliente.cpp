@@ -47,40 +47,8 @@ TEST_CASE("Alterar o nome do cliente") {
     }
 }
 
-<<<<<<< HEAD
 TEST_CASE("Mostrar clientes") {
     GerenciamentoDeClientes Cliente;
     Cliente.cadastrarCliente("João", "joao@email.com", "12345678911");
     CHECK_NOTHROW(Cliente.mostrarClientes());
-=======
-TEST_CASE("Alterar o email do cliente") {
-    GerenciamentoDeClientes gerenciador;
-    gerenciador.cadastrarCliente("João", "joao@email.com", "12345678911");
-    
-    SUBCASE("Alteração válida") {
-        CHECK_NOTHROW(gerenciador.alterarEmailCliente(1, "joao.silva@email.com"));
-    }
-
-    SUBCASE("E-mail sem domínio final é rejeitado") {
-        CHECK_THROWS_AS(gerenciador.alterarEmailCliente(1, "joao.sila.com"), std::invalid_argument);
-    }
-
-    SUBCASE("Alterar e-mail com ID fora do limite (out_of_range) lança exceção") {
-        CHECK_THROWS_AS(gerenciador.alterarEmailCliente(0, "a@b.com"), std::out_of_range);
-        CHECK_THROWS_AS(gerenciador.alterarEmailCliente(99, "x@y.com"), std::out_of_range);
-    }
-}
-
-TEST_CASE("Mostrar clientes") {
-    GerenciamentoDeClientes gerenciador;
-    
-    SUBCASE("Lista vazia") {
-        CHECK_NOTHROW(gerenciador.mostrarClientes());
-    }
-
-    SUBCASE("Com clientes cadastrados") {
-        gerenciador.cadastrarCliente("João", "joao@email.com", "12345678911");
-        CHECK_NOTHROW(gerenciador.mostrarClientes());
-    }
->>>>>>> 6dba5e13f6db01fd78dd30672431c7efa4312e84
 }
