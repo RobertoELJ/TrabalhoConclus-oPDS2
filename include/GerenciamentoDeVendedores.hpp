@@ -1,6 +1,7 @@
 #ifndef GERENCIAMENTODEVENDEDORES_HPP
 #define GERENCIAMENTODEVENDEDORES_HPP
 #include <vector>
+#include <deque>
 #include "Vendedor.hpp"
 #include "Venda.hpp"
 
@@ -10,12 +11,16 @@
 
     class GerenciamentoDeVendedores {
         private:
-        std::vector<Vendedor> vendedores; 
+        std::deque<Vendedor> vendedores;
         std::vector<Venda> vendas;
 
-        public:
-        void adicionarVendedor(const Vendedor& vendedor);
-        void adicionarVenda(const Venda& venda);
+      public:
+    void adicionarVendedor(const Vendedor& vendedor);
+    void adicionarVenda(const Venda& venda);
+    bool clientePossuiVendas(const std::string& cpf) const;
+    bool possuiVendas() const;
+    
+    Vendedor* buscarVendedor(const std::string& id);
         /**
          * @brief mostrarVendedores imprime uma lista com todos os vendedores ativos
          */

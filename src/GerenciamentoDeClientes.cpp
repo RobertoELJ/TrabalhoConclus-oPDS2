@@ -1,4 +1,5 @@
 #include "GerenciamentoDeClientes.hpp"
+#include "GerenciamentoDeVendedores.hpp"
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
@@ -65,7 +66,15 @@ std::vector<std::string> GerenciamentoDeClientes::paraLinhas() const {
     return linhas;
 }
 
-void GerenciamentoDeClientes::carregarDeLinhas(const std::vector<std::string>& linhas) {
+void GerenciamentoDeClientes::carregarDeLinhas(
+    const std::vector<std::string>& linhas,
+    const GerenciamentoDeVendedores& gerenciamentoVendedores
+) {
+        if (gerenciamentoVendedores.possuiVendas()) {
+        throw std::invalid_argument(
+            "Nao e possivel recarregar clientes enquanto houver vendas registradas."
+        );
+    }
     GerenciamentoDeClientes temporario(*this); // copia de backup
     
     int numeroLinha = 1;
@@ -97,8 +106,18 @@ void GerenciamentoDeClientes::carregarDeLinhas(const std::vector<std::string>& l
     clientes_.swap(temporario.clientes_);
 }
 
-void GerenciamentoDeClientes::removerCliente(int id) {
+void GerenciamentoDeClientes::removerCliente(
+    int id,
+    const GerenciamentoDeVendedores& gerenciamentoVendedores
+) {
     validarId(id);
+
+    if (gerenciamentoVendedores.possuiVendas()) {
+        throw std::invalid_argument(
+            "Nao e possivel remover clientes enquanto houver vendas registradas."
+        );
+    }
+
     clientes_.erase(clientes_.begin() + (id - 1));
 }
 

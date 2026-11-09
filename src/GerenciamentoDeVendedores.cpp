@@ -86,3 +86,32 @@ void GerenciamentoDeVendedores::filtraDados() {
         std::cout << "Nenhuma venda encontrada para esse vendedor.\n";
     }
 }
+
+Vendedor* GerenciamentoDeVendedores::buscarVendedor(
+    const std::string& id
+) {
+    for (Vendedor& vendedor : vendedores) {
+        if (vendedor.getId() == id) {
+            return &vendedor;
+        }
+    }
+
+    return nullptr;
+}
+
+bool GerenciamentoDeVendedores::clientePossuiVendas(
+    const std::string& cpf
+) const {
+    for (const Venda& venda : vendas) {
+        if (venda.getCpfCliente() == cpf) {
+            return true;
+        }
+    }
+
+    return false;
+
+  }
+
+bool GerenciamentoDeVendedores::possuiVendas() const {
+    return !vendas.empty();
+}

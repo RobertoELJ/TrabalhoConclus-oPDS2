@@ -3,15 +3,17 @@
 
 #include <string>
 #include <vector>
+#include <deque>
 #include "Cliente.hpp"
 
 /**
  * @brief Classe responsavel por gerenciar a colecao de clientes do sistema.
  */
+class GerenciamentoDeVendedores;
 class GerenciamentoDeClientes {
 private:
     /** @brief vetor com todos os clientes cadastrados */
-    std::vector<Cliente> clientes_;
+     std::deque<Cliente> clientes_;
 
     /**
      * @brief checa se o id passado realmente existe no vetor
@@ -70,13 +72,19 @@ public:
     /**
      * @brief le o vetor de strings vindo do txt e cadastra 
      */
-    void carregarDeLinhas(const std::vector<std::string>& linhas);
+    void carregarDeLinhas(
+    const std::vector<std::string>& linhas,
+    const GerenciamentoDeVendedores& gerenciamentoVendedores
+);
 
     /**
      * @brief remove um cliente do vetor
      * @param id id do cliente (posicao do vetor + 1)
      */
-    void removerCliente(int id);
+    void removerCliente(
+    int id,
+    const GerenciamentoDeVendedores& gerenciamentoVendedores
+);
 
     /**
      * @brief busca um cliente pelo id
