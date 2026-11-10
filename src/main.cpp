@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <ctime>
 
 #include "CadastroVeiculo.hpp"
 #include "Veiculo.hpp"
@@ -12,6 +13,7 @@
 #include "Caixa.hpp"
 #include "Dinheiro.hpp"
 #include "GerenciadorDeArquivos.hpp"
+#include "RelatorioVendas.hpp"
 
 using namespace std;
 
@@ -600,7 +602,8 @@ case 6: {
 void menuVendas(
     CadastroVeiculos& cadastroVeiculos,
     GerenciamentoDeClientes& gerenciamentoClientes,
-    GerenciamentoDeVendedores& gerenciamentoVendedores
+    GerenciamentoDeVendedores& gerenciamentoVendedores,
+    RelatorioVendas& relatorioVendas
 ) {
     int opcao = -1;
 
@@ -683,6 +686,17 @@ cout << "Veiculo: " << veiculo->getMarca()
 cout << "Placa: " << veiculo->getPlaca() << "\n";
 cout << "Total: R$ " << carrinho.calcularTotal() << "\n";
 Venda venda(cliente, vendedor, carrinho);
+std::time_t agora = std::time(nullptr);
+std::tm* dataAtual = std::localtime(&agora);
+
+if (dataAtual == nullptr) {
+    throw std::runtime_error("Nao foi possivel obter a data atual.");
+}
+
+char dataFormatada[11];
+std::strftime(dataFormatada, sizeof(dataFormatada), "%Y-%m-%d", dataAtual);
+
+venda.definirData(dataFormatada);
 
 cout << "\nVenda preparada com sucesso!\n";
 cout << "Aguardando pagamento...\n";
@@ -730,6 +744,7 @@ if (!cadastroVeiculos.atualizarVeiculo(placa, veiculoAtualizado)) {
 
 cout << "Veiculo marcado como vendido!\n";
 gerenciamentoVendedores.adicionarVenda(venda);
+relatorioVendas.adicionar(venda);
 
 cout << "Venda registrada no historico com sucesso!\n";
 cout << "Valor final: R$ " << venda.getValorFinal() << "\n";
@@ -755,11 +770,162 @@ cout << "Comissao do vendedor: R$ " << venda.getComissao() << "\n";
     } while (opcao != 0);
 }
 
+void menuRelatorios(RelatorioVendas& relatorioVendas) {
+    int opcao;
+
+    do {
+        cout << "\n===== RELATORIOS =====\n";
+        cout << "1 - Consultar vendas por periodo\n";
+        cout << "2 - Consultar faturamento por periodo\n";
+        cout << "3 - Consultar comissao de vendedor\n";
+        cout << "4 - Consultar vendas de cliente\n";
+        cout << "0 - Voltar\n";
+        cout << "Escolha uma opcao: ";
+
+        if (!(cin >> opcao)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Opcao invalida!\n";
+            continue;
+        }
+
+        switch (opcao) {
+ case 1: {
+        string inicio, fim;
+
+        cout << "Digite a data inicial (AAAA-MM-DD): ";
+        cin >> inicio;
+
+        cout << "Digite a data final (AAAA-MM-DD): ";
+        cin >> fim;
+
+        try {
+            vector<Venda> vendas = relatorioVendas.vendasDoPeriodo(inicio, fim);
+
+            if (vendas.empty()) {
+                cout << "Nenhuma venda encontrada nesse periodo.\n";
+            } else {
+                cout << "\n===== VENDAS DO PERIODO =====\n";
+
+                for (const Venda& venda : vendas) {
+                    cout << "Data: " << venda.getData() << "\n";
+                    cout << "Cliente CPF: " << venda.getCpfCliente() << "\n";
+                    cout << "Vendedor ID: " << venda.getIdVendedor() << "\n";
+                    cout << "Valor: R$ " << venda.getValorFinal() << "\n";
+                    cout << "-----------------------------\n";
+                }
+            }
+        } catch (const std::exception& erro) {
+            cout << "Erro ao consultar relatorio: " << erro.what() << "\n";
+        }
+
+        break;
+    }
+
+case 2: {
+    string inicio, fim;
+
+    cout << "Digite a data inicial (AAAA-MM-DD): ";
+    cin >> inicio;
+
+    cout << "Digite a data final (AAAA-MM-DD): ";
+    cin >> fim;
+
+    try {
+        double total = relatorioVendas.totalVendido(inicio, fim);
+
+        cout << "\n===== FATURAMENTO DO PERIODO =====\n";
+        cout << "Periodo: " << inicio << " ate " << fim << "\n";
+        cout << "Faturamento total: R$ " << total << "\n";
+
+    } catch (const std::exception& erro) {
+        cout << "Erro ao consultar faturamento: "
+             << erro.what() << "\n";
+    }
+
+    break;
+}
+
+case 3: {
+    string idVendedor;
+    string inicio, fim;
+
+    cout << "Digite o ID do vendedor: ";
+    cin >> idVendedor;
+
+    cout << "Digite a data inicial (AAAA-MM-DD): ";
+    cin >> inicio;
+
+    cout << "Digite a data final (AAAA-MM-DD): ";
+    cin >> fim;
+
+    try {
+        double comissao = relatorioVendas.comissaoDoVendedor(
+            idVendedor, inicio, fim
+        );
+
+        cout << "\n===== COMISSAO DO VENDEDOR =====\n";
+        cout << "Vendedor ID: " << idVendedor << "\n";
+        cout << "Periodo: " << inicio << " ate " << fim << "\n";
+        cout << "Comissao total: R$ " << comissao << "\n";
+
+    } catch (const std::exception& erro) {
+        cout << "Erro ao consultar comissao: "
+             << erro.what() << "\n";
+    }
+
+    break;
+}
+
+case 4: {
+    string cpf;
+
+    cout << "Digite o CPF do cliente: ";
+    cin >> cpf;
+
+    vector<Venda> vendas = relatorioVendas.vendasDoCliente(cpf);
+
+    if (vendas.empty()) {
+        cout << "Nenhuma venda encontrada para esse cliente.\n";
+    } else {
+        cout << "\n===== VENDAS DO CLIENTE =====\n";
+        cout << "CPF: " << cpf << "\n";
+
+        double total = 0.0;
+
+        for (const Venda& venda : vendas) {
+            cout << "Data: " << venda.getData() << "\n";
+            cout << "Vendedor ID: " << venda.getIdVendedor() << "\n";
+            cout << "Valor: R$ " << venda.getValorFinal() << "\n";
+            cout << "-----------------------------\n";
+
+            total += venda.getValorFinal();
+        }
+
+        cout << "Total comprado: R$ " << total << "\n";
+    }
+
+    break;
+}
+
+            case 0:
+                cout << "Voltando ao menu principal...\n";
+                break;
+
+            default:
+                cout << "Funcionalidade sera integrada em seguida.\n";
+                break;
+        }
+
+    } while (opcao != 0);
+}
+
 int main() {
     CadastroVeiculos cadastroVeiculos;
     GerenciamentoDeVendedores gerenciamentoVendedores;
     GerenciamentoDeClientes gerenciamentoClientes;
     Estoque estoque;
+    RelatorioVendas relatorioVendas;
 
     GerenciadorDeArquivos arquivos("data");
     try {
@@ -805,14 +971,18 @@ int main() {
                 menuVendas(
                     cadastroVeiculos,
                     gerenciamentoClientes,
-                    gerenciamentoVendedores
+                    gerenciamentoVendedores,
+                    relatorioVendas
                 );
                 break;
 
             case 6:
-            case 7:
-                cout << "Funcionalidade sera implementada em seguida.\n";
-                break;
+        cout << "Funcionalidade sera implementada em seguida.\n";
+        break;
+
+        case 7:
+        menuRelatorios(relatorioVendas);
+        break;
 
             case 3:
                 menuClientes(gerenciamentoClientes, gerenciamentoVendedores);
