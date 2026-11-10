@@ -62,3 +62,14 @@ double RelatorioVendas::comissaoDoVendedor(const std::string& idVendedor, const 
     }
     return total;
 }
+std::vector<Venda> RelatorioVendas::todasVendasConcluidas() const {
+    std::vector<Venda> resultado;
+
+    for (const Venda& venda : vendas_) {
+        if (venda.estaConcluida()) {
+            resultado.push_back(venda);
+        }
+    }
+
+    return resultado;
+}

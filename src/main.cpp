@@ -920,6 +920,70 @@ case 4: {
     } while (opcao != 0);
 }
 
+
+void menuCaixa(RelatorioVendas& relatorioVendas) {
+    int opcao;
+
+    do {
+        cout << "\n===== CAIXA DA LOJA =====\n";
+        cout << "1 - Consultar total recebido\n";
+        cout << "2 - Consultar quantidade de vendas\n";
+        cout << "3 - Consultar total de comissoes\n";
+        cout << "4 - Consultar resumo financeiro\n";
+        cout << "0 - Voltar\n";
+        cout << "Escolha uma opcao: ";
+
+        if (!(cin >> opcao)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Opcao invalida!\n";
+            continue;
+        }
+
+        vector<Venda> vendas = relatorioVendas.todasVendasConcluidas();
+
+        double totalRecebido = 0.0;
+        double totalComissoes = 0.0;
+
+        for (const Venda& venda : vendas) {
+            totalRecebido += venda.getValorFinal();
+            totalComissoes += venda.getComissao();
+        }
+
+        switch (opcao) {
+            case 1:
+                cout << "Total recebido: R$ " << totalRecebido << "\n";
+                break;
+
+            case 2:
+                cout << "Quantidade de vendas: " << vendas.size() << "\n";
+                break;
+
+            case 3:
+                cout << "Total de comissoes: R$ " << totalComissoes << "\n";
+                break;
+
+            case 4:
+                cout << "\n===== RESUMO FINANCEIRO =====\n";
+                cout << "Quantidade de vendas: " << vendas.size() << "\n";
+                cout << "Total recebido: R$ " << totalRecebido << "\n";
+                cout << "Total de comissoes: R$ " << totalComissoes << "\n";
+                cout << "Valor apos comissoes: R$ "
+                     << totalRecebido - totalComissoes << "\n";
+                break;
+
+            case 0:
+                cout << "Voltando ao menu principal...\n";
+                break;
+
+            default:
+                cout << "Opcao invalida!\n";
+                break;
+        }
+
+    } while (opcao != 0);
+}
+
 int main() {
     CadastroVeiculos cadastroVeiculos;
     GerenciamentoDeVendedores gerenciamentoVendedores;
@@ -977,8 +1041,8 @@ int main() {
                 break;
 
             case 6:
-        cout << "Funcionalidade sera implementada em seguida.\n";
-        break;
+    menuCaixa(relatorioVendas);
+    break;
 
         case 7:
         menuRelatorios(relatorioVendas);

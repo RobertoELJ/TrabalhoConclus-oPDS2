@@ -21,7 +21,9 @@ public:
 
     /** @brief Vendas concluídas do cliente com esse CPF, de qualquer data. Lança std::invalid_argument se o CPF estiver vazio. */
     std::vector<Venda> vendasDoCliente(const std::string& cpf) const;
-
+    /** @brief Retorna todas as vendas concluidas registradas no relatorio. */
+    std::vector<Venda> todasVendasConcluidas() const;
+    
 private:
     std::vector<Venda> vendas_;
 };
