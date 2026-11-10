@@ -29,13 +29,7 @@
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "Visualizar e editar o carrinho de compras",
-      "",
-      "    Visualizar meu Histórico de compras",
-      "",
       "    Vizualizar e modificar meus dados de cadastro",
-      "",
-      "    Avaliar as compras e vendedores",
       ""
     ],
     "collaborators": [
@@ -45,7 +39,7 @@
     ]
   },
   {
-    "name": "DealerManager",
+    "name": "GerenciamentoVendedores",
     "superclasses": "",
     "subclasses": "",
     "type": 3,
