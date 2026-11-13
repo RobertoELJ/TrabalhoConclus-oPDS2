@@ -32,7 +32,7 @@ void Venda::finalizar(FormaPagamento* pagamento, double percentualDesconto, Gere
     if (!(percentualDesconto >= 0.0 && percentualDesconto <= 100.0)) {
         throw PagamentoInvalidoException("O desconto deve estar entre 0 e 100.");
     }
-    if (percentualDesconto > 0.0 && (gerente == nullptr || !gerente->aprovarDesconto(percentualDesconto))) {
+    if (percentualDesconto > 0.0 && (gerente == nullptr || !gerente->aprovarDescontoMaior(percentualDesconto))) {
         throw PermissaoNegadaException("Desconto sem aprovacao do gerente.");
     }
 

@@ -1,6 +1,6 @@
 [
   {
-    "name": "ClientManager",
+    "name": "GerenciamentoDeClientes",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
@@ -13,50 +13,42 @@
       "",
       "    O sistema deve permitir a alteração do nome do cliente caso haja algum erro de digitação no cadastro.",
       "",
-      "    O sistema deve vincular seu historico de compras a seus dados pessoais."
+      "    O sistema deve vincular seu historico de compras a seus dados pessoais.",
+      ""
     ],
     "collaborators": [
       "Vendas/Pagamentos",
       "Persistência",
       "Sistema do Cliente",
-      "",
       ""
     ]
   },
   {
-    "name": "Sistema_do_Cliente",
+    "name": "Cliente",
     "superclasses": "",
     "subclasses": "",
     "type": 1,
     "responsibilities": [
-      "Visualizar e editar o carrinho de compras",
-      "",
-      "    Visualizar meu Histórico de compras",
-      "",
-      "    Vizualizar e modificar meus dados de cadastro",
-      "",
-      "    Avaliar as compras e vendedores",
+      "Visualizar e modificar meus dados de cadastro",
       ""
     ],
     "collaborators": [
       "Persistência",
-      "Sistema de Gerenciamento de Clientes",
+      "GerenciamentoDeClientes",
       "Vendas e Pagamentos"
     ]
   },
   {
-    "name": "DealerManager",
+    "name": "GerenciamentoDeVendedores",
     "superclasses": "",
     "subclasses": "",
     "type": 3,
     "responsibilities": [
-      " Visualizar todos os vendedores",
+      "Visualizar todos os vendedores",
       "",
-      "    Viualizar dados de relacionados as vendas",
+      "Visualizar dados de relacionados as vendas",
       "",
-      "    Poder filtrar esses dados para ter diferentes vizualizações",
-      "",
-      "  Conversar com os vendedores",
+      "Poder filtrar esses dados para ter diferentes vizualizações",
       ""
     ],
     "collaborators": [
@@ -64,6 +56,20 @@
       "Vendas e Pagamentos",
       "Vendedor",
       ""
+    ]
+  },
+  {
+    "name": "Gerente",
+    "superclasses": "Vendedor",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Aprovar descontos em vendas que excedem o limite do vendedor comum",
+      "Visualizar o histórico geral e consolidado de vendas de toda a equipe"
+    ],
+    "collaborators": [
+      "RelatorioVendas",
+      "Venda"
     ]
   }
 ]

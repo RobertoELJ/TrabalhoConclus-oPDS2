@@ -5,13 +5,12 @@ git USER STORIES (PESSOAS)
 *Criterios de aceitação:
     Deve ser possivel cadastrar um cliente utilizando seu Nome, email e CPF
 
-    O sistema deve permitir a alteração do email do cliente caso ele queira trocar de conta.
+    O sistema deve permitir a alteração do email e nome do cliente caso ele queira trocar de conta.
 
     O sistema deve validar suas informações como email e CPF de forma que contemplem formatos reais
 
-    O sistema deve permitir a alteração do nome do cliente caso haja algum erro de digitação no cadastro.
+    O sistema não deve permitir mais de uma pessoa possuir o mesmo email ou cpf.
 
-    //fazer depois O sistema deve vincular seu historico de compras a seus dados pessoais.
 
 2.Título: Sistema de Gerenciamento de Vendedores 
 *Descrição: Como gerente de vendedores eu quero ter controle das vendas e dos vendedores
@@ -34,4 +33,13 @@ git USER STORIES (PESSOAS)
     Vizualizar e modificar meus dados de cadastro
 
     Avaliar as compras e vendedores
+
+4.Título: Gerente
+*Descrição: Como Gerente que aprovar descontos acima do limite que o vendedor normal consegue
+*Criterios para aceitação:
+
+    Verifica se o desconto que o cliente pede é maior que o limite que eu disponibilizo
+
+
+
 
