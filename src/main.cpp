@@ -997,6 +997,12 @@ int main() {
         arquivos.lerVeiculos(cadastroVeiculos);
         arquivos.lerVendedores(gerenciamentoVendedores);
         arquivos.lerClientes(gerenciamentoClientes, gerenciamentoVendedores);
+arquivos.lerVendas(
+    gerenciamentoVendedores,
+    gerenciamentoClientes,
+    relatorioVendas
+);
+
     } catch (const std::exception& erro) {
         cout << "Erro ao iniciar leitura dos dados: " << erro.what() << "\n";
     }
@@ -1076,6 +1082,7 @@ int main() {
         arquivos.gravarVeiculos(cadastroVeiculos);
         arquivos.gravarClientes(gerenciamentoClientes);
         arquivos.gravarVendedores(gerenciamentoVendedores);
+        arquivos.gravarVendas(gerenciamentoVendedores);
     } catch (const std::exception& erro) {
         cout << "Erro ao gravar dados antes de fechar: " << erro.what() << "\n";
     }

@@ -13,6 +13,7 @@
         private:
         std::deque<Vendedor> vendedores;
         std::vector<Venda> vendas;
+        
 
       public:
     void adicionarVendedor(const Vendedor& vendedor);
@@ -44,7 +45,9 @@ std::vector<std::string> paraLinhas() const;
  * @param linhas Linhas no formato nome;id;percentualComissao.
  */
 void carregarDeLinhas(const std::vector<std::string>& linhas);
-        };
+    std::vector<std::string> vendasParaLinhas() const;    
+
+};
 
 
     #endif

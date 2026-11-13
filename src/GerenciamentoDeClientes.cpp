@@ -126,3 +126,14 @@ Cliente* GerenciamentoDeClientes::buscarCliente(int id) {
     // retorna o ponteiro para o cliente; índice id - 1
     return &clientes_[id - 1];
 }
+Cliente* GerenciamentoDeClientes::buscarClientePorCpf(
+    const std::string& cpf
+) {
+    for (Cliente& cliente : clientes_) {
+        if (cliente.getCpf() == cpf) {
+            return &cliente;
+        }
+    }
+
+    return nullptr;
+}

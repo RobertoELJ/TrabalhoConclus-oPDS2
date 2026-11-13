@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <iomanip>
 #include <sstream>
+#include <limits>
+#include <vector>
 #include "Cliente.hpp"
 #include "FormaPagamento.hpp"
 #include "Gerente.hpp"
@@ -81,6 +83,14 @@ std::string Venda::toLinha() const {
       << comissao_ << ";"
       << situacao << ";"
       << data_;
+      linha << std::setprecision(std::numeric_limits<double>::max_digits10);
+
+for (const ItemCarrinho& item : carrinho_.getItens()) {
+    linha << ";"
+          << item.getDescricao() << ";"
+          << item.getPrecoUnitario() << ";"
+          << item.getQuantidade();
+}
     return linha.str();
 }
 
@@ -131,4 +141,68 @@ std::string Venda::getIdVendedor() const {
 
 std::string Venda::getCpfCliente() const {
     return cliente_->getCpf();
+}
+Venda Venda::deLinha(
+    const std::string& linha,
+    Cliente* cliente,
+    Vendedor* vendedor
+) {
+    std::stringstream ss(linha);
+    std::vector<std::string> campos;
+    std::string campo;
+
+    while (std::getline(ss, campo, ';')) {
+        campos.push_back(campo);
+    }
+
+    if (campos.size() < 9 || (campos.size() - 6) % 3 != 0) {
+        throw PagamentoInvalidoException(
+            "Formato invalido de venda salva."
+        );
+    }
+
+  Carrinho carrinho;
+
+for (std::size_t i = 6; i < campos.size(); i += 3) {
+    const std::string& descricao = campos[i];
+    double preco = std::stod(campos[i + 1]);
+    int quantidade = std::stoi(campos[i + 2]);
+
+    ItemCarrinho item(descricao, preco, quantidade);
+    carrinho.adicionarItem(item);
+}
+
+if (cliente == nullptr || vendedor == nullptr) {
+    throw PagamentoInvalidoException(
+        "Cliente ou vendedor nao encontrado."
+    );
+}
+
+if (campos[0] != cliente->getCpf() ||
+    campos[1] != vendedor->getId()) {
+    throw PagamentoInvalidoException(
+        "Cliente ou vendedor nao corresponde a venda salva."
+    );
+}
+
+Venda venda(cliente, vendedor, carrinho);
+
+venda.valorFinal_ = std::stod(campos[2]);
+venda.comissao_ = std::stod(campos[3]);
+
+if (campos[4] == "concluida") {
+    venda.concluida_ = true;
+} else if (campos[4] == "cancelada") {
+    venda.cancelada_ = true;
+} else if (campos[4] != "aberta") {
+    throw PagamentoInvalidoException(
+        "Situacao invalida de venda salva."
+    );
+}
+
+if (!campos[5].empty()) {
+    venda.definirData(campos[5]);
+}
+
+return venda;
 }

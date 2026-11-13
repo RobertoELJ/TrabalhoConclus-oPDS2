@@ -8,6 +8,8 @@
 #include "GerenciamentoDeClientes.hpp"
 #include "GerenciamentoDeVendedores.hpp"
 
+
+class RelatorioVendas;
 /**
  * @brief Classe responsavel por ler e salvar o estoque no txt.
  */
@@ -21,6 +23,8 @@ private:
 std::string caminhoArquivoClientes_;
 /** @brief Caminho do arquivo de cadastro dos vendedores. */
 std::string caminhoArquivoVendedores_;
+std::string caminhoArquivoVendas_;
+
 public:
     /**
      * @brief Construtor do gerenciador.
@@ -108,6 +112,16 @@ void lerClientes(
     void lerVendedores(
         GerenciamentoDeVendedores& vendedores
     ) const;
+
+    /** @brief Salva o historico de vendas em arquivo. */
+void gravarVendas(const GerenciamentoDeVendedores& vendedores) const;
+
+/** @brief Recupera as vendas salvas e atualiza o historico e os relatorios. */
+void lerVendas(
+    GerenciamentoDeVendedores& vendedores,
+    GerenciamentoDeClientes& clientes,
+    RelatorioVendas& relatorio
+) const;
 };
 
 #endif

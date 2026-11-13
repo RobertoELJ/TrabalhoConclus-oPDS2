@@ -36,3 +36,6 @@ bool Carrinho::estaVazio() const {
 const std::vector<ItemCarrinho>& Carrinho::getItens() const {
     return itens_;
 }
+void Carrinho::adicionarItem(const ItemCarrinho& item) {
+    itens_.push_back(item);
+}

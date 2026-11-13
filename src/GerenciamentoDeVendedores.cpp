@@ -191,3 +191,12 @@ void GerenciamentoDeVendedores::carregarDeLinhas(
 
     vendedores.swap(temporario.vendedores);
 }
+std::vector<std::string> GerenciamentoDeVendedores::vendasParaLinhas() const {
+    std::vector<std::string> linhas;
+
+    for (const Venda& venda : vendas) {
+        linhas.push_back(venda.toLinha());
+    }
+
+    return linhas;
+}

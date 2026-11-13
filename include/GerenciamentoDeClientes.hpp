@@ -92,6 +92,11 @@ public:
      * @return ponteiro para o cliente encontrado
      */
     Cliente* buscarCliente(int id);
+
+
+    /** @brief Busca um cliente pelo CPF. Retorna nullptr se nao encontrar. */
+Cliente* buscarClientePorCpf(const std::string& cpf);
+
 };
 
 #endif

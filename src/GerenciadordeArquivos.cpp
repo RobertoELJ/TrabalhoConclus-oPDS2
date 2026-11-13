@@ -1,4 +1,5 @@
 #include "GerenciadorDeArquivos.hpp"
+#include "RelatorioVendas.hpp"
 
 #include <fstream>
 #include <sstream>
@@ -45,6 +46,7 @@ int converterInteiro(const std::string& texto, const std::string& onde) {
 }  // namespace
 
 GerenciadorDeArquivos::GerenciadorDeArquivos(const std::string& pastaDados) {
+
     if (pastaDados.empty()) {
         throw std::invalid_argument("A pasta de dados nao pode ser vazia.");
     }
@@ -55,6 +57,7 @@ GerenciadorDeArquivos::GerenciadorDeArquivos(const std::string& pastaDados) {
     caminhoArquivoVeiculos_ = pastaDados + barra + "veiculos.txt";
     caminhoArquivoClientes_ = pastaDados + barra + "clientes.txt";
     caminhoArquivoVendedores_ = pastaDados + barra + "vendedores.txt";
+    caminhoArquivoVendas_ = pastaDados + barra + "vendas.txt";
 }
 
 void GerenciadorDeArquivos::criarArquivoCasoNaoExista(const std::string& caminho) const {
@@ -256,4 +259,43 @@ void GerenciadorDeArquivos::lerVendedores(
         lerLinhas(caminhoArquivoVendedores_);
 
     vendedores.carregarDeLinhas(linhas);
+}
+void GerenciadorDeArquivos::gravarVendas(
+    const GerenciamentoDeVendedores& vendedores
+) const {
+    gravarLinhas(caminhoArquivoVendas_, vendedores.vendasParaLinhas());
+}
+void GerenciadorDeArquivos::lerVendas(
+    GerenciamentoDeVendedores& vendedores,
+    GerenciamentoDeClientes& clientes,
+    RelatorioVendas& relatorio
+) const {
+    criarArquivoCasoNaoExista(caminhoArquivoVendas_);
+
+    std::vector<std::string> linhas =
+        lerLinhas(caminhoArquivoVendas_);
+
+    for (const std::string& linha : linhas) {
+    std::vector<std::string> campos = dividirCampos(linha);
+
+    if (campos.size() < 9 || (campos.size() - 6) % 3 != 0) {
+        throw std::invalid_argument(
+            "Formato invalido no arquivo de vendas."
+        );
+    }
+
+    Cliente* cliente = clientes.buscarClientePorCpf(campos[0]);
+Vendedor* vendedor = vendedores.buscarVendedor(campos[1]);
+
+if (cliente == nullptr || vendedor == nullptr) {
+    throw std::invalid_argument(
+        "Cliente ou vendedor nao encontrado ao recuperar venda."
+    );
+}
+
+Venda venda = Venda::deLinha(linha, cliente, vendedor);
+
+vendedores.adicionarVenda(venda);
+relatorio.adicionar(venda);
+}
 }
