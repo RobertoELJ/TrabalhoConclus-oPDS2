@@ -1,5 +1,7 @@
 #include "GerenciamentoDeVendedores.hpp"
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 void GerenciamentoDeVendedores::adicionarVendedor(
     const Vendedor& vendedor
@@ -114,4 +116,78 @@ bool GerenciamentoDeVendedores::clientePossuiVendas(
 
 bool GerenciamentoDeVendedores::possuiVendas() const {
     return !vendas.empty();
+}
+std::vector<std::string> GerenciamentoDeVendedores::paraLinhas() const {
+    std::vector<std::string> linhas;
+
+    for (const Vendedor& vendedor : vendedores) {
+        std::string linha =
+            vendedor.getNome() + ";" +
+            vendedor.getId() + ";" +
+            std::to_string(vendedor.getPercentualComissao());
+
+        linhas.push_back(linha);
+    }
+
+    return linhas;
+}
+void GerenciamentoDeVendedores::carregarDeLinhas(
+    const std::vector<std::string>& linhas
+) {
+    if (possuiVendas()) {
+        throw std::invalid_argument(
+            "Nao e possivel recarregar vendedores enquanto houver vendas registradas."
+        );
+    }
+
+    GerenciamentoDeVendedores temporario;
+
+    int numeroLinha = 1;
+
+    for (const std::string& linha : linhas) {
+        std::stringstream ss(linha);
+        std::vector<std::string> campos;
+        std::string campo;
+
+        while (std::getline(ss, campo, ';')) {
+            campos.push_back(campo);
+        }
+
+        if (campos.size() != 3) {
+            throw std::invalid_argument(
+                "Linha " + std::to_string(numeroLinha) +
+                ": formato invalido de vendedor."
+            );
+        }
+
+        double percentual = 0.0;
+
+        try {
+            std::size_t usados = 0;
+            percentual = std::stod(campos[2], &usados);
+
+            if (usados != campos[2].size()) {
+                throw std::invalid_argument("Percentual invalido.");
+            }
+        } catch (const std::exception&) {
+            throw std::invalid_argument(
+                "Linha " + std::to_string(numeroLinha) +
+                ": percentual de comissao invalido."
+            );
+        }
+
+        if (temporario.buscarVendedor(campos[1]) != nullptr) {
+            throw std::invalid_argument(
+                "Linha " + std::to_string(numeroLinha) +
+                ": ID de vendedor duplicado."
+            );
+        }
+
+        Vendedor vendedor(campos[0], campos[1], percentual);
+        temporario.adicionarVendedor(vendedor);
+
+        numeroLinha++;
+    }
+
+    vendedores.swap(temporario.vendedores);
 }

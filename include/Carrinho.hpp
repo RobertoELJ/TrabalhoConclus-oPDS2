@@ -14,6 +14,9 @@ public:
     /** @brief Adiciona um veículo; a descrição do item fica "marca modelo". Lança PagamentoInvalidoException se a quantidade não for maior que zero. */
     void adicionarVeiculo(const Veiculo& veiculo, int quantidade = 1);
 
+    /** @brief Adiciona ao carrinho um item recuperado de arquivo. */
+    void adicionarItem(const ItemCarrinho& item);
+
     /** @brief Remove o item da posição indicada (começa em 0). Lança std::out_of_range se não existir. */
     void removerItem(std::size_t indice);
 

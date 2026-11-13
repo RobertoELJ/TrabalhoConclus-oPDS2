@@ -26,6 +26,13 @@ public:
     /** @brief Venda em uma linha de texto (CPF;vendedor;valor;comissão;situação), para salvar em arquivo. */
     std::string toLinha() const;
 
+    /** @brief Recupera uma venda salva, preservando valor, comissao, situacao e data. */
+static Venda deLinha(
+    const std::string& linha,
+    Cliente* cliente,
+    Vendedor* vendedor
+);
+
     /** @brief Valor final da venda (zero antes de finalizar). */
     double getValorFinal() const;
 

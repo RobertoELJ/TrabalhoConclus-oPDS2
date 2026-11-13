@@ -3,8 +3,10 @@
 
 #include <string>
 #include <vector>
-
 #include "Estoque.hpp"
+#include "CadastroVeiculo.hpp"
+#include "GerenciamentoDeClientes.hpp"
+#include "GerenciamentoDeVendedores.hpp"
 
 /**
  * @brief Classe responsavel por ler e salvar o estoque no txt.
@@ -13,7 +15,12 @@ class GerenciadorDeArquivos {
 private:
     /** @brief caminho do txt do estoque */
     std::string caminhoArquivoEstoque_;
-
+/** @brief Caminho do arquivo de cadastro dos veiculos. */
+    std::string caminhoArquivoVeiculos_;
+    /** @brief Caminho do arquivo de cadastro dos clientes. */
+std::string caminhoArquivoClientes_;
+/** @brief Caminho do arquivo de cadastro dos vendedores. */
+std::string caminhoArquivoVendedores_;
 public:
     /**
      * @brief Construtor do gerenciador.
@@ -59,6 +66,48 @@ public:
      * @throws std::runtime_error se falhar ao gravar.
      */
     void gravarListasAntesDeFechar(const Estoque& estoque) const;
+    /**
+ * @brief Salva os veiculos cadastrados no arquivo veiculos.txt.
+ * @param cadastro Cadastro de veiculos da loja.
+ */
+void gravarVeiculos(const CadastroVeiculos& cadastro) const;
+
+
+/**
+ * @brief Carrega os veiculos salvos no arquivo veiculos.txt.
+ * @param cadastro Cadastro de veiculos que recebera os dados.
+ */
+void lerVeiculos(CadastroVeiculos& cadastro) const;
+/**
+ * @brief Salva os clientes cadastrados no arquivo clientes.txt.
+ * @param clientes Gerenciamento de clientes da loja.
+ */
+void gravarClientes(const GerenciamentoDeClientes& clientes) const;
+/**
+ * @brief Carrega os clientes salvos no arquivo clientes.txt.
+ * @param clientes Gerenciamento de clientes que recebera os dados.
+ * @param vendedores Gerenciamento de vendedores usado para proteger
+ *                   as referencias das vendas existentes.
+ */
+void lerClientes(
+    GerenciamentoDeClientes& clientes,
+    const GerenciamentoDeVendedores& vendedores
+) const;
+/**
+ * @brief Salva os vendedores cadastrados no arquivo vendedores.txt.
+ * @param vendedores Gerenciamento de vendedores da loja.
+ */
+    void gravarVendedores(
+        const GerenciamentoDeVendedores& vendedores
+    ) const;
+
+    /**
+     * @brief Carrega os vendedores salvos no arquivo vendedores.txt.
+     * @param vendedores Gerenciamento de vendedores que recebera os dados.
+     */
+    void lerVendedores(
+        GerenciamentoDeVendedores& vendedores
+    ) const;
 };
 
 #endif

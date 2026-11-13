@@ -52,6 +52,9 @@ GerenciadorDeArquivos::GerenciadorDeArquivos(const std::string& pastaDados) {
     // garante que o caminho tenha formatacao correta
     std::string barra = (pastaDados.back() == '/' || pastaDados.back() == '\\') ? "" : "/";
     caminhoArquivoEstoque_ = pastaDados + barra + "estoque.txt";
+    caminhoArquivoVeiculos_ = pastaDados + barra + "veiculos.txt";
+    caminhoArquivoClientes_ = pastaDados + barra + "clientes.txt";
+    caminhoArquivoVendedores_ = pastaDados + barra + "vendedores.txt";
 }
 
 void GerenciadorDeArquivos::criarArquivoCasoNaoExista(const std::string& caminho) const {
@@ -142,4 +145,115 @@ void GerenciadorDeArquivos::lerDadosAoIniciar(Estoque& estoque) const {
         numeroLinha++;
     }
     estoque = temporario;
+}
+
+void GerenciadorDeArquivos::gravarVeiculos(const CadastroVeiculos& cadastro) const {
+    std::vector<std::string> linhas;
+
+    for (const Veiculo& veiculo : cadastro.listarVeiculos()) {
+        std::ostringstream linha;
+
+        linha << veiculo.getMarca() << ';'
+              << veiculo.getModelo() << ';'
+              << veiculo.getPlaca() << ';'
+              << veiculo.getAno() << ';'
+              << veiculo.getPreco() << ';'
+              << (veiculo.estaDisponivel() ? 1 : 0);
+
+        linhas.push_back(linha.str());
+    }
+
+    gravarLinhas(caminhoArquivoVeiculos_, linhas);
+}
+
+void GerenciadorDeArquivos::lerVeiculos(CadastroVeiculos& cadastro) const {
+    criarArquivoCasoNaoExista(caminhoArquivoVeiculos_);
+
+    auto linhas = lerLinhas(caminhoArquivoVeiculos_);
+
+    // Carrega primeiro em um cadastro temporario.
+    CadastroVeiculos temporario;
+
+    int numeroLinha = 1;
+
+    for (const auto& linha : linhas) {
+        std::string onde = descreverLinha(caminhoArquivoVeiculos_, numeroLinha);
+        auto campos = dividirCampos(linha);
+
+        if (campos.size() != 6) {
+            throw std::runtime_error(
+                onde + "formato invalido (esperado marca;modelo;placa;ano;preco;disponivel)."
+            );
+        }
+
+        int ano = converterInteiro(campos[3], onde);
+        int disponibilidade = converterInteiro(campos[5], onde);
+
+        if (disponibilidade != 0 && disponibilidade != 1) {
+            throw std::runtime_error(onde + "disponibilidade deve ser 0 ou 1.");
+        }
+
+        double preco = 0.0;
+
+        try {
+            std::size_t usados = 0;
+            preco = std::stod(campos[4], &usados);
+
+            if (usados != campos[4].size()) {
+                throw std::invalid_argument("Preco invalido");
+            }
+        } catch (const std::exception&) {
+            throw std::runtime_error(onde + "preco invalido.");
+        }
+
+        Veiculo veiculo(
+            campos[0],
+            campos[1],
+            campos[2],
+            ano,
+            preco
+        );
+
+        veiculo.setDisponivel(disponibilidade == 1);
+
+        if (!temporario.cadastrarVeiculo(veiculo)) {
+            throw std::runtime_error(
+                onde + "veiculo invalido ou placa duplicada."
+            );
+        }
+
+        numeroLinha++;
+    }
+
+    cadastro = temporario;
+}
+void GerenciadorDeArquivos::gravarClientes(
+    const GerenciamentoDeClientes& clientes
+) const {
+    gravarLinhas(caminhoArquivoClientes_, clientes.paraLinhas());
+}
+void GerenciadorDeArquivos::lerClientes(
+    GerenciamentoDeClientes& clientes,
+    const GerenciamentoDeVendedores& vendedores
+) const {
+    criarArquivoCasoNaoExista(caminhoArquivoClientes_);
+
+    std::vector<std::string> linhas = lerLinhas(caminhoArquivoClientes_);
+
+    clientes.carregarDeLinhas(linhas, vendedores);
+}
+void GerenciadorDeArquivos::gravarVendedores(
+    const GerenciamentoDeVendedores& vendedores
+) const {
+    gravarLinhas(caminhoArquivoVendedores_, vendedores.paraLinhas());
+}
+void GerenciadorDeArquivos::lerVendedores(
+    GerenciamentoDeVendedores& vendedores
+) const {
+    criarArquivoCasoNaoExista(caminhoArquivoVendedores_);
+
+    std::vector<std::string> linhas =
+        lerLinhas(caminhoArquivoVendedores_);
+
+    vendedores.carregarDeLinhas(linhas);
 }

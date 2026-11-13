@@ -75,8 +75,12 @@ std::string Venda::toLinha() const {
         situacao = "concluida";
     }
     std::ostringstream linha;
-    linha << cliente_->getCpf() << ";" << vendedor_->getId() << ";"
-          << valorFinal_ << ";" << comissao_ << ";" << situacao;
+   linha << cliente_->getCpf() << ";"
+      << vendedor_->getId() << ";"
+      << valorFinal_ << ";"
+      << comissao_ << ";"
+      << situacao << ";"
+      << data_;
     return linha.str();
 }
 

@@ -994,6 +994,9 @@ int main() {
     GerenciadorDeArquivos arquivos("data");
     try {
         arquivos.lerDadosAoIniciar(estoque);
+        arquivos.lerVeiculos(cadastroVeiculos);
+        arquivos.lerVendedores(gerenciamentoVendedores);
+        arquivos.lerClientes(gerenciamentoClientes, gerenciamentoVendedores);
     } catch (const std::exception& erro) {
         cout << "Erro ao iniciar leitura dos dados: " << erro.what() << "\n";
     }
@@ -1070,6 +1073,9 @@ int main() {
     //salva o estoque antes de encerrar no return 0
     try {
         arquivos.gravarListasAntesDeFechar(estoque);
+        arquivos.gravarVeiculos(cadastroVeiculos);
+        arquivos.gravarClientes(gerenciamentoClientes);
+        arquivos.gravarVendedores(gerenciamentoVendedores);
     } catch (const std::exception& erro) {
         cout << "Erro ao gravar dados antes de fechar: " << erro.what() << "\n";
     }

@@ -16,6 +16,11 @@
 
       public:
     void adicionarVendedor(const Vendedor& vendedor);
+    /**
+ * @brief Converte os vendedores cadastrados em linhas para salvar no txt.
+ * @return Linhas no formato nome;id;percentualComissao.
+ */
+std::vector<std::string> paraLinhas() const;
     void adicionarVenda(const Venda& venda);
     bool clientePossuiVendas(const std::string& cpf) const;
     bool possuiVendas() const;
@@ -33,6 +38,13 @@
          * @brief filtrarDados aplica uma configuração sobre os dados a serem exibidos
         */
             void filtraDados();
+
+            /**
+ * @brief Carrega vendedores a partir das linhas de um arquivo txt.
+ * @param linhas Linhas no formato nome;id;percentualComissao.
+ */
+void carregarDeLinhas(const std::vector<std::string>& linhas);
         };
+
 
     #endif
